@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
 
+require('babel-core/register')({
+    presets: ['env', 'react']
+})
+
 const http = require('http');
 const express = require('express');
 const compression = require('compression');
@@ -11,38 +15,40 @@ const _ = require('lodash');
 const fs = require('fs');
 const { ServerStyleSheet } = require('styled-components');
 
-const App = require('./src/index').default;
+const App = require('./src/components/App').default;
 
 const PORT = process.env.PORT || 8080;
+
 const app = express();
 const server = http.Server(app);
 const io = socket(server);
 
-server.use(compression());
+app.use(compression());
 
-const baseTemplate = fs.readFileSync('./index.html');
-const template = _.template(baseTemplate);
+app.use('/dist', express.static('./dist'));
 
-server.use((req, res) => {
-  console.log(req.url);
+const sheet = new ServerStyleSheet();
+
+const handleRender = (req, res) => {
+  console.log(req.url)
   const context = {};
-  const sheet = new ServerStyleSheet();
-  const body = renderToString(
-    React.createElement(
-      StaticRouter,
-      { location: req.url, context },
-      sheet.collectStyles(React.createElement(App)),
-    ),
-  );
-
+  const html = renderToString(React.createElement(
+    StaticRouter,
+    { location: req.url, context },
+    sheet.collectStyles(React.createElement(App))
+  ))
   if (context.url) {
     res.redirect(context.url);
   }
+  fs.readFile('./dist/index.html', 'utf8', (err, file) => {
+    if (err) { console.log(err) }
+    const document = file.replace(/<div id='root'><\/div>/, `<div id='root'>${html}</div>`)
+    res.send(document)
+  })
+}
 
-  res.write(template({ body }));
-  res.end();
-});
+app.get('*', handleRender)
 
 server.listen(PORT, () =>
-  console.log(`server listening at http://localhost:${PORT}`),
+  console.log(`server listening at http://localhost:${PORT}`)
 );

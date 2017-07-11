@@ -1,0 +1,12 @@
+{
+  "name": "Compass-Analytics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/KornerShop/Compass-Analytics.git",
+  "author": "Noel Parisi && Kellan Alexander <hello@kornershop.io>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  }
+}

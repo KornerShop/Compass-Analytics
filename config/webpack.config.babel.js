@@ -15,6 +15,7 @@ export default env => {
       path: join(__dirname, '../dist'),
       filename: 'bundle.js',
       pathinfo: !prod,
+      publicPath: '/dist/'
     },
     devtool: prod ? false : 'eval',
     resolve: {
@@ -38,8 +39,8 @@ export default env => {
                 'stage-2',
               ],
               plugins: [
-                'babel-plugin-transform-async-to-generator',
                 'transform-es2015-modules-commonjs',
+                'babel-plugin-transform-async-to-generator',
               ],
             },
           },

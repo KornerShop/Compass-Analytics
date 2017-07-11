@@ -10,7 +10,8 @@
     "prebuild:dev": "rm -rf dist",
     "build:dev": "webpack --config ./config/webpack.config.babel.js --env=dev",
     "prebuild": "rm -rf dist",
-    "build": "webpack --config ./config/webpack.config.babel.js --env=prod"
+    "build": "webpack --config ./config/webpack.config.babel.js --env=prod",
+    "serve": "nodemon server.js"
   },
   "dependencies": {
     "compression": "^1.6.2",
@@ -23,16 +24,17 @@
     "react-hot-loader": "next",
     "react-router-dom": "^4.1.1",
     "socket.io": "^2.0.3",
-    "styled-components": "^2.1.1"
+    "styled-components": "^2.1.1",
+    "babel-register": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1"
   },
   "devDependencies": {
-    "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-polyfill": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "enzyme": "^2.9.1",
     "eslint": "^3.17.0",

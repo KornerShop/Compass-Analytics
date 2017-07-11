@@ -1,23 +1,29 @@
 /* eslint-disable no-console */
 
-import {resolve, join} from 'path'
-import webpack, {HotModuleReplacementPlugin, NamedModulesPlugin} from 'webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { resolve, join } from 'path';
+import webpack, {
+  HotModuleReplacementPlugin,
+  NamedModulesPlugin,
+} from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default env => {
-  const prod = env === 'prod'
+  const prod = env === 'prod';
   const config = {
-    entry: ['babel-polyfill', './src/index'],
+    entry: ['babel-polyfill', './src/index.jsx'],
     output: {
       path: join(__dirname, '../dist'),
       filename: 'bundle.js',
       pathinfo: !prod,
     },
     devtool: prod ? false : 'eval',
+    resolve: {
+      extensions: ['.js', '.jsx'],
+    },
     module: {
       rules: [
         {
-          test: /\.(js)$/,
+          test: /\.jsx?$/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -25,17 +31,16 @@ export default env => {
                 [
                   'env',
                   {
-                    targets: {
-                      browsers: 'last 2 versions',
-                    },
-                    loose: true,
                     modules: false,
                   },
                 ],
                 'react',
                 'stage-2',
               ],
-              plugins: ['babel-plugin-transform-async-to-generator'],
+              plugins: [
+                'babel-plugin-transform-async-to-generator',
+                'transform-es2015-modules-commonjs',
+              ],
             },
           },
           include: join(__dirname, '../src'),
@@ -55,7 +60,7 @@ export default env => {
         },
       }),
     ],
-  }
+  };
 
   if (prod) {
     config.plugins.push(
@@ -74,28 +79,28 @@ export default env => {
         },
         comments: false,
       }),
-    )
+    );
   } else {
     config.devServer = {
       historyApiFallback: true,
       compress: true,
       hot: true,
-    }
-    config.entry.splice(1, 0, 'react-hot-loader/patch')
+    };
+    config.entry.splice(1, 0, 'react-hot-loader/patch');
     config.module.rules[0].use.options.plugins.splice(
       0,
       0,
       'react-hot-loader/babel',
-    )
+    );
     config.plugins.push(
       new HotModuleReplacementPlugin(),
       new NamedModulesPlugin(),
-    )
+    );
   }
 
-  config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin())
+  config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
 
-  console.log(`\ndev: ${!prod}`)
+  console.log(`\ndev: ${!prod}`);
 
-  return config
-}
+  return config;
+};

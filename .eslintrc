@@ -1,15 +1,27 @@
 {
   "extends": [
-    "kentcdodds",
-    "kentcdodds/jest",
-    "kentcdodds/jsx-a11y",
-    "kentcdodds/prettier",
-    "kentcdodds/webpack",
-    "kentcdodds/babel-react-require",
-    "kentcdodds/babel-module"
+    "airbnb",
+    "prettier",
+    "prettier/react"
   ],
   "rules": {
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "jest": true,
+    "browser": true,
+    "node": true
   }
 }

@@ -6,6 +6,7 @@
   "author": "Noel Parisi && Kellan Alexander <hello@kornershop.io>",
   "license": "MIT",
   "dependencies": {
+    "babel-preset-stage-2": "^6.24.1",
     "compression": "^1.6.2",
     "express": "^4.15.3",
     "prop-types": "^15.5.10",
@@ -30,6 +31,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "^7.1.0",
+    "html-webpack-plugin": "^2.29.0",
     "jest": "^20.0.4",
     "react-hot-loader": "^1.3.1",
     "webpack": "^3.1.0",

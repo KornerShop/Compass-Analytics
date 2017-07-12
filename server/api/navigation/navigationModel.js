@@ -7,7 +7,6 @@ const NavigationSchema = new Schema({
     type: Boolean,
     required: true
   },
-  {timestamps: true}
-});
+},{timestamps: true});
 
 module.exports = mongoose.model('navigation', NavigationSchema);

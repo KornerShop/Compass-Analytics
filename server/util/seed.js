@@ -1,7 +1,7 @@
-import Language from '../api/language/languageModel';
-import Navigation from '../api/navigation/navigationModel';
-import Office from '../api/office/officeModel';
-import ZipCode from '../api/zipCode/zipCodeModel';
+import Language from '../language/language.model';
+import Navigation from '../navigation/navigation.model';
+import Office from '../office/office.model';
+import ZipCode from '../zip/zip.model';
 
 const languages = [
   { lang: 'en' },

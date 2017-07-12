@@ -1,47 +1,35 @@
-import React, { Component } from 'react';
-import SocketClient from 'socket.io-client';
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Legend,
-  Tooltip,
-} from 'recharts';
+import React from 'react';
+import LanguageChart from '../charts/Language';
+import ZipCodeChart from '../charts/ZipCode';
+import OfficeChart from '../charts/Office';
+import NavigationChart from '../charts/Navigation';
 
-class Landing extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-    };
-    // envars needed (definePlugin)
-    this.socket = SocketClient('http://localhost:8080');
-  }
-  componentDidMount() {
-    this.socket.on('data', data => {
-      this.setState({ data });
-    });
-  }
-  render() {
-    return this.state.data
-      ? <LineChart
-          width={730}
-          height={250}
-          data={this.state.data}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <XAxis dataKey="name" />
-          <YAxis />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
-      : <h1>Loading...</h1>;
-  }
-}
+const Landing = props =>
+  <div>
+    {props.langData
+      ? <LanguageChart
+          langData={props.langData}
+          updateLang={props.updateLang}
+        />
+      : <h1>Loading...</h1>}
+    {props.officeData
+      ? <OfficeChart
+          officeData={props.officeData}
+          updateOffice={props.updateOffice}
+        />
+      : <h1>Loading...</h1>}
+    {props.navData
+      ? <NavigationChart
+          navData={props.navData}
+          updateNav={props.updateNav}
+        />
+      : <h1>Loading...</h1>}
+    {props.zipData
+      ? <ZipCodeChart
+          zipData={props.zipData}
+          updateZip={props.updateZip}
+        />
+      : <h1>Loading...</h1>}
+  </div>;
 
 export default Landing;

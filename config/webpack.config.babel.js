@@ -15,7 +15,6 @@ export default env => {
       path: join(__dirname, '../dist'),
       filename: 'bundle.js',
       pathinfo: !prod,
-      publicPath: '/dist/'
     },
     devtool: prod ? false : 'eval',
     resolve: {
@@ -41,6 +40,7 @@ export default env => {
               plugins: [
                 'transform-es2015-modules-commonjs',
                 'babel-plugin-transform-async-to-generator',
+                'recharts',
               ],
             },
           },
@@ -64,6 +64,7 @@ export default env => {
   };
 
   if (prod) {
+    config.output.publicPath = '/dist';
     config.plugins.push(
       new webpack.LoaderOptionsPlugin({
         minimize: true,

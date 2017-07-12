@@ -12,7 +12,7 @@
     "build:dev:watch": "yarn build:dev -- -w",
     "prebuild": "rm -rf dist",
     "build": "webpack --config ./config/webpack.config.babel.js --env=prod",
-    "serve": "nodemon server.js"
+    "serve": "nodemon index.js"
   },
   "dependencies": {
     "babel-core": "^6.25.0",

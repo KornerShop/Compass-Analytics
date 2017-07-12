@@ -28,32 +28,19 @@ app.use('/dist', express.static('./dist'));
 
 const sheet = new ServerStyleSheet();
 
-const initialData = [
-  { name: 'Page A', uv: 0, pv: 2400, amt: 2400 },
-  { name: 'Page B', uv: 0, pv: 1398, amt: 2210 },
-  { name: 'Page C', uv: 0, pv: 9800, amt: 2290 },
-  { name: 'Page D', uv: 0, pv: 3908, amt: 2000 },
-  { name: 'Page E', uv: 0, pv: 4800, amt: 2181 },
-  { name: 'Page F', uv: 0, pv: 3800, amt: 2500 },
-  { name: 'Page G', uv: 0, pv: 4300, amt: 2100 },
-];
-
 const handleRender = (req, res) => {
-  console.log(req.url)
   const context = {};
-  const html = renderToString(React.createElement(
+  const body = renderToString(React.createElement(
     StaticRouter,
     { location: req.url, context },
-    sheet.collectStyles(React.createElement(App, { data: initialData }))
+    sheet.collectStyles(React.createElement(App))
   ))
   if (context.url) {
     res.redirect(context.url);
   }
-  fs.readFile('./dist/index.html', 'utf8', (err, file) => {
+  fs.readFile('./index.html', 'utf8', (err, file) => {
     if (err) { console.log(err) }
-    console.log(`html: ${html}`)
-    const document = file.replace(/<div id="root"><\/div>/, `<div id="root">${html}</div>`)
-    console.log(`document: ${document}`)
+    const document = file.replace(/<div id="root"><\/div>/, `<div id="root">${body}</div>`)
     res.send(document)
   })
 }

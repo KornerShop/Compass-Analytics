@@ -1,30 +1,21 @@
 import React, { Component } from 'react';
 import SocketClient from 'socket.io-client';
-import styled from 'styled-components';
 import {
   LineChart,
   Line,
   CartesianGrid,
   XAxis,
   YAxis,
+  Legend,
+  Tooltip,
 } from 'recharts';
-
-const H1 = styled.h1`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: tomato;
-  font-size: 80px;
-  text-align: center;
-  margin: 250px;
-`;
 
 class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.data
-    }
+      data: [],
+    };
     // envars needed (definePlugin)
     this.socket = SocketClient('http://localhost:8080');
   }
@@ -35,11 +26,19 @@ class Landing extends Component {
   }
   render() {
     return (
-      <LineChart width={600} height={300} data={this.state.data}>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
+      <LineChart
+        width={730}
+        height={250}
+        data={this.state.data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      >
         <XAxis dataKey="name" />
         <YAxis />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
       </LineChart>
     );
   }

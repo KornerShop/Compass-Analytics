@@ -6,9 +6,10 @@
   "author": "Noel Parisi && Kellan Alexander <hello@kornershop.io>",
   "license": "MIT",
   "scripts": {
-    "dev": "yarn build:dev && webpack-dev-server --config ./config/webpack.config.babel.js --env=dev --open",
+    "dev:webpack": "yarn build:dev && webpack-dev-server --config ./config/webpack.config.babel.js --env=dev --open",
     "prebuild:dev": "rm -rf dist",
     "build:dev": "webpack --config ./config/webpack.config.babel.js --env=dev",
+    "build:dev:watch": "yarn build:dev -- -w",
     "prebuild": "rm -rf dist",
     "build": "webpack --config ./config/webpack.config.babel.js --env=prod",
     "serve": "nodemon server.js"
@@ -20,7 +21,6 @@
     "babel-register": "^6.24.1",
     "compression": "^1.6.2",
     "express": "^4.15.3",
-    "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.2",

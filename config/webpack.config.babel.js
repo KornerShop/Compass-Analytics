@@ -1,11 +1,10 @@
 /* eslint-disable no-console */
 
-import { resolve, join } from 'path';
+import { join } from 'path';
 import webpack, {
   HotModuleReplacementPlugin,
   NamedModulesPlugin,
 } from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default env => {
   const prod = env === 'prod';
@@ -48,24 +47,11 @@ export default env => {
         },
       ],
     },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: resolve(__dirname, '../src/index.html'),
-        minify: {
-          collapseWhitespace: true,
-          collapseInlineTagWhitespace: true,
-          minifyCSS: true,
-          quoteCharacter: '',
-          removeComments: true,
-          useShortDoctype: true,
-        },
-      }),
-    ],
   };
 
   if (prod) {
     config.output.publicPath = '/dist';
-    config.plugins.push(
+    config.plugins = [
       new webpack.LoaderOptionsPlugin({
         minimize: true,
         debug: false,
@@ -81,7 +67,7 @@ export default env => {
         },
         comments: false,
       }),
-    );
+    ];
   } else {
     config.devServer = {
       historyApiFallback: true,
@@ -94,10 +80,10 @@ export default env => {
       0,
       'react-hot-loader/babel',
     );
-    config.plugins.push(
+    config.plugins = [
       new HotModuleReplacementPlugin(),
       new NamedModulesPlugin(),
-    );
+    ];
   }
 
   config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());

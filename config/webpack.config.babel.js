@@ -4,6 +4,8 @@ import { join } from 'path';
 import webpack, {
   HotModuleReplacementPlugin,
   NamedModulesPlugin,
+  DefinePlugin,
+  LoaderOptionsPlugin
 } from 'webpack';
 
 export default env => {
@@ -52,7 +54,12 @@ export default env => {
   if (prod) {
     config.output.publicPath = '/dist';
     config.plugins = [
-      new webpack.LoaderOptionsPlugin({
+      new DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        },
+      }),
+      new LoaderOptionsPlugin({
         minimize: true,
         debug: false,
       }),

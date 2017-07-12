@@ -14,6 +14,10 @@
     "serve": "nodemon server.js"
   },
   "dependencies": {
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
     "compression": "^1.6.2",
     "express": "^4.15.3",
     "lodash": "^4.17.4",
@@ -23,16 +27,15 @@
     "react-dom": "^15.6.1",
     "react-hot-loader": "next",
     "react-router-dom": "^4.1.1",
+    "recharts": "^1.0.0-alpha.2",
     "socket.io": "^2.0.3",
-    "styled-components": "^2.1.1",
-    "babel-register": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1"
+    "socket.io-client": "^2.0.3",
+    "styled-components": "^2.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
+    "babel-plugin-recharts": "^1.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",

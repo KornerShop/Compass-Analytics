@@ -16,10 +16,14 @@ const H404 = styled.h1`
 
 const FourOhFour = () => <H404>You look lost...</H404>;
 
-const App = () =>
+const App = ({ data }) =>
   <div>
     <Switch>
-      <Route exact path="/" component={Landing} />
+      <Route
+        exact
+        path="/"
+        component={() => <Landing data={data} />}
+      />
       <Route component={FourOhFour} />
     </Switch>
   </div>;

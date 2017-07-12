@@ -7,7 +7,6 @@ const ZipCodeSchema = new Schema({
     type: String,
     required: true
   },
-  {timestamps: true}
-});
+},{timestamps: true});
 
 module.exports = mongoose.model('zipCode', ZipCodeSchema);

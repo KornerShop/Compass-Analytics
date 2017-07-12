@@ -1,8 +1,14 @@
 /* eslint-disable no-console */
-
 require('babel-core/register')({
-    presets: ['env', 'react']
-})
+  presets: ['env', 'react'],
+});
+
+const config = require('./server/config/config');
+require('mongoose').connect(config.db.url);
+
+if (config.seed) {
+  require('./server/util/seed');
+}
 
 const http = require('http');
 const express = require('express');
@@ -30,20 +36,27 @@ const sheet = new ServerStyleSheet();
 
 const handleRender = (req, res) => {
   const context = {};
-  const body = renderToString(React.createElement(
-    StaticRouter,
-    { location: req.url, context },
-    sheet.collectStyles(React.createElement(App))
-  ))
+  const body = renderToString(
+    React.createElement(
+      StaticRouter,
+      { location: req.url, context },
+      sheet.collectStyles(React.createElement(App)),
+    ),
+  );
   if (context.url) {
     res.redirect(context.url);
   }
   fs.readFile('./index.html', 'utf8', (err, file) => {
-    if (err) { console.log(err) }
-    const document = file.replace(/<div id="root"><\/div>/, `<div id="root">${body}</div>`)
-    res.send(document)
-  })
-}
+    if (err) {
+      console.log(err);
+    }
+    const document = file.replace(
+      /<div id="root"><\/div>/,
+      `<div id="root">${body}</div>`,
+    );
+    res.send(document);
+  });
+};
 
 const data = [
   { name: 'Page A', uv: 2000, pv: 2400, amt: 2400 },
@@ -57,11 +70,11 @@ const data = [
 
 webSocket.on('connection', socket => {
   console.log(`A client just joined on ${socket.id}`);
-  webSocket.emit('data', data)
-})
+  webSocket.emit('data', data);
+});
 
-app.get('*', handleRender)
+app.get('*', handleRender);
 
 server.listen(PORT, () =>
-  console.log(`server listening at http://localhost:${PORT}`)
+  console.log(`server listening at http://localhost:${PORT}`),
 );

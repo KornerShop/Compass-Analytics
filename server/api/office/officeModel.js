@@ -7,7 +7,6 @@ const OfficeSchema = new Schema({
     type: String,
     required: true
   },
-  {timestamps: true}
-});
+},{timestamps: true});
 
 module.exports = mongoose.model('office', OfficeSchema);

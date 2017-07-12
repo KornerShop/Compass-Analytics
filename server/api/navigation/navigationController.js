@@ -1,1 +1,0 @@
-import NavigationSchema from './navigationModel';

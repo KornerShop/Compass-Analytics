@@ -1,1 +1,0 @@
-import ZipCodeSchema from './zipCodeModel';

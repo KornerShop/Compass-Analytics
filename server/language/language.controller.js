@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 const LanguageSchema = require('./language.model');
 
-module.exports = socket => {
+module.exports = (socket, lang) => {
+  LanguageSchema.create(lang)
   const aggregateLanguage = [
     {
       $group: {

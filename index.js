@@ -71,12 +71,15 @@ const handleRender = (req, res) => {
 
 webSocket.on('connection', socket  => {
   console.log(`A client just joined on ${socket.id}`);
-  languageEventHandler(socket)
-  zipCodeEventHandler(socket)
-  officeEventHandler(socket)
-  navigationEventHandler(socket)
+  languageEventHandler(socket);
+  zipCodeEventHandler(socket);
+  officeEventHandler(socket);
+  navigationEventHandler(socket);
 });
 
+webSocket.on('update-language', (lang, socket) => {
+  languageEventHandler(socket, lang)
+})
 
 app.get('*', handleRender);
 

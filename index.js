@@ -72,9 +72,9 @@ const handleRender = (req, res) => {
 webSocket.on('connection', socket  => {
   console.log(`A client just joined on ${socket.id}`);
   languageEventHandler(socket)
-  // zipCodeEventHandler(socket)
-  // officeEventHandler(socket)
-  // navigationEventHandler(socket)
+  zipCodeEventHandler(socket)
+  officeEventHandler(socket)
+  navigationEventHandler(socket)
 });
 
 

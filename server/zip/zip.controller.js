@@ -1,7 +1,19 @@
-import ZipCodeSchema from './zip.model';
-
+const ZipCodeSchema = require('./zip.model');
 module.exports = socket => {
-  ZipCodeSchema.find({}, (err, zipData) => {
-    socket.emit('updateZip', zipData)
+  const aggregateZipCodes = [
+    {
+      $group: {
+        _id: "$zipCode",
+        count: {$sum: 1}
+      }
+    }
+  ]
+  ZipCodeSchema.aggregate(aggregateZipCodes).exec((err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(data)
+      socket.emit('updateZip', data)
+    }
   })
 }

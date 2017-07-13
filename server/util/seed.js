@@ -4,22 +4,22 @@ import Office from '../office/office.model';
 import ZipCode from '../zip/zip.model';
 
 const languages = [
-  { lang: 'en' },
-  { lang: 'es' },
-  { lang: 'es' },
-  { lang: 'es' },
-  { lang: 'es' },
-  { lang: 'en' },
-  { lang: 'en' },
+  { lang: 'English' },
+  { lang: 'Spanish' },
+  { lang: 'Spanish' },
+  { lang: 'Spanish' },
+  { lang: 'Spanish' },
+  { lang: 'English' },
+  { lang: 'English' },
 ];
 
 const navigationInitiated = [
-  { navigation: true },
-  { navigation: true },
-  { navigation: true },
-  { navigation: true },
-  { navigation: true },
-  { navigation: true },
+  { navigation: "Navigation Initiated" },
+  { navigation: "Navigation Initiated" },
+  { navigation: "Navigation Initiated" },
+  { navigation: "Navigation Initiated" },
+  { navigation: "Navigation Initiated" },
+  { navigation: "Navigation Initiated" },
 ];
 
 const officeChoosen = [
@@ -36,7 +36,12 @@ const officeChoosen = [
 const zipCode =[
   {zipCode: 90717},
   {zipCode:95404},
+  {zipCode: 90717},
+  {zipCode:95404},
   {zipCode: 90001},
+  {zipCode: 91436},
+  {zipCode: 91436},
+  {zipCode: 91436},
   {zipCode: 91436},
   {zipCode: 94080}
 ]
@@ -69,12 +74,12 @@ const createLanguages = (data) => {
 };
 
 const createNavigationInitiated = (data) => {
-  const promises = navigationInitiated.map((bool) => {
-    return createDoc(Navigation, bool);
+  const promises = navigationInitiated.map((init) => {
+    return createDoc(Navigation, init);
   });
   return Promise.all(promises)
-    .then(bool => {
-      return Object.assign({navigationInitiated: bool}, data || {});
+    .then(init => {
+      return Object.assign({navigationInitiated: init}, data || {});
     });
 };
 

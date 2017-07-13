@@ -6,30 +6,22 @@ import NavigationChart from '../charts/Navigation';
 
 const Landing = props =>
   <div>
-    {props.langData
-      ? <LanguageChart
-          langData={props.langData}
-          updateLang={props.updateLang}
-        />
-      : <h1>Loading...</h1>}
-    {props.officeData
-      ? <OfficeChart
-          officeData={props.officeData}
-          updateOffice={props.updateOffice}
-        />
-      : <h1>Loading...</h1>}
-    {props.navData
-      ? <NavigationChart
-          navData={props.navData}
-          updateNav={props.updateNav}
-        />
-      : <h1>Loading...</h1>}
-    {props.zipData
-      ? <ZipCodeChart
-          zipData={props.zipData}
-          updateZip={props.updateZip}
-        />
-      : <h1>Loading...</h1>}
+    <LanguageChart
+      langData={props.langData}
+      updateLang={props.updateLang}
+    />
+    <OfficeChart
+      officeData={props.officeData}
+      updateOffice={props.updateOffice}
+    />
+    <NavigationChart
+      navData={props.navData}
+      updateNav={props.updateNav}
+    />
+    <ZipCodeChart
+      zipData={props.zipData}
+      updateZip={props.updateZip}
+    />
   </div>;
 
 export default Landing;

@@ -54,6 +54,7 @@ const cleanDB = () => {
     .map((model) => {
       return model.remove().exec();
     });
+    console.log('this is happening on seeds')
   return Promise.all(cleanPromises);
 }
 

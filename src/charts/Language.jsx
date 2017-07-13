@@ -18,6 +18,7 @@ class LanguageChart extends Component {
     super(props);
   }
   render() {
+    console.log(this.props.langData)
     return (
       <div>
         {this.props.langData

@@ -1,7 +1,7 @@
 import ZipCodeSchema from './zip.model';
 
-module.exports = (server, webSocket) => {
+module.exports = socket => {
   ZipCodeSchema.find({}, (err, zipData) => {
-    server.emit('updateZip', zipData)
+    socket.emit('updateZip', zipData)
   })
 }

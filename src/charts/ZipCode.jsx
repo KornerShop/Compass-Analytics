@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -21,20 +21,14 @@ class ZipCodeChart extends Component {
     return (
       <div>
         {this.props.zipData
-          ? <LineChart
-              width={730}
-              height={250}
-              data={this.props.zipData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            >
-              <XAxis dataKey="name" />
+          ? <BarChart width={600} height={300} data={this.props.zipData}>
+              <XAxis dataKey="_id" stroke="#8884d8" />
               <YAxis />
-              <CartesianGrid strokeDasharray="3 3" />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            </LineChart>
+              <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
+              <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
+              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+              <Bar type="monotone" dataKey="count" fill="#8884d8" barSize={30} />
+            </BarChart>
           : <h1>Loading...</h1>}
       </div>
     );

@@ -34,10 +34,7 @@ class App extends Component {
     this.updateZipData = this.updateZipData.bind(this);
   }
   updateLanguageData(){
-    console.log(`language client event is firing`);
-    console.log(`state: ${JSON.stringify(this.state, null, 2)}`)
     this.socket.on('update-language', barChartData => {
-      console.log(`.........`);
       this.setState({ langData: barChartData });
     });
   }
@@ -66,7 +63,7 @@ class App extends Component {
             component={() =>
               <Landing
                 langData={this.state.langData}
-                navData={this.state.officeData}
+                navData={this.state.navigationData}
                 officeData={this.state.officeData}
                 zipData={this.state.zipData}
                 updateLang={this.updateLanguageData}

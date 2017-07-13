@@ -1,12 +1,7 @@
 import ZipCodeSchema from './zip.model';
 
-module.exports = webSocket => {
-  webSocket.emit('zipCode', data => {
-    ZipCodeSchema.create(data, (err, doc) => {
-      if (err) {
-        console.log(err)
-      }
-      console.log(`the zipCode doc: ${doc}`)
-    })
+module.exports = (server, webSocket) => {
+  ZipCodeSchema.find({}, (err, zipData) => {
+    server.emit('updateZip', zipData)
   })
 }

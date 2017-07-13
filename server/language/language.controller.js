@@ -1,27 +1,30 @@
 /* eslint-disable no-console */
+const LanguageSchema = require('./language.model');
 
-import LanguageSchema from './language.model';
-
-module.exports = (server, socket) => {
-  // look at how to consume an event
-  // look at how to emit an event
-  // create a listener for language event
-  // socket.on('language', data => {
-  //   // add language object to collection
-  //   LanguageSchema.create(data, (err, doc) => {
-  //     if (err) {
-  //       console.log(err);
-  //     }
-  //     // query entire collections
-  //     LanguageSchema.find({}, data => {
-  //       console.log(`data: ${data}`)
-  //       server.emit('updateLanguage', data => {
-  //         console.log(`${data}`)
-  //       })
-  //     })
-  //   });
-  // })
+module.exports = socket => {
   LanguageSchema.find({}, (err, languageData) => {
-    server.emit('updateLanguage', languageData)
+    // const data = [
+    //       {name: 'English', uv: 4000, amt: 2400},
+    //       {name: 'Spanish', uv: 3000, amt: 2210},
+    // ];
+    // use count, that's typically how totals are calculated
+    let enUV = 0;
+    let esUV = 0;
+    let barChartData = {}
+    languageData.forEach(data => {
+      data.lang === "en" ? enUV += 1 : esUV += 1
+    })
+    barChartData =[
+      {
+        name: "English",
+        uv: enUV
+      },
+      {
+        name: "Spanish",
+        uv: esUV
+      }
+    ]
+    console.log(`language controller ${JSON.stringify(barChartData, 2, null)}`)
+    socket.emit('update-language', barChartData);
   })
 }

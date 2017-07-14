@@ -50,7 +50,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 const server = http.Server(app);
-const webSocket = socketio(server);
+const io = socketio(server);
 
 app.use(compression());
 
@@ -82,23 +82,23 @@ const handleRender = (req, res) => {
   });
 };
 
-webSocket.on('connection', socket => {
+io.on('connection', socket => {
   populateLang(socket);
   populateZip(socket);
   populateOffice(socket);
   populateNav(socket);
 
-  socket.on('update-language', data => {
-    updateLang(socket, data);
+  socket.on('update-language', lang => {
+    updateLang(io, lang);
   });
-  socket.on('update-zip', data => {
-    updateLang(socket, data);
+  socket.on('update-zip', zip => {
+    updateLang(io, zip);
   });
-  socket.on('update-office', data => {
-    updateLang(socket, data);
+  socket.on('update-office', office => {
+    updateLang(io, office);
   });
-  socket.on('update-nav', data => {
-    updateLang(socket, data);
+  socket.on('update-nav', nav => {
+    updateLang(io, nav);
   });
 });
 

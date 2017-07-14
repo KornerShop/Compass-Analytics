@@ -7,20 +7,16 @@ import NavigationChart from './charts/Navigation';
 const Landing = props =>
   <div>
     <LanguageChart
-      langData={props.langData}
-      populateLang={props.populateLang}
+      socket={props.socket}
     />
     <OfficeChart
-      officeData={props.officeData}
-      populateOffice={props.populateOffice}
+      socket={props.socket}
     />
     <NavigationChart
-      navData={props.navData}
-      populateNav={props.populateNav}
+      socket={props.socket}
     />
     <ZipCodeChart
-      zipData={props.zipData}
-      populateZip={props.populateZip}
+      socket={props.socket}
     />
   </div>;
 

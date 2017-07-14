@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import {
   BarChart,
@@ -11,23 +11,53 @@ import {
 } from 'recharts';
 
 class OfficeChart extends Component {
-  componentDidMount() {
-    this.props.populateOffice();
-  }
   constructor(props) {
     super(props);
+    this.state = {
+      officeData: null,
+    };
+    this.updateOffice = this.updateOffice.bind(this);
+  }
+  componentDidMount() {
+    this.updateOffice();
+  }
+  updateOffice() {
+    this.props.socket.on('populate-office-data', officeData => {
+      this.setState({ officeData });
+    });
   }
   render() {
     return (
       <div>
-        {this.props.officeData
-          ? <BarChart width={600} height={300} data={this.props.officeData}>
+        {this.state.officeData
+          ? <BarChart
+              width={600}
+              height={300}
+              data={this.state.officeData}
+            >
               <XAxis dataKey="_id" stroke="#8884d8" />
               <YAxis />
-              <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-              <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
+              <Tooltip
+                wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
+              />
+              <Legend
+                width={100}
+                wrapperStyle={{
+                  top: 40,
+                  right: 20,
+                  backgroundColor: '#f5f5f5',
+                  border: '1px solid #d5d5d5',
+                  borderRadius: 3,
+                  lineHeight: '40px',
+                }}
+              />
               <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <Bar type="monotone" dataKey="count" fill="#8884d8" barSize={30} />
+              <Bar
+                type="monotone"
+                dataKey="count"
+                fill="#8884d8"
+                barSize={30}
+              />
             </BarChart>
           : <h1>Loading...</h1>}
       </div>
@@ -35,4 +65,4 @@ class OfficeChart extends Component {
   }
 }
 
-export default OfficeChart
+export default OfficeChart;

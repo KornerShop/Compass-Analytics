@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 const Office = require('./office.model');
 
 const populateOffice = socket => {
@@ -20,9 +21,9 @@ const populateOffice = socket => {
   })
 };
 
-const updateOffice = async (socket, officeData) => {
+const updateOffice = async (io, officeData) => {
   await Office.create(officeData);
-  populateOffice(socket);
+  populateOffice(io);
 };
 
 module.exports = {

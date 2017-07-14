@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import SocketClient from 'socket.io-client';
 import styled from 'styled-components';
 
+import { NGROK_ADDR } from '../../config/envars';
+
 import Landing from './Landing';
 
 const H404 = styled.h1`
@@ -21,7 +23,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     // envars needed (definePlugin)
-    this.socket = SocketClient('https://702e886d.ngrok.io/');
+    /* eslint-disable no-undef */
+    this.socket = SocketClient(NGROK_ADDR);
   }
   populateOfficeData() {
     this.socket.on('populate-office-data', officeData => {
@@ -45,10 +48,7 @@ class App extends Component {
           <Route
             exact
             path="/"
-            component={() =>
-              <Landing
-                socket={this.socket}
-              />}
+            component={() => <Landing socket={this.socket} />}
           />
           <Route component={FourOhFour} />
         </Switch>

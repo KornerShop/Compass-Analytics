@@ -35,19 +35,19 @@ class LanguageChart extends Component {
     return (
       <div>
         {this.state.langData
-        ? <BarChart
-          width={600}
-          height={300}
-          data={this.state.langData}
+          ? <BarChart
+            width={600}
+            height={300}
+            data={this.state.langData}
             >
             <XAxis dataKey="_id" stroke="#8884d8" />
             <YAxis />
             <Tooltip
               wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
-              />
-              <Legend
-                width={100}
-                wrapperStyle={{
+            />
+            <Legend
+              width={100}
+              wrapperStyle={{
                   top: 40,
                   right: 20,
                   backgroundColor: '#f5f5f5',

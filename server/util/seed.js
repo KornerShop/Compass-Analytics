@@ -23,14 +23,14 @@ const navigationInitiated = [
 ];
 
 const officeChoosen = [
-  { office: 'wic' },
-  { office: 'snap' },
-  { office: 'wic' },
-  { office: 'snap' },
-  { office: 'wic' },
-  { office: 'snap' },
-  { office: 'wic' },
-  { office: 'snap' },
+  { office: 'WIC' },
+  { office: 'SNAP' },
+  { office: 'WIC' },
+  { office: 'SNAP' },
+  { office: 'WIC' },
+  { office: 'SNAP' },
+  { office: 'WIC' },
+  { office: 'SNAP' },
 ];
 
 const zipCode =[

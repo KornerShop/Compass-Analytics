@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 const ZipCode = require('./zip.model');
 
 const populateZip = socket => {
@@ -19,9 +20,9 @@ const populateZip = socket => {
   })
 };
 
-const updateZip = async (socket, zipData) => {
+const updateZip = async (io, zipData) => {
   await ZipCode.create(zipData);
-  populateZip(socket);
+  populateZip(io);
 };
 
 module.exports = {

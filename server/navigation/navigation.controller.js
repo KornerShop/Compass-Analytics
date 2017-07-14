@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 const Navigation = require('./navigation.model');
 
 const populateNav = socket => {
@@ -19,9 +20,9 @@ const populateNav = socket => {
   })
 };
 
-const updateNav = async (socket, navData) => {
+const updateNav = async (io, navData) => {
   await Navigation.create(navData);
-  populateNav(socket);
+  populateNav(io);
 };
 
 module.exports = {

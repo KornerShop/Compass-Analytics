@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 const Language = require('./language.model');
 
 // strictly listening for data for initial render
@@ -20,9 +21,9 @@ const populateLang = socket => {
   })
 }
 
-const updateLang = async (socket, langData) => {
+const updateLang = async (io, langData) => {
   await Language.create(langData);
-  populateLang(socket);
+  populateLang(io);
 };
 
 module.exports = {

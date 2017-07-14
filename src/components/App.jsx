@@ -28,28 +28,28 @@ class App extends Component {
     };
     // envars needed (definePlugin)
     this.socket = SocketClient('http://localhost:8080');
-    this.updateLanguageData = this.updateLanguageData.bind(this);
-    this.updateOfficeData = this.updateOfficeData.bind(this);
-    this.updateNavigationData = this.updateNavigationData.bind(this);
-    this.updateZipData = this.updateZipData.bind(this);
+    this.populateLanguageData = this.populateLanguageData.bind(this);
+    this.populateOfficeData = this.populateOfficeData.bind(this);
+    this.populateNavigationData = this.populateNavigationData.bind(this);
+    this.populateZipData = this.populateZipData.bind(this);
   }
-  updateLanguageData(){
-    this.socket.on('update-language', barChartData => {
+  populateLanguageData(){
+    this.socket.on('populate-language-data', barChartData => {
       this.setState({ langData: barChartData });
     });
   }
-  updateOfficeData() {
-    this.socket.on('updateOffice', data => {
+  populateOfficeData() {
+    this.socket.on('populate-office-data', data => {
       this.setState({ officeData: data });
     });
   }
-  updateNavigationData() {
-    this.socket.on('updateNav', data => {
+  populateNavigationData() {
+    this.socket.on('populate-nav-data', data => {
       this.setState({ navigationData: data });
     });
   }
-  updateZipData() {
-    this.socket.on('updateZip', data => {
+  populateZipData() {
+    this.socket.on('populate-zip-data', data => {
       this.setState({ zipData: data });
     });
   }
@@ -66,10 +66,10 @@ class App extends Component {
                 navData={this.state.navigationData}
                 officeData={this.state.officeData}
                 zipData={this.state.zipData}
-                updateLang={this.updateLanguageData}
-                updateNav={this.updateNavigationData}
-                updateOffice={this.updateOfficeData}
-                updateZip={this.updateZipData}
+                populateLang={this.populateLanguageData}
+                populateNav={this.populateNavigationData}
+                populateOffice={this.populateOfficeData}
+                populateZip={this.populateZipData}
               />}
           />
           <Route component={FourOhFour} />

@@ -1,21 +1,34 @@
 /* eslint-disable no-console */
 require('babel-core/register')({
   presets: ['env', 'react'],
+  extensions: '.jsx',
 });
 
-const languageEventHandler = require('./server/language/language.controller');
-const zipCodeEventHandler = require('./server/zip/zip.controller')
-const officeEventHandler = require('./server/office/office.controller')
-const navigationEventHandler = require('./server/navigation/navigation.controller')
+const {
+  populateLang,
+  updateLang,
+} = require('./server/language/language.controller');
+const {
+  populateZip,
+  updateZip,
+} = require('./server/zip/zip.controller');
+const {
+  populateOffice,
+  updateOffice,
+} = require('./server/office/office.controller');
+const {
+  populateNav,
+  updateNav,
+} = require('./server/navigation/navigation.controller');
 
 const config = require('./server/config/config');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 mongoose.connect(config.db.url, {
-  useMongoClient: true
+  useMongoClient: true,
 });
 
-mongoose.Promise = Promise
+mongoose.Promise = Promise;
 
 if (config.seed) {
   require('./server/util/seed');
@@ -51,8 +64,8 @@ const handleRender = (req, res) => {
     React.createElement(
       StaticRouter,
       { location: req.url, context },
-      sheet.collectStyles(React.createElement(App)),
-    ),
+      sheet.collectStyles(React.createElement(App))
+    )
   );
   if (context.url) {
     res.redirect(context.url);
@@ -63,26 +76,34 @@ const handleRender = (req, res) => {
     }
     const document = file.replace(
       /<div id="root"><\/div>/,
-      `<div id="root">${body}</div>`,
+      `<div id="root">${body}</div>`
     );
     res.send(document);
   });
 };
 
-webSocket.on('connection', socket  => {
-  console.log(`A client just joined on ${socket.id}`);
-  languageEventHandler(socket);
-  zipCodeEventHandler(socket);
-  officeEventHandler(socket);
-  navigationEventHandler(socket);
-});
+webSocket.on('connection', socket => {
+  populateLang(socket);
+  populateZip(socket);
+  populateOffice(socket);
+  populateNav(socket);
 
-webSocket.on('update-language', (lang, socket) => {
-  languageEventHandler(socket, lang)
-})
+  socket.on('update-language', data => {
+    updateLang(socket, data);
+  });
+  socket.on('update-zip', data => {
+    updateLang(socket, data);
+  });
+  socket.on('update-office', data => {
+    updateLang(socket, data);
+  });
+  socket.on('update-nav', data => {
+    updateLang(socket, data);
+  });
+});
 
 app.get('*', handleRender);
 
 server.listen(PORT, () =>
-  console.log(`server listening at http://localhost:${PORT}`),
+  console.log(`server listening at http://localhost:${PORT}`)
 );

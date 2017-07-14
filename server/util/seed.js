@@ -1,7 +1,7 @@
-import Language from '../language/language.model';
-import Navigation from '../navigation/navigation.model';
-import Office from '../office/office.model';
-import ZipCode from '../zip/zip.model';
+const Language = require('../language/language.model');
+const Navigation = require('../navigation/navigation.model');
+const Office = require('../office/office.model');
+const ZipCode = require('../zip/zip.model');
 
 const languages = [
   { lang: 'English' },

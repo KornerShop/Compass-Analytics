@@ -1,4 +1,4 @@
-import React , {Component} from  'react';
+import React, {Component} from 'react';
 
 import {
   BarChart,
@@ -10,9 +10,9 @@ import {
   Tooltip,
 } from 'recharts';
 
-class NavigationChart extends Component {
+class OfficeChart extends Component {
   componentDidMount() {
-    this.props.updateNav();
+    this.props.populateOffice();
   }
   constructor(props) {
     super(props);
@@ -20,9 +20,9 @@ class NavigationChart extends Component {
   render() {
     return (
       <div>
-        {this.props.navData
-          ?<BarChart width={600} height={300} data={this.props.navData}>
-              <XAxis dataKey="Navigations Initiated" stroke="#8884d8" />
+        {this.props.officeData
+          ? <BarChart width={600} height={300} data={this.props.officeData}>
+              <XAxis dataKey="_id" stroke="#8884d8" />
               <YAxis />
               <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
               <Legend width={100} wrapperStyle={{ top: 40, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
@@ -35,5 +35,4 @@ class NavigationChart extends Component {
   }
 }
 
-
-export default NavigationChart
+export default OfficeChart

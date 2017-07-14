@@ -1,6 +1,7 @@
-const NavigationSchema = require('./navigation.model');
+/* eslint-disable no-console */
+const Navigation = require('./navigation.model');
 
-module.exports = (socket) => {
+const populateNav = socket => {
   const aggregateNavigation = [
     {
       $group: {
@@ -9,12 +10,21 @@ module.exports = (socket) => {
       }
     }
   ]
-  NavigationSchema.aggregate(aggregateNavigation).exec((err, data) => {
+  Navigation.aggregate(aggregateNavigation).exec((err, data) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
-      socket.emit('updateNav', data)
+      socket.emit('populate-nav-data', data)
     }
   })
-}
+};
+
+const updateNav = async (socket, navData) => {
+  await Navigation.create(navData);
+  populateNav(socket);
+};
+
+module.exports = {
+  populateNav,
+  updateNav
+};

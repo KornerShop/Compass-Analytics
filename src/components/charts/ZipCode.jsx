@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
   BarChart,
@@ -10,15 +10,18 @@ import {
   Tooltip,
 } from 'recharts';
 
-class LanguageChart extends Component {
-  componentWillMount() {
-    this.props.updateLang();
+class ZipCodeChart extends Component {
+  componentDidMount() {
+    this.props.populateZip();
+  }
+  constructor(props) {
+    super(props);
   }
   render() {
     return (
       <div>
-        {this.props.langData
-          ? <BarChart width={600} height={300} data={this.props.langData}>
+        {this.props.zipData
+          ? <BarChart width={600} height={300} data={this.props.zipData}>
               <XAxis dataKey="_id" stroke="#8884d8" />
               <YAxis />
               <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
@@ -31,5 +34,4 @@ class LanguageChart extends Component {
     );
   }
 }
-
-export default LanguageChart;
+export default ZipCodeChart

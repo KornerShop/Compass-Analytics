@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-const LanguageSchema = require('./language.model');
+const Language = require('./language.model');
 
-module.exports = (socket, lang) => {
-  LanguageSchema.create(lang)
+// strictly listening for data for initial render
+const populateLang = socket => {
   const aggregateLanguage = [
     {
       $group: {
@@ -11,12 +11,21 @@ module.exports = (socket, lang) => {
       }
     }
   ]
-  LanguageSchema.aggregate(aggregateLanguage).exec((err, data) => {
+  Language.aggregate(aggregateLanguage).exec((err, data) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
-      socket.emit('update-language', data)
+      socket.emit('populate-language-data', data)
     }
   })
 }
+
+const updateLang = async (socket, langData) => {
+  await Language.create(langData);
+  populateLang(socket);
+};
+
+module.exports = {
+  populateLang,
+  updateLang
+};

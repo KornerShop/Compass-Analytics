@@ -1,5 +1,7 @@
-const ZipCodeSchema = require('./zip.model');
-module.exports = socket => {
+/* eslint-disable no-console */
+const ZipCode = require('./zip.model');
+
+const populateZip = socket => {
   const aggregateZipCodes = [
     {
       $group: {
@@ -8,12 +10,21 @@ module.exports = socket => {
       }
     }
   ]
-  ZipCodeSchema.aggregate(aggregateZipCodes).exec((err, data) => {
+  ZipCode.aggregate(aggregateZipCodes).exec((err, data) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
-      socket.emit('updateZip', data)
+      socket.emit('populate-zip-data', data)
     }
   })
+};
+
+const updateZip = async (socket, zipData) => {
+  await ZipCode.create(zipData);
+  populateZip(socket);
+};
+
+module.exports = {
+  populateZip,
+  updateZip
 }

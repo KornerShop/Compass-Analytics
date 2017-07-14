@@ -1,6 +1,7 @@
-const OfficeSchema = require('./office.model');
+/* eslint-disable no-console */
+const Office = require('./office.model');
 
-module.exports =  (socket) => {
+const populateOffice = socket => {
 
   const aggregateOffice = [
     {
@@ -10,12 +11,21 @@ module.exports =  (socket) => {
       }
     }
   ]
-  OfficeSchema.aggregate(aggregateOffice).exec((err, data) => {
+  Office.aggregate(aggregateOffice).exec((err, data) => {
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
-      socket.emit('updateOffice', data)
+      socket.emit('populate-office-data', data)
     }
   })
-}
+};
+
+const updateOffice = async (socket, officeData) => {
+  await Office.create(officeData);
+  populateOffice(socket);
+};
+
+module.exports = {
+  populateOffice,
+  updateOffice
+};

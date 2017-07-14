@@ -92,13 +92,13 @@ io.on('connection', socket => {
     updateLang(io, lang);
   });
   socket.on('update-zip', zip => {
-    updateLang(io, zip);
+    updateZip(io, zip);
   });
   socket.on('update-office', office => {
-    updateLang(io, office);
+    updateOffice(io, office);
   });
   socket.on('update-nav', nav => {
-    updateLang(io, nav);
+    updateNav(io, nav);
   });
 });
 

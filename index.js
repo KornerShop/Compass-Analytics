@@ -31,7 +31,7 @@ mongoose.connect(config.db.url, {
 mongoose.Promise = Promise;
 
 if (config.seed) {
-  require('./server/util/seed');
+  require('./server/seed');
 }
 
 const http = require('http');

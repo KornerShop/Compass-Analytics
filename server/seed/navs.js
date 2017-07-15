@@ -3,7 +3,6 @@ const moment = require('moment');
 module.exports = () => {
   const dates = [];
   for (let i = 7; i >= 0; i--) {
-    console.log(i)
     if (i === 0) {
       dates.push(moment().format('l'));
     } else {

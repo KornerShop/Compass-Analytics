@@ -1,23 +1,26 @@
 /* eslint-disable no-console */
 
-const Navigation = require('./navigation.model');
+const formatNavData = require('../utils/utils');
 
+const Navigation = require('./navigation.model');
+// date numSnap, num
 const populateNav = socket => {
   const aggregateNavigation = [
     {
       $group: {
-        _id: "$office",
-        count: {$sum: 1}
-      }
-    }
-  ]
+        _id: { office: '$office', date: '$date' },
+        count: { $sum: 1 },
+      },
+    },
+  ];
   Navigation.aggregate(aggregateNavigation).exec((err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
-      socket.emit('populate-nav-data', data)
+      console.log(data);
+      socket.emit('populate-nav-data', formatNavData(data));
     }
-  })
+  });
 };
 
 const updateNav = async (io, navData) => {
@@ -27,5 +30,5 @@ const updateNav = async (io, navData) => {
 
 module.exports = {
   populateNav,
-  updateNav
+  updateNav,
 };

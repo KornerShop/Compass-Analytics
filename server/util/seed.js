@@ -2,6 +2,7 @@ const Language = require('../language/language.model');
 const Navigation = require('../navigation/navigation.model');
 const Office = require('../office/office.model');
 const ZipCode = require('../zip/zip.model');
+const { getDates, dateArray} = require('./dates');
 
 const languages = [
   { lang: 'English' },
@@ -13,13 +14,38 @@ const languages = [
   { lang: 'English' },
 ];
 
+// date: {
+//   type: String,
+//   required: true
+// },
+// office: {
+//   type: String,
+//   required: true
+// }
 const navigationInitiated = [
-  { navigation: "Navigation Initiated" },
-  { navigation: "Navigation Initiated" },
-  { navigation: "Navigation Initiated" },
-  { navigation: "Navigation Initiated" },
-  { navigation: "Navigation Initiated" },
-  { navigation: "Navigation Initiated" },
+  // add 6
+  { date: dateArray[5], office: "WIC" },
+  { date: dateArray[5], office:"SNAP" },
+  { date: dateArray[5], office: "WIC" },
+  { date: dateArray[5], office:"SNAP" },
+  { date: dateArray[4], office: "WIC" },
+  { date: dateArray[4], office:"SNAP" },
+  { date: dateArray[4], office:"SNAP" },
+  { date: dateArray[4], office:"SNAP" },
+  { date: dateArray[3], office: "WIC" },
+  { date: dateArray[3], office:"SNAP" },
+  { date: dateArray[3], office: "WIC" },
+  { date: dateArray[2], office:"SNAP" },
+  { date: dateArray[2], office:"SNAP" },
+  { date: dateArray[2], office:"SNAP" },
+  { date: dateArray[1], office: "WIC" },
+  { date: dateArray[1], office: "WIC" },
+  { date: dateArray[1], office: "WIC" },
+  { date: dateArray[1], office:"SNAP" },
+  { date: dateArray[0], office: "WIC" },
+  { date: dateArray[0], office: "SNAP" },
+  { date: dateArray[0], office: "WIC" },
+  { date: dateArray[0], office:"SNAP" },
 ];
 
 const officeChoosen = [
@@ -74,6 +100,7 @@ const createLanguages = (data) => {
 };
 
 const createNavigationInitiated = (data) => {
+  getDates();
   const promises = navigationInitiated.map((init) => {
     return createDoc(Navigation, init);
   });

@@ -24,7 +24,6 @@ class LanguageChart extends Component {
   }
   componentWillUnmount() {
     console.log('languageChart unmounted');
-    // this.props.disconnect();
   }
   updateLang() {
     this.props.socket.on('populate-language-data', langData => {

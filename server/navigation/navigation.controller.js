@@ -6,7 +6,7 @@ const populateNav = socket => {
   const aggregateNavigation = [
     {
       $group: {
-        _id: "$navigation",
+        _id: "$office",
         count: {$sum: 1}
       }
     }

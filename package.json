@@ -24,6 +24,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.11.1",
     "prop-types": "^15.5.10",
+    "randexp": "^0.4.5",
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.2",
     "react-dom": "^15.6.1",

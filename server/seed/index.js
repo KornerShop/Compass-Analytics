@@ -19,13 +19,11 @@ const cleanDB = () => {
     Office,
     Navigation,
   ].map(model => model.remove().exec());
-  console.log('...🌱...🌻...🌲');
+  console.log('seeding...🌱...🌻...🌲');
   return Promise.all(cleanPromises);
 };
+
 const createLanguages = data => {
-  console.log(
-    `languages: ${JSON.stringify(generateZips(), null, 2)}`
-  );
   const promises = generateLanguages().map(lang =>
     createDoc(Language, lang)
   );
@@ -33,8 +31,14 @@ const createLanguages = data => {
     Object.assign({ languages: lang }, data || {})
   );
 };
+
+/*
+{
+  "lang": "Spanish" || "English"
+}
+*/
+
 const createNavs = data => {
-  console.log(`navs: ${JSON.stringify(generateNavs(), null, 2)}`);
   const promises = generateNavs().map(nav =>
     createDoc(Navigation, nav)
   );
@@ -42,10 +46,15 @@ const createNavs = data => {
     Object.assign({ navigation: nav }, data || {})
   );
 };
+
+/*
+{
+  "date": "7/15/2017",
+  "office": "SNAP" || "WIC"
+}
+*/
+
 const createOffices = data => {
-  console.log(
-    `offices: ${JSON.stringify(generateOffices(), null, 2)}`
-  );
   const promises = generateOffices().map(office =>
     createDoc(Office, office)
   );
@@ -53,15 +62,29 @@ const createOffices = data => {
     Object.assign({ officeChoosen: office }, data || {})
   );
 };
+
+/*
+{
+  "office": "SNAP" || "WIC"
+}
+*/
+
 const createZipCode = data => {
-  console.log(`zips: ${JSON.stringify(generateZips(), null, 2)}`);
   const promises = generateZips().map(zip => createDoc(ZipCode, zip));
   return Promise.all(promises).then(zip =>
     Object.assign({ zipCode: zip }, data || {})
   );
 };
+
+/*
+{
+  "zipCode": "94962"
+}
+*/
+
 cleanDB()
   .then(createLanguages)
   .then(createNavs)
   .then(createOffices)
-  .then(createZipCode);
+  .then(createZipCode)
+  .then(() => console.log('seeded 👨‍🌾'))

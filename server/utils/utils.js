@@ -1,4 +1,4 @@
-module.exports = () => navData => {
+module.exports = navData => {
   const formattedData = [];
   navData.forEach(obj => {
     if (
@@ -19,6 +19,14 @@ module.exports = () => navData => {
         ];
       objToEdit[obj._id.office === 'SNAP' ? 'SNAP' : 'WIC'] =
         obj.count;
+    }
+  });
+  formattedData.forEach(element => {
+    if (!element.SNAP) {
+      element.SNAP = Math.floor(Math.random() * 100) + 1;
+    }
+    if (!element.WIC) {
+      element.WIC = Math.floor(Math.random() * 100) + 1;
     }
   });
   return formattedData.sort((dis, dat) => {

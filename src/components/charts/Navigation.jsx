@@ -37,8 +37,8 @@ class NavigationChart extends Component {
               <CartesianGrid strokeDasharray="3 3" />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey='count' stroke="#8884d8" />
-              <Line type="monotone" dataKey='count' stroke="#82ca9d" />
+              <Line type="monotone" dataKey='WIC' stroke="#8884d8" />
+              <Line type="monotone" dataKey='SNAP' stroke="#82ca9d" />
             </LineChart>
           : <h1>Loading...</h1>}
       </div>

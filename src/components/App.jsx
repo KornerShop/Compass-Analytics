@@ -43,7 +43,13 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          minHeight: '100vh',
+        }}
+      >
         <Switch>
           <Route
             exact

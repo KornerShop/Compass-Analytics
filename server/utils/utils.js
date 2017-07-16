@@ -3,7 +3,7 @@ module.exports = navData => {
   navData.forEach(obj => {
     if (
       !formattedData.find(
-        (element, idx) => element.date === obj._id.date,
+        (element, idx) => element.date === obj._id.date
       )
     ) {
       formattedData.push({
@@ -14,7 +14,7 @@ module.exports = navData => {
       const objToEdit =
         formattedData[
           formattedData.findIndex(
-            element => element.date === obj._id.date,
+            element => element.date === obj._id.date
           )
         ];
       objToEdit[obj._id.office === 'SNAP' ? 'SNAP' : 'WIC'] =

@@ -29,7 +29,7 @@ module.exports = navData => {
       element.WIC = Math.floor(Math.random() * 100) + 1;
     }
   });
-  return formattedData.sort((dis, dat) => {
+    return formattedData.sort((dis, dat) => {
     const thisDate = new Date(dis.date);
     const thatDate = new Date(dat.date);
     if (thisDate < thatDate) {

@@ -4,7 +4,7 @@ module.exports = () => {
   const dates = [];
   for (let i = 7; i >= 0; i--) {
     for (let j = Math.floor(Math.random() * 100 + 1); j >= 1; j--) {
-      if (i === 1) {
+      if (i === 0) {
         dates.push(moment().format('l'));
       } else {
         dates.push(moment().subtract(`${i}`, 'days').format('l'));

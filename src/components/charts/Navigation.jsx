@@ -31,7 +31,7 @@ class NavigationChart extends Component {
       <div>
         {this.state.navData
           ? <LineChart
-              width={730}
+              width={580}
               height={250}
               data={this.state.navData}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

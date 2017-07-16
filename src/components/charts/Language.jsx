@@ -13,9 +13,7 @@ class LanguageChart extends Component {
   componentDidMount() {
     this.updateLang();
   }
-  componentWillUnmount() {
-    // console.log('languageChart unmounted');
-  }
+
   updateLang() {
     this.props.socket.on('populate-language-data', langData => {
       this.setState({ langData });
@@ -26,10 +24,10 @@ class LanguageChart extends Component {
     return (
       <div>
         {this.state.langData
-          ? <PieChart width={800} height={600}>
+          ? <PieChart width={600} height={500}>
               <Pie
                 data={this.state.langData}
-                valueKey="value"
+                dataKey="value"
                 nameKey="_id"
                 cx={500}
                 cy={200}

@@ -31,7 +31,7 @@ class ZipCodeChart extends Component {
       <div>
         {this.state.zipData
           ? <BarChart
-              width={600}
+              width={580}
               height={300}
               data={this.state.zipData}
             >

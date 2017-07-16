@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
 import {
-  BarChart,
-  Bar,
+  AreaChart,
+  Area,
   CartesianGrid,
   XAxis,
   YAxis,
-  Legend,
   Tooltip,
 } from 'recharts';
 
@@ -30,35 +29,31 @@ class OfficeChart extends Component {
     return (
       <div>
         {this.state.officeData
-          ? <BarChart
+          ? <AreaChart
               width={600}
-              height={300}
+              height={400}
               data={this.state.officeData}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
             >
-              <XAxis dataKey="_id" stroke="#8884d8" />
+              <XAxis dataKey="date" />
               <YAxis />
-              <Tooltip
-                wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
-              />
-              <Legend
-                width={100}
-                wrapperStyle={{
-                  top: 40,
-                  right: 20,
-                  backgroundColor: '#f5f5f5',
-                  border: '1px solid #d5d5d5',
-                  borderRadius: 3,
-                  lineHeight: '40px',
-                }}
-              />
-              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <Bar
+              <CartesianGrid strokeDasharray="3 3" />
+              <Tooltip />
+              <Area
                 type="monotone"
-                dataKey="count"
+                dataKey="WIC"
+                stackId="1"
+                stroke="#8884d8"
                 fill="#8884d8"
-                barSize={30}
               />
-            </BarChart>
+              <Area
+                type="monotone"
+                dataKey="SNAP"
+                stackId="1"
+                stroke="#82ca9d"
+                fill="#82ca9d"
+              />
+            </AreaChart>
           : <h1>Loading...</h1>}
       </div>
     );

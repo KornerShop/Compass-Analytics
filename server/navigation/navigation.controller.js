@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const formatNavData = require('../utils/utils');
+const formatLongitudinalData = require('../utils/utils');
 
 const Navigation = require('./navigation.model');
 // date numSnap, num
@@ -17,8 +17,7 @@ const populateNav = socket => {
     if (err) {
       console.log(err);
     } else {
-      console.log(data);
-      socket.emit('populate-nav-data', formatNavData(data));
+      socket.emit('populate-nav-data', formatLongitudinalData(data));
     }
   });
 };

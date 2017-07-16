@@ -8,17 +8,18 @@ const populateLang = socket => {
     {
       $group: {
         _id: "$lang",
-        count: {$sum: 1}
+        value: {$sum: 1}
       }
     }
   ]
   Language.aggregate(aggregateLanguage).exec((err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
     } else {
-      socket.emit('populate-language-data', data)
+      console.log(data);
+      socket.emit('populate-language-data', data);
     }
-  })
+  });
 }
 
 const updateLang = async (io, langData) => {

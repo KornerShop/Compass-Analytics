@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+const formatLongitudinalData = require('../utils/utils');
+
 const Office = require('./office.model');
 
 const populateOffice = socket => {
@@ -7,7 +9,7 @@ const populateOffice = socket => {
   const aggregateOffice = [
     {
       $group: {
-        _id: "$office",
+        _id:  { office: '$office', date: '$date' },
         count: {$sum: 1}
       }
     }
@@ -16,7 +18,7 @@ const populateOffice = socket => {
     if (err) {
       console.log(err)
     } else {
-      socket.emit('populate-office-data', data)
+      socket.emit('populate-office-data', formatLongitudinalData(data));
     }
   })
 };

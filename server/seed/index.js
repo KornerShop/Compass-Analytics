@@ -65,9 +65,11 @@ const createOffices = data => {
 
 /*
 {
+  "date": "7/15/2017",
   "office": "SNAP" || "WIC"
 }
 */
+
 
 const createZipCode = data => {
   const promises = generateZips().map(zip => createDoc(ZipCode, zip));

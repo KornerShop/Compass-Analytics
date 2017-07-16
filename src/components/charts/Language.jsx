@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import SocketClient from 'socket.io-client';
 
+import CustomToolTip from './CustomToolTip'
+
 import {
-  BarChart,
-  Bar,
-  CartesianGrid,
-  XAxis,
-  YAxis,
+  PieChart,
+  Pie,
   Legend,
   Tooltip,
 } from 'recharts';
@@ -23,46 +22,26 @@ class LanguageChart extends Component {
     this.updateLang();
   }
   componentWillUnmount() {
-    console.log('languageChart unmounted');
+    // console.log('languageChart unmounted');
   }
   updateLang() {
     this.props.socket.on('populate-language-data', langData => {
       this.setState({ langData });
     });
   }
+  /*[
+  { _id: 'English', count: 375 },
+  { _id: 'Spanish', count: 325 }
+]*/
+
   render() {
     return (
       <div>
         {this.state.langData
-          ? <BarChart
-            width={600}
-            height={300}
-            data={this.state.langData}
-            >
-            <XAxis dataKey="_id" stroke="#8884d8" />
-            <YAxis />
-            <Tooltip
-              wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
-            />
-            <Legend
-              width={100}
-              wrapperStyle={{
-                  top: 40,
-                  right: 20,
-                  backgroundColor: '#f5f5f5',
-                  border: '1px solid #d5d5d5',
-                  borderRadius: 3,
-                  lineHeight: '40px',
-                }}
-              />
-              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <Bar
-                type="monotone"
-                dataKey="count"
-                fill="#8884d8"
-                barSize={30}
-              />
-            </BarChart>
+          ? <PieChart width={800} height={600}>
+              <Pie data={this.state.langData} valueKey='value' nameKey="_id" cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" label />
+              <Tooltip />
+            </PieChart>
           : <h1>Loading...</h1>}
       </div>
     );

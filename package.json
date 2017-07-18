@@ -6,13 +6,11 @@
   "author": "Noel Parisi && Kellan Alexander <hello@kornershop.io>",
   "license": "MIT",
   "scripts": {
-    "dev:webpack": "yarn build:dev && webpack-dev-server --config ./config/webpack.config.babel.js --env=dev --open",
-    "prebuild:dev": "rm -rf dist",
-    "build:dev": "webpack --config ./config/webpack.config.babel.js --env=dev",
-    "build:dev:watch": "yarn build:dev -- -w",
     "prebuild": "rm -rf dist",
-    "build": "webpack --config ./config/webpack.config.babel.js --env=prod",
-    "serve": "nodemon index.js"
+    "build": "webpack --config ./config/webpack.config.babel.js",
+    "build:watch": "yarn build -- -w",
+    "serve": "node index.js",
+    "serve:nodemon": "nodemon index.js",
   },
   "dependencies": {
     "babel-core": "^6.25.0",
@@ -33,7 +31,10 @@
     "recharts": "^1.0.0-alpha.2",
     "socket.io": "^2.0.3",
     "socket.io-client": "^2.0.3",
-    "styled-components": "^2.1.1"
+    "styled-components": "^2.1.1",
+    "webpack-dev-middleware": "1.10.2",
+    "webpack-hot-middleware": "2.18.0",
+    "webpack": "^2.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -52,9 +53,6 @@
     "eslint-plugin-react": "^7.1.0",
     "html-webpack-plugin": "^2.29.0",
     "jest": "^20.0.4",
-    "prettier": "^1.5.2",
-    "webpack": "^3.1.0",
-    "webpack-dev-server": "^2.5.1",
-    "webpack-hot-middleware": "^2.18.2"
+    "prettier": "^1.5.2"
   }
 }

@@ -11,29 +11,17 @@ import {
 } from 'recharts';
 
 class NavigationChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      navData: null,
-    };
-    this.updateNav = this.updateNav.bind(this);
-  }
   componentDidMount() {
-    this.updateNav();
-  }
-  updateNav() {
-    this.props.socket.on('populate-nav-data', navData => {
-      this.setState({ navData });
-    });
+    this.props.populateNav();
   }
   render() {
     return (
       <div>
-        {this.state.navData
+        {this.props.navData
           ? <LineChart
               width={580}
               height={250}
-              data={this.state.navData}
+              data={this.props.navData}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
               <XAxis dataKey="date" />

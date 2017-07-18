@@ -9,18 +9,18 @@ const generateOffices = require('./offices');
 const generateZips = require('./zips');
 
 const createDoc = (Model, doc) => new Promise((resolve, reject) => {
-    new Model(doc).save((err, saved) => err ? reject(err) : resolve(saved));
-  });
+  new Model(doc).save((err, saved) => err ? reject(err) : resolve(saved));
+});
 
 const cleanDB = () => {
-  const cleanPromises = [
+  const promises = [
     Language,
     ZipCode,
     Office,
     Navigation,
   ].map(model => model.remove().exec());
   console.log('seeding...🌱...🌻...🌲');
-  return Promise.all(cleanPromises);
+  return Promise.all(promises);
 };
 
 const createLanguages = data => {
@@ -70,7 +70,6 @@ const createOffices = data => {
 }
 */
 
-
 const createZipCode = data => {
   const promises = generateZips().map(zip => createDoc(ZipCode, zip));
   return Promise.all(promises).then(zip =>
@@ -89,4 +88,4 @@ cleanDB()
   .then(createNavs)
   .then(createOffices)
   .then(createZipCode)
-  .then(() => console.log('seeded 👨‍🌾'))
+  .then(() => console.log('seeded 👨‍🌾'));

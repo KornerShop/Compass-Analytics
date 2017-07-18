@@ -2,7 +2,6 @@
 
 const Language = require('./language.model');
 
-// strictly listening for data for initial render
 const populateLang = socket => {
   const aggregateLanguage = [
     {
@@ -16,7 +15,6 @@ const populateLang = socket => {
     if (err) {
       console.log(err);
     } else {
-      console.log(data);
       socket.emit('populate-lang-data', data);
     }
   });

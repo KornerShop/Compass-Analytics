@@ -25,12 +25,12 @@ class ZipCodeChart extends Component {
             >
             <XAxis dataKey="_id" stroke="#8884d8" />
             <YAxis />
-              <Tooltip
-                wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
-              />
-              <Legend
-                width={100}
-                wrapperStyle={{
+            <Tooltip
+              wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
+            />
+            <Legend
+              width={100}
+              wrapperStyle={{
                   top: 40,
                   right: 20,
                   backgroundColor: '#f5f5f5',

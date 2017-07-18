@@ -2,7 +2,7 @@
 
 require('babel-core/register')({
   presets: ['env', 'react'],
-  extensions: '.jsx',
+  extensions: ['.jsx']
 });
 
 const {
@@ -24,6 +24,27 @@ const {
 
 const config = require('./server/config/config');
 const mongoose = require('mongoose');
+const http = require('http');
+const express = require('express');
+const compression = require('compression');
+const socketio = require('socket.io');
+const React = require('react');
+const { renderToString } = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom');
+const fs = require('fs');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpack = require('webpack');
+const { ServerStyleSheet } = require('styled-components');
+
+const wpConfig = require('./config/webpack.config');
+const App = require('./src/components/App').default;
+
+const PORT = process.env.PORT || 8080;
+
+const app = express();
+const server = http.Server(app);
+const io = socketio(server);
 
 mongoose.connect(config.db.url, {
   useMongoClient: true,
@@ -35,23 +56,13 @@ if (config.seed) {
   require('./server/seed');
 }
 
-const http = require('http');
-const express = require('express');
-const compression = require('compression');
-const socketio = require('socket.io');
-const React = require('react');
-const { renderToString } = require('react-dom/server');
-const { StaticRouter } = require('react-router-dom');
-const fs = require('fs');
-const { ServerStyleSheet } = require('styled-components');
-
-const App = require('./src/components/App').default;
-
-const PORT = process.env.PORT || 8080;
-
-const app = express();
-const server = http.Server(app);
-const io = socketio(server);
+const compiler = webpack(wpConfig);
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: wpConfig.output.publicPath
+  })
+);
+app.use(webpackHotMiddleware(compiler));
 
 app.use(compression());
 

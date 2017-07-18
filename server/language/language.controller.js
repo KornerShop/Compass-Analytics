@@ -17,7 +17,7 @@ const populateLang = socket => {
       console.log(err);
     } else {
       console.log(data);
-      socket.emit('populate-language-data', data);
+      socket.emit('populate-lang-data', data);
     }
   });
 }

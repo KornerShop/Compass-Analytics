@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "prebuild": "rm -rf dist",
-    "build": "webpack --config ./config/webpack.config.babel.js",
+    "build": "webpack",
     "build:watch": "yarn build -- -w",
     "serve": "node index.js",
-    "serve:nodemon": "nodemon index.js",
+    "serve:nodemon": "nodemon index.js"
   },
   "dependencies": {
     "babel-core": "^6.25.0",

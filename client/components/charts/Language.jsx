@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
 import { PieChart, Pie, Tooltip } from 'recharts';
+
+import CubeGrid from '../../styled/CubeGrid';
 
 class LanguageChart extends Component {
   componentDidMount() {
@@ -24,7 +25,7 @@ class LanguageChart extends Component {
             />
             <Tooltip />
           </PieChart>
-          : <h1>Loading...</h1>}
+          : <CubeGrid color="#FF0080" size={60}/>}
       </div>
     );
   }

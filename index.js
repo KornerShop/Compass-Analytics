@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-
-require('babel-core/register')({
+require('babel-polyfill');
+require('babel-register')({
+  ignore: [/server/],
   presets: ['env', 'react'],
-  extensions: ['.jsx']
 });
 
 const {
@@ -38,7 +38,7 @@ const webpack = require('webpack');
 const { ServerStyleSheet } = require('styled-components');
 
 const wpConfig = require('./config/webpack.config');
-const App = require('./src/components/App').default;
+const App = require('./client/components/App').default;
 
 const PORT = process.env.PORT || 8080;
 

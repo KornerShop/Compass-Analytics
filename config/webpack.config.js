@@ -1,3 +1,4 @@
+
 /* eslint-disable no-console */
 
 const { join } = require('path');
@@ -8,7 +9,7 @@ module.exports = {
     'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000',
-    './src/index.jsx',
+    './client/index.jsx',
   ],
   output: {
     path: join(__dirname, '../dist'),
@@ -45,7 +46,7 @@ module.exports = {
             ],
           },
         },
-        include: join(__dirname, '../src'),
+        include: join(__dirname, '../client'),
       },
     ],
   },

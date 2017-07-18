@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import {
   BarChart,
   Bar,
@@ -9,6 +8,8 @@ import {
   Legend,
   Tooltip,
 } from 'recharts';
+
+import CubeGrid from '../../styled/CubeGrid';
 
 class ZipCodeChart extends Component {
   componentDidMount() {
@@ -37,17 +38,17 @@ class ZipCodeChart extends Component {
                   border: '1px solid #d5d5d5',
                   borderRadius: 3,
                   lineHeight: '40px',
-                }}
-              />
-              <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-              <Bar
-                type="monotone"
-                dataKey="count"
-                fill="#8884d8"
-                barSize={30}
-              />
-            </BarChart>
-          : <h1>Loading...</h1>}
+              }}
+            />
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <Bar
+              type="monotone"
+              dataKey="count"
+              fill="#8884d8"
+              barSize={30}
+            />
+          </BarChart>
+          : <CubeGrid color="#FF0080" size={60}/>}
       </div>
     );
   }

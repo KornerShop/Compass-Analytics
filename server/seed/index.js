@@ -9,8 +9,8 @@ const generateOffices = require('./offices');
 const generateZips = require('./zips');
 
 const createDoc = (Model, doc) => new Promise((resolve, reject) => {
-    new Model(doc).save((err, saved) => err ? reject(err) : resolve(saved));
-  });
+  new Model(doc).save((err, saved) => err ? reject(err) : resolve(saved));
+});
 
 const cleanDB = () => {
   const promises = [
@@ -88,4 +88,4 @@ cleanDB()
   .then(createNavs)
   .then(createOffices)
   .then(createZipCode)
-  .then(() => console.log('seeded 👨‍🌾'))
+  .then(() => console.log('seeded 👨‍🌾'));

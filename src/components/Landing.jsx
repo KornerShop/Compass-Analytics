@@ -14,7 +14,17 @@ const Landing = ({
   populateOffice,
   populateZip,
 }) =>
-  <div style={{ maxWidth: '80%' }}>
+  <div
+    style={{
+      fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif`,
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    }}
+  >
     <LanguageChart langData={langData} populateLang={populateLang} />
     <OfficeChart
       officeData={officeData}

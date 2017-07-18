@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 require('babel-core/register')({
   presets: ['env', 'react'],
   extensions: '.jsx',

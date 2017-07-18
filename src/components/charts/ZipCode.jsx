@@ -23,8 +23,8 @@ class ZipCodeChart extends Component {
             height={300}
             data={this.props.zipData}
             >
-              <XAxis dataKey="_id" stroke="#8884d8" />
-              <YAxis />
+            <XAxis dataKey="_id" stroke="#8884d8" />
+            <YAxis />
               <Tooltip
                 wrapperStyle={{ width: 100, backgroundColor: '#ccc' }}
               />

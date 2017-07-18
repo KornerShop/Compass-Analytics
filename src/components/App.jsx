@@ -22,18 +22,33 @@ const FourOhFour = () => <H404>You look lost...</H404>;
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      langData: null,
+      officeData: null,
+      navData: null,
+      zipData: null,
+    };
     // envars needed (definePlugin)
     /* eslint-disable no-undef */
     this.socket = SocketClient(NGROK_ADDR);
+    this.populateLangData = this.populateLangData.bind(this);
+    this.populateOfficeData = this.populateOfficeData.bind(this);
+    this.populateNavData = this.populateNavData.bind(this);
+    this.populateZipData = this.populateZipData.bind(this);
+  }
+  populateLangData() {
+    this.socket.on('populate-lang-data', langData => {
+      this.setState({ langData });
+    });
   }
   populateOfficeData() {
     this.socket.on('populate-office-data', officeData => {
       this.setState({ officeData });
     });
   }
-  populateNavigationData() {
-    this.socket.on('populate-nav-data', navigationData => {
-      this.setState({ navigationData });
+  populateNavData() {
+    this.socket.on('populate-nav-data', navData => {
+      this.setState({ navData });
     });
   }
   populateZipData() {
@@ -54,7 +69,11 @@ class App extends Component {
           <Route
             exact
             path="/"
-            component={() => <Landing socket={this.socket} />}
+            component={() =>
+              <Landing
+                socket={this.socket}
+                populateLangData={this.populateLangData}
+              />}
           />
           <Route component={FourOhFour} />
         </Switch>

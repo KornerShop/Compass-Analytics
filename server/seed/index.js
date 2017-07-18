@@ -13,14 +13,14 @@ const createDoc = (Model, doc) => new Promise((resolve, reject) => {
   });
 
 const cleanDB = () => {
-  const cleanPromises = [
+  const promises = [
     Language,
     ZipCode,
     Office,
     Navigation,
   ].map(model => model.remove().exec());
   console.log('seeding...🌱...🌻...🌲');
-  return Promise.all(cleanPromises);
+  return Promise.all(promises);
 };
 
 const createLanguages = data => {
@@ -69,7 +69,6 @@ const createOffices = data => {
   "office": "SNAP" || "WIC"
 }
 */
-
 
 const createZipCode = data => {
   const promises = generateZips().map(zip => createDoc(ZipCode, zip));

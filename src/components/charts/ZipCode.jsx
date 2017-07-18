@@ -11,29 +11,17 @@ import {
 } from 'recharts';
 
 class ZipCodeChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      zipData: null,
-    };
-    this.updateZip = this.updateZip.bind(this);
-  }
   componentDidMount() {
-    this.updateZip();
-  }
-  updateZip() {
-    this.props.socket.on('populate-zip-data', zipData => {
-      this.setState({ zipData });
-    });
+    this.props.populateZip();
   }
   render() {
     return (
       <div>
-        {this.state.zipData
+        {this.props.zipData
           ? <BarChart
-              width={580}
-              height={300}
-              data={this.state.zipData}
+            width={580}
+            height={300}
+            data={this.props.zipData}
             >
               <XAxis dataKey="_id" stroke="#8884d8" />
               <YAxis />

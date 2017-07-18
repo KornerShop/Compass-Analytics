@@ -71,8 +71,14 @@ class App extends Component {
             path="/"
             component={() =>
               <Landing
-                socket={this.socket}
-                populateLangData={this.populateLangData}
+                langData={this.state.langData}
+                officeData={this.state.officeData}
+                navData={this.state.navData}
+                zipData={this.state.zipData}
+                populateLang={this.populateLangData}
+                populateOffice={this.populateOfficeData}
+                populateNav={this.populateNavData}
+                populateZip={this.populateZipData}
               />}
           />
           <Route component={FourOhFour} />

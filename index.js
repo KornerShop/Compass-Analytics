@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 require('babel-polyfill');
 require('babel-register')({
-  ignore: [/server/],
   presets: ['env', 'react'],
 });
 

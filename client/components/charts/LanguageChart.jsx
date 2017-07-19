@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { PieChart, Pie, Tooltip } from 'recharts';
 
+import { GraphTile } from '../../styled/Layout';
 import CubeGrid from '../../styled/CubeGrid';
 
 class LanguageChart extends Component {
@@ -9,7 +10,7 @@ class LanguageChart extends Component {
   }
   render() {
     return (
-      <div>
+      <GraphTile>
         {this.props.langData
           ? <PieChart width={600} height={500}>
             <Pie
@@ -24,9 +25,9 @@ class LanguageChart extends Component {
               label
             />
             <Tooltip />
-          </PieChart>
-          : <CubeGrid color="#FF0080" size={60}/>}
-      </div>
+            </PieChart>
+          : <CubeGrid color="#FF0080" size={60} />}
+      </GraphTile>
     );
   }
 }

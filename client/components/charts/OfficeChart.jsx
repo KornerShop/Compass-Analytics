@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from 'recharts';
 
+import { GraphTile } from '../../styled/Layout';
 import CubeGrid from '../../styled/CubeGrid';
 
 class OfficeChart extends Component {
@@ -16,7 +17,7 @@ class OfficeChart extends Component {
   }
   render() {
     return (
-      <div>
+      <GraphTile>
         {this.props.officeData
           ? <AreaChart
             width={600}
@@ -44,7 +45,7 @@ class OfficeChart extends Component {
             />
           </AreaChart>
           : <CubeGrid color="#FF0080" size={60}/>}
-      </div>
+      </GraphTile>
     );
   }
 }

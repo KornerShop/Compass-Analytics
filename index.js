@@ -98,18 +98,6 @@ const handleRender = (req, res) => {
   if (context.url) {
     res.redirect(context.url);
   }
-  // try {
-  //   const file = fs.readFileSync('./index.html', 'utf8');
-  //   const document = file.replace(
-  //     /<div id="root"><\/div>/,
-  //     `<div id="root">${body}</div>`
-  //   );
-  //   console.log(`\ndocument: ${document}\n`);
-  //   res.send(document);
-  // } catch(err) {
-  //   console.log(err);
-  // }
-  console.log(`document: ${renderFullPage('Compass Analytics', css, html)}`);
   res.send(renderFullPage('Compass Analytics', css, html));
 };
 

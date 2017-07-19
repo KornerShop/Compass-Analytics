@@ -22,7 +22,6 @@ const Header = styled.div`
 
 const Heading = styled.h1`
   margin: 0;
-  font-style: italic;
   text-transform: uppercase;
 `;
 

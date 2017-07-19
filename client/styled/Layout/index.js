@@ -4,6 +4,7 @@ export const GraphLayout = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 2em;
 `;
 
 export const GraphTile = styled.div`
@@ -11,6 +12,6 @@ export const GraphTile = styled.div`
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  height: 49vh;
-  width: 49vw;
+  height: 50%;
+  width: 50%;
 `;

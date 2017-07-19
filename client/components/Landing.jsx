@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import CubeGrid from '../styled/CubeGrid';
@@ -18,56 +18,58 @@ const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: ${props => (props.loading ? '3em 0 0 0' : '3em 0 5em 0')};
+  margin: ${props => (props.loading ? '3em 0 0 0' : '3em 0 3em 0')};
 `;
 
 const Heading = styled.h1`
   margin: 0;
-  text-transform: uppercase;
+  ${'' /* text-transform: uppercase; */}
 `;
 
-const Landing = ({
-  langData,
-  navData,
-  officeData,
-  zipData,
-  populateLang,
-  populateNav,
-  populateOffice,
-  populateZip,
-}) =>
-  <Page>
-    <Header loading={!(langData && navData && officeData && zipData)}>
-      <Heading>Compass Analytics</Heading>
-    </Header>
-    {langData && navData && officeData && zipData
-      ? <GraphLayout>
-        <LanguageChart
-          langData={langData}
-          populateLang={populateLang}
-        />
-        <OfficeChart
-          officeData={officeData}
-          populateOffice={populateOffice}
-        />
-        <NavigationChart
-          navData={navData}
-          populateNav={populateNav}
-        />
-        <ZipCodeChart zipData={zipData} populateZip={populateZip} />
-      </GraphLayout>
-      : <div
-        style={{
-            display: 'flex',
-            flexDirection: 'column',
-            height: '70vh',
-            width: '100%',
-            justifyContent: 'center',
-            alignContent: 'center',
-        }}
-        >
-        <CubeGrid color="#FF0080" size={60} />
-        </div>}
-  </Page>;
+const LoadingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+`
+
+class Landing extends Component {
+  constructor(props) {
+    super(props)
+  }
+  componentDidMount() {
+    this.props.populateLang();
+    this.props.populateOffice();
+    this.props.populateNav();
+    this.props.populateZip();
+  }
+  render() {
+    return (
+      <Page>
+        <Header loading={!(this.props.langData && this.props.navData && this.props.officeData && this.props.zipData)}>
+          <Heading>Compass Analytics</Heading>
+        </Header>
+        {this.props.langData && this.props.navData && this.props.officeData && this.props.zipData
+          ? <GraphLayout>
+            <LanguageChart
+              langData={this.props.langData}
+            />
+            <OfficeChart
+              officeData={this.props.officeData}
+            />
+            <NavigationChart
+              navData={this.props.navData}
+            />
+            <ZipCodeChart zipData={this.props.zipData} />
+          </GraphLayout>
+          : <LoadingWrapper>
+            <CubeGrid color="#FF0080" size={60} />
+          </LoadingWrapper>}
+      </Page>
+    )
+  }
+}
 
 export default Landing;

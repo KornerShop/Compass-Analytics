@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from 'recharts';
 
+import { GraphTile } from '../../styled/Layout';
 import CubeGrid from '../../styled/CubeGrid';
 
 class ZipCodeChart extends Component {
@@ -17,7 +18,7 @@ class ZipCodeChart extends Component {
   }
   render() {
     return (
-      <div>
+      <GraphTile>
         {this.props.zipData
           ? <BarChart
             width={580}
@@ -49,7 +50,7 @@ class ZipCodeChart extends Component {
             />
           </BarChart>
           : <CubeGrid color="#FF0080" size={60}/>}
-      </div>
+      </GraphTile>
     );
   }
 }

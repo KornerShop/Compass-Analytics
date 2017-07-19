@@ -3,7 +3,7 @@ const moment = require('moment');
 module.exports = () => {
   const offices = [];
   for (let i = 7; i >= 0; i--) {
-    for (let j = Math.floor(Math.random() * 100 + 1); j >= 1; j--) {
+    for (let j = Math.floor(Math.random() * 13 + 1); j >= 1; j--) {
       if (i === 0) {
         offices.push(moment().format('l'));
       } else {

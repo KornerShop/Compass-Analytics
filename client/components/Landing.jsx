@@ -1,8 +1,30 @@
 import React from 'react';
-import LanguageChart from './charts/Language';
-import ZipCodeChart from './charts/ZipCode';
-import OfficeChart from './charts/Office';
-import NavigationChart from './charts/Navigation';
+import styled from 'styled-components';
+
+import { GraphLayout } from '../styled/Layout';
+import LanguageChart from './charts/LanguageChart';
+import ZipCodeChart from './charts/ZipCodeChart';
+import OfficeChart from './charts/OfficeChart';
+import NavigationChart from './charts/NavigationChart';
+
+const Page = styled.div`
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+`;
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: ${props => (props.loading ? '3em 0 0 0' : '3em 0 5em 0')};
+`;
+
+const Heading = styled.h1`
+  margin: 0;
+  font-style: italic;
+  text-transform: uppercase;
+`;
 
 const Landing = ({
   langData,
@@ -14,24 +36,26 @@ const Landing = ({
   populateOffice,
   populateZip,
 }) =>
-  <div
-    style={{
-      fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif`,
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-    }}
-  >
-    <LanguageChart langData={langData} populateLang={populateLang} />
-    <OfficeChart
-      officeData={officeData}
-      populateOffice={populateOffice}
-    />
-    <NavigationChart navData={navData} populateNav={populateNav} />
-    <ZipCodeChart zipData={zipData} populateZip={populateZip} />
-  </div>;
+  <Page>
+    <Header
+      loading={
+        !(langData && navData && officeData && zipData)
+      }
+    >
+      <Heading>Compass Analytics</Heading>
+    </Header>
+    <GraphLayout>
+      <LanguageChart
+        langData={langData}
+        populateLang={populateLang}
+      />
+      <OfficeChart
+        officeData={officeData}
+        populateOffice={populateOffice}
+      />
+      <NavigationChart navData={navData} populateNav={populateNav} />
+      <ZipCodeChart zipData={zipData} populateZip={populateZip} />
+    </GraphLayout>
+  </Page>;
 
 export default Landing;

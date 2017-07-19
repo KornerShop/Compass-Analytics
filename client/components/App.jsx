@@ -36,9 +36,6 @@ class App extends Component {
     this.populateNavData = this.populateNavData.bind(this);
     this.populateZipData = this.populateZipData.bind(this);
   }
-  componentDidMount() {
-    document.getElementById('root-wrapper').style.display ='block';
-  }
   populateLangData() {
     this.socket.on('populate-lang-data', langData => {
       this.setState({ langData });

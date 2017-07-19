@@ -21,10 +21,10 @@ class NavigationChart extends Component {
       <GraphTile>
         {this.props.navData
           ? <LineChart
-              width={580}
-              height={250}
-              data={this.props.navData}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            width={580}
+            height={250}
+            data={this.props.navData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             >
               <XAxis dataKey="date" />
               <YAxis />

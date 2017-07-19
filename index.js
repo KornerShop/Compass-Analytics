@@ -4,6 +4,20 @@ require('babel-register')({
   presets: ['env', 'react'],
 });
 
+const mongoose = require('mongoose');
+const http = require('http');
+const express = require('express');
+const compression = require('compression');
+const socketio = require('socket.io');
+const React = require('react');
+const { renderToString } = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom');
+const fs = require('fs');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpack = require('webpack');
+const { ServerStyleSheet } = require('styled-components');
+
 const {
   populateLang,
   updateLang,
@@ -22,20 +36,6 @@ const {
 } = require('./server/navigation/navigation.controller');
 
 const config = require('./server/config/config');
-const mongoose = require('mongoose');
-const http = require('http');
-const express = require('express');
-const compression = require('compression');
-const socketio = require('socket.io');
-const React = require('react');
-const { renderToString } = require('react-dom/server');
-const { StaticRouter } = require('react-router-dom');
-const fs = require('fs');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpack = require('webpack');
-const { ServerStyleSheet } = require('styled-components');
-
 const wpConfig = require('./config/webpack.config');
 const App = require('./client/components/App').default;
 
@@ -67,30 +67,50 @@ app.use(compression());
 
 app.use('/dist', express.static('./dist'));
 
-const sheet = new ServerStyleSheet();
+const renderFullPage = (title, css, html) => `
+  <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          <title>${title}</title>
+          ${css}
+        </head>
+        <body>
+          <div id="root">${html}</div>
+          <script src="/dist/bundle.js"></script>
+        </body>
+      </html>
+  `;
 
 const handleRender = (req, res) => {
   const context = {};
-  const body = renderToString(
+  const sheet = new ServerStyleSheet();
+  const html = renderToString(
     React.createElement(
       StaticRouter,
       { location: req.url, context },
       sheet.collectStyles(React.createElement(App))
     )
   );
+  const css = sheet.getStyleTags();
   if (context.url) {
     res.redirect(context.url);
   }
-  fs.readFile('./index.html', 'utf8', (err, file) => {
-    if (err) {
-      console.log(err);
-    }
-    const document = file.replace(
-      /<div id="root"><\/div>/,
-      `<div id="root">${body}</div>`
-    );
-    res.send(document);
-  });
+  // try {
+  //   const file = fs.readFileSync('./index.html', 'utf8');
+  //   const document = file.replace(
+  //     /<div id="root"><\/div>/,
+  //     `<div id="root">${body}</div>`
+  //   );
+  //   console.log(`\ndocument: ${document}\n`);
+  //   res.send(document);
+  // } catch(err) {
+  //   console.log(err);
+  // }
+  console.log(`document: ${renderFullPage('Compass Analytics', css, html)}`);
+  res.send(renderFullPage('Compass Analytics', css, html));
 };
 
 io.on('connection', socket => {

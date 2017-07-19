@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import SocketClient from 'socket.io-client';
 import styled from 'styled-components';
 
@@ -28,13 +29,15 @@ class App extends Component {
       navData: null,
       zipData: null,
     };
-    // envars needed (definePlugin)
     /* eslint-disable no-undef */
     this.socket = SocketClient(NGROK_ADDR);
     this.populateLangData = this.populateLangData.bind(this);
     this.populateOfficeData = this.populateOfficeData.bind(this);
     this.populateNavData = this.populateNavData.bind(this);
     this.populateZipData = this.populateZipData.bind(this);
+  }
+  componentDidMount() {
+    document.getElementById('root-wrapper').style.display ='block';
   }
   populateLangData() {
     this.socket.on('populate-lang-data', langData => {
@@ -58,13 +61,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          minHeight: '100vh',
-        }}
-      >
+      <div>
         <Switch>
           <Route
             exact

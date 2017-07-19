@@ -41,10 +41,8 @@ module.exports = {
             plugins: [
               'react-hot-loader/babel',
               'transform-es2015-modules-commonjs',
-              'babel-plugin-transform-async-to-generator',
-              ["styled-components", {
-                "ssr": true
-              }]
+              'transform-async-to-generator',
+              'recharts',
             ],
           },
         },

@@ -11,22 +11,20 @@ class LanguageChart extends Component {
   render() {
     return (
       <GraphTile>
-        {this.props.langData
-          ? <PieChart width={600} height={500}>
-            <Pie
-              data={this.props.langData}
-              dataKey="value"
-              nameKey="_id"
-              cx={500}
-              cy={200}
-              innerRadius={40}
-              outerRadius={80}
-              fill="#82ca9d"
-              label
-            />
-            <Tooltip />
-            </PieChart>
-          : <CubeGrid color="#FF0080" size={60} />}
+        <PieChart width={600} height={500}>
+          <Pie
+            data={this.props.langData}
+            dataKey="value"
+            nameKey="_id"
+            cx={500}
+            cy={200}
+            innerRadius={40}
+            outerRadius={80}
+            fill="#82ca9d"
+            label
+          />
+          <Tooltip />
+        </PieChart>
       </GraphTile>
     );
   }

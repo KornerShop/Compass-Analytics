@@ -1,6 +1,6 @@
-module.exports = navData => {
+module.exports = longitudinalData => {
   const formattedData = [];
-  navData.forEach(obj => {
+  longitudinalData.forEach(obj => {
     if (
       !formattedData.find(
         (element, idx) => element.date === obj._id.date

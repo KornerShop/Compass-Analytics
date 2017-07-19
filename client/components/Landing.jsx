@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import CubeGrid from '../styled/CubeGrid';
 import { GraphLayout } from '../styled/Layout';
 import LanguageChart from './charts/LanguageChart';
 import ZipCodeChart from './charts/ZipCodeChart';
@@ -36,25 +37,37 @@ const Landing = ({
   populateZip,
 }) =>
   <Page>
-    <Header
-      loading={
-        !(langData && navData && officeData && zipData)
-      }
-    >
+    <Header loading={!(langData && navData && officeData && zipData)}>
       <Heading>Compass Analytics</Heading>
     </Header>
-    <GraphLayout>
-      <LanguageChart
-        langData={langData}
-        populateLang={populateLang}
-      />
-      <OfficeChart
-        officeData={officeData}
-        populateOffice={populateOffice}
-      />
-      <NavigationChart navData={navData} populateNav={populateNav} />
-      <ZipCodeChart zipData={zipData} populateZip={populateZip} />
-    </GraphLayout>
+    {langData && navData && officeData && zipData
+      ? <GraphLayout>
+        <LanguageChart
+          langData={langData}
+          populateLang={populateLang}
+        />
+        <OfficeChart
+          officeData={officeData}
+          populateOffice={populateOffice}
+        />
+        <NavigationChart
+          navData={navData}
+          populateNav={populateNav}
+        />
+        <ZipCodeChart zipData={zipData} populateZip={populateZip} />
+      </GraphLayout>
+      : <div
+        style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '70vh',
+            width: '100%',
+            justifyContent: 'center',
+            alignContent: 'center',
+        }}
+        >
+        <CubeGrid color="#FF0080" size={60} />
+        </div>}
   </Page>;
 
 export default Landing;

@@ -98,6 +98,7 @@ const handleRender = (req, res) => {
   if (context.url) {
     res.redirect(context.url);
   }
+  console.log(`\nserver doc: ${renderFullPage('Compass Analytics', css, html)}\n`);
   res.send(renderFullPage('Compass Analytics', css, html));
 };
 

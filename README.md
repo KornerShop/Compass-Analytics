@@ -1,3 +1,6 @@
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 # Compass-Analytics
 Compass Analytics recieves and displays data from [Compass](https://github.com/KornerShop/Compass-Native), a React Native mobile app. This data reflects anonymous information about our mobile app users such as: language preference, location (by way of zip code), number of times users initiated map navigation for both SNAP and WIC offices, and which office the user wanted to locate. 
 

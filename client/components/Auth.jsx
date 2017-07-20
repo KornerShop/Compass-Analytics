@@ -1,9 +1,5 @@
 /*
 TO-DO:
-- get comfortable w/ button style
-- Validate inputs (see NYT react)
-- Input shakes horizontally on submission if not valid
-- Just clear for now on valid submission
 - Move onto Auth0 redux example
 - React router auth routes
  */
@@ -32,7 +28,7 @@ const AuthPanel = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 425px;
+  height: 400px;
   width: 375px;
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 5px;
@@ -53,9 +49,9 @@ const StyledInput = styled.input`
   text-align: left;
   font-size: .75em;
   width: 18em;
-  color: ${props => (props.valid ? '#000' : '#FF0080')};
+  color: ${props => (props.valid ? '#000' : '#ff1744')};
   border-bottom: ${props =>
-    props.valid ? '.1em solid #9e9e9e' : '.1em solid #FF0080'};
+    props.valid ? '.1em solid #9e9e9e' : '.1em solid #ff1744'};
   margin: 1em;
   background-image: ${props => {
     if (props.username) {
@@ -70,7 +66,7 @@ const StyledInput = styled.input`
   background-size: 22px;
   &:hover {
     border-bottom-color: ${props =>
-      props.valid ? '#000' : '#FF0080'};
+      props.valid ? '#000' : '#ff1744'};
   }
   &::selection {
     background: #79ffe1;
@@ -81,7 +77,7 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
     border-bottom-color: ${props =>
-      props.valid ? 'color: #000' : 'color: #FF0080'};
+      props.valid ? 'color: #000' : 'color: #ff1744'};
   }
 `;
 
@@ -180,7 +176,7 @@ class Auth extends Component {
               username
               name="username"
               type="text"
-              placeholder="Username"
+              placeholder="username"
               valid={this.state.usernameValid}
               value={this.state.username}
               onChange={this.handleChange}
@@ -188,8 +184,8 @@ class Auth extends Component {
             <StyledInput
               password
               name="password"
-              type="text"
-              placeholder="Password"
+              type="password"
+              placeholder="password"
               valid={this.state.passwordValid}
               value={this.state.password}
               onChange={this.handleChange}

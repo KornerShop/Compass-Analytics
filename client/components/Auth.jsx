@@ -1,3 +1,13 @@
+/*
+TO-DO:
+- get comfortable w/ button style
+- Validate inputs (see NYT react)
+- Input shakes horizontally on submission if not valid
+- Just clear for now on valid submission
+- Move onto Auth0 redux example
+- React router auth routes
+ */
+
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -131,8 +141,8 @@ class Auth extends Component {
             alt="Compass Icon"
             style={{
               marginTop: 40,
-              height: 80,
-              width: 80,
+              height: 60,
+              width: 60,
             }}
           />
           <AuthForm

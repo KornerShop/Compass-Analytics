@@ -43,7 +43,7 @@ const AuthForm = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`
+`;
 
 const StyledInput = styled.input`
   border: none;
@@ -59,11 +59,11 @@ const StyledInput = styled.input`
   margin: 1em;
   background-image: ${props => {
     if (props.username) {
-      return "url('https://image.flaticon.com/icons/svg/126/126491.svg')"
+      return "url('https://image.flaticon.com/icons/svg/126/126491.svg')";
     } else if (props.password) {
-      return "url('https://image.flaticon.com/icons/svg/117/117129.svg')"
+      return "url('https://image.flaticon.com/icons/svg/117/117129.svg')";
     }
-    return null
+    return null;
   }};
   background-repeat: no-repeat;
   background-position: right;
@@ -118,7 +118,7 @@ class Auth extends Component {
       password: '',
       usernameValid: true,
       passwordValid: true,
-      valid: true
+      valid: true,
     };
     this.state = this.initialState;
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -142,15 +142,22 @@ class Auth extends Component {
   }
   handleChange(evt) {
     this.setState({
-      valid:
-        this.usernameInput.value.length > 2 &&
-        this.passwordInput.value.length > 3,
       [evt.target.name]: evt.target.value,
+      [`${evt.target.name}Valid`]:
+        evt.target.name === 'username'
+          ? evt.target.value.match(
+              /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/,
+            )
+          : evt.target.value.match(
+              /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            ),
     });
   }
   handleSubmit(evt) {
     evt.preventDefault();
-    this.setState(this.initialState);
+    this.state.usernameValid && this.state.passwordValid
+      ? this.setState(this.initialState)
+      : (function noop() {})();
   }
   render() {
     return (
@@ -183,8 +190,8 @@ class Auth extends Component {
               name="password"
               type="text"
               placeholder="Password"
-              valid={this.state.valid}
-              value={this.state.passwordValid}
+              valid={this.state.passwordValid}
+              value={this.state.password}
               onChange={this.handleChange}
             />
             <SubmitButton type="submit" value="Submit" />

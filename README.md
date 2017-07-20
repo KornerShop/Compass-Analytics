@@ -19,7 +19,7 @@ We envision this data being used by government agencys, foodbanks or non-profits
 * MongoDB/Mongoose Ⓜ️
 * Styled Components 💅🏼
 * Webpack (w/hot module reloading) 🔥
-* Babel🗣
+* Babel 🗣
 
 ### Tested using:
-* Jest 📝
+* Jest/Enzyme 📝

@@ -6,6 +6,9 @@ import styled from 'styled-components';
 
 import { NGROK_ADDR } from '../../config/envars';
 
+import global from '../styled/global'
+
+import Auth from './Auth';
 import Landing from './Landing';
 
 const H404 = styled.h1`
@@ -60,21 +63,22 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <Route
+          {/* <Route
             exact
             path="/"
             component={() =>
               <Landing
-                langData={this.state.langData}
-                officeData={this.state.officeData}
-                navData={this.state.navData}
-                zipData={this.state.zipData}
-                populateLang={this.populateLangData}
-                populateOffice={this.populateOfficeData}
-                populateNav={this.populateNavData}
-                populateZip={this.populateZipData}
+            langData={this.state.langData}
+            officeData={this.state.officeData}
+            navData={this.state.navData}
+            zipData={this.state.zipData}
+            populateLang={this.populateLangData}
+            populateOffice={this.populateOfficeData}
+            populateNav={this.populateNavData}
+            populateZip={this.populateZipData}
               />}
-          />
+          /> */}
+          <Route exact path="/" component={Auth} />
           <Route component={FourOhFour} />
         </Switch>
       </div>

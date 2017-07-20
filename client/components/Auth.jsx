@@ -19,8 +19,8 @@ const BackgroundImage = styled.div`
   height: 100vh;
   width: 100vw;
   background: linear-gradient(
-      rgba(0, 0, 128, 0.35),
-      rgba(0, 0, 128, 0.35)
+      rgba(0, 128, 128, 0.4),
+      rgba(0, 128, 128, 0.4)
     ),
     url('http://images.medicaldaily.com/sites/medicaldaily.com/files/2014/07/04/german-grocery-store-banishes-food-packaging.jpg')
       no-repeat center center fixed;
@@ -32,8 +32,8 @@ const AuthPanel = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 500px;
-  width: 500px;
+  height: 425px;
+  width: 375px;
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 5px;
 `;
@@ -56,7 +56,7 @@ const StyledInput = styled.input`
   color: ${props => (props.valid ? '#000' : '#FF0080')};
   border-bottom: ${props =>
     props.valid ? '.1em solid #9e9e9e' : '.1em solid #FF0080'};
-  margin: 1.5em;
+  margin: 1em;
   background-image: ${props => {
     if (props.username) {
       return "url('https://image.flaticon.com/icons/svg/126/126491.svg')"
@@ -67,7 +67,7 @@ const StyledInput = styled.input`
   }};
   background-repeat: no-repeat;
   background-position: right;
-  background-size: 25px;
+  background-size: 22px;
   &:hover {
     border-bottom-color: ${props =>
       props.valid ? '#000' : '#FF0080'};
@@ -85,16 +85,29 @@ const StyledInput = styled.input`
   }
 `;
 
-const Submit = styled.input`
-  padding: 10px 70px;
+const SubmitButton = styled.input`
+  padding: 10px 110px;
   color: white;
   font-size: .75em;
-  background-color: tomato;
+  background-color: #ff1744;
   text-decoration: none;
-  border-radius: 20px;
+  border-radius: 5px;
   border: none;
-  margin: 2em;
+  margin: 2em 0 3em 0;
   text-transform: uppercase;
+  box-shadow: 0 3px #999;
+
+  &:hover {
+    background-color: #e53935;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    background-color: #e53935;
+    box-shadow: none;
+    transform: translateY(2px);
+  }
 `;
 
 class Auth extends Component {
@@ -103,13 +116,16 @@ class Auth extends Component {
     this.initialState = {
       username: '',
       password: '',
-      valid: true,
+      usernameValid: true,
+      passwordValid: true,
+      valid: true
     };
     this.state = this.initialState;
-    this.onKeyPress = this.onKeyPress.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  onKeyPress(evt) {
+  handleKeyPress(evt) {
     if (evt.key === 'Enter') {
       if (
         this.state.valid &&
@@ -132,6 +148,10 @@ class Auth extends Component {
       [evt.target.name]: evt.target.value,
     });
   }
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.setState(this.initialState);
+  }
   render() {
     return (
       <BackgroundImage>
@@ -141,20 +161,20 @@ class Auth extends Component {
             alt="Compass Icon"
             style={{
               marginTop: 40,
-              height: 60,
-              width: 60,
+              height: 70,
+              width: 70,
             }}
           />
           <AuthForm
-            onSubmit={() => {}}
-            onKeyPress={this.onKeyPress}
+            onSubmit={this.handleSubmit}
+            onKeyPress={this.handleKeyPress}
           >
             <StyledInput
               username
               name="username"
               type="text"
               placeholder="Username"
-              valid={this.state.valid}
+              valid={this.state.usernameValid}
               value={this.state.username}
               onChange={this.handleChange}
             />
@@ -164,10 +184,10 @@ class Auth extends Component {
               type="text"
               placeholder="Password"
               valid={this.state.valid}
-              value={this.state.password}
+              value={this.state.passwordValid}
               onChange={this.handleChange}
             />
-            <Submit type="submit" value="Submit" />
+            <SubmitButton type="submit" value="Submit" />
           </AuthForm>
         </AuthPanel>
       </BackgroundImage>

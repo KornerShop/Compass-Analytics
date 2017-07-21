@@ -1,9 +1,3 @@
-/*
-TO-DO:
-- Move onto Auth0 redux example
-- React router auth routes
- */
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 

@@ -5,7 +5,7 @@ const config = {
   test: 'testing',
   prod: 'production',
   port: process.env.PORT || 8080,
-  expireTime: 24 * 60 * 10,
+  expiresIn: 24 * 60 * 10,
   secrets: {
     jwt: randtoken.generate(64)
   }

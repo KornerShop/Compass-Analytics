@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const { genToken, decodeToken } = require('../utils/jwt.js');
 const User = require('./model');
 
@@ -14,30 +16,32 @@ exports.login = (req, res) => {
     if (err) {
       console.error(err);
     }
+    console.log(`user: ${JSON.stringify(user, null, 2)}`);
     if (!user) {
-      res.status(401).send('No user with the given username');
+      res.status(401).json('No user with the given username');
       res.end();
     } else if (!user.authenticate(password)) {
-      res.status(401).send('Incorrect password');
+      res.status(401).json('Incorrect password');
       res.end();
     } else {
       const token = genToken(user);
       res.status(200).json({
         token,
       });
+      res.end();
     }
   });
 };
 
 exports.verify = (req, res) => {
-  const {
-    authorization: { token },
-  } = req.headers.authorization.replace('Bearer ', '');
+  const { authorization: rawToken } = req.headers;
+  const token = rawToken.replace('Bearer ', '');
   decodeToken(token, (err, user) => {
     if (err) {
       res.status(401).send('Invalid token');
       res.end();
     }
+    console.log(`user: ${JSON.stringify(user, null, 2)}`);
     User.findById(
       {
         _id: user._id,
@@ -51,6 +55,7 @@ exports.verify = (req, res) => {
         res.status(200).json({
           token: newToken,
         });
+        res.end();
       },
     );
   });

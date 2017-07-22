@@ -1,26 +1,24 @@
-const { Schema, model } = require('mongoose');
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
 UserSchema.pre('save', function(next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
+  if (!this.isModified('password')) { return next(); }
   this.password = this.encryptPassword(this.password);
   return next();
-});
+})
 
 UserSchema.methods = {
   authenticate(plainTextPword) {
@@ -28,16 +26,12 @@ UserSchema.methods = {
   },
   encryptPassword(plainTextPword) {
     if (!plainTextPword) {
-      return '';
+      return ''
     }
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(plainTextPword, salt);
-  },
-  toJson() {
-    const obj = this.toObject();
-    delete obj.password;
-    return obj;
-  },
+  }
 };
 
-module.exports = model('user', UserSchema);
+
+module.exports = mongoose.model('user', UserSchema);

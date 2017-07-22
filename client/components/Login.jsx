@@ -75,6 +75,17 @@ const StyledInput = styled.input`
   }
 `;
 
+const LoginError = styled.p`
+  font-family: -apple-system, BlinkMacSystemFont,
+  "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans",
+  "Droid Sans", "Helvetica Neue", sans-serif;
+  color: #ff1744;
+  font-size: .7em;
+  margin: .4em 0 0 0;
+  font-style: italic;
+`
+
 const SubmitButton = styled.input`
   padding: 10px 110px;
   color: white;
@@ -83,7 +94,7 @@ const SubmitButton = styled.input`
   text-decoration: none;
   border-radius: 5px;
   border: none;
-  margin: 2em 0 3em 0;
+  margin: 1.5em 0 3em 0;
   text-transform: uppercase;
   box-shadow: 0 3px #999;
 
@@ -108,7 +119,7 @@ class Auth extends Component {
       password: '',
       usernameValid: true,
       passwordValid: true,
-      valid: true,
+      valid: false,
     };
     this.state = this.initialState;
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -122,11 +133,12 @@ class Auth extends Component {
         this.state.username !== '' &&
         this.state.password !== ''
       ) {
-        this.setState({
-          username: '',
-          password: '',
-          valid: false,
-        });
+        return this.state.valid
+          ? this.props.loginUser({
+              username: this.state.username,
+              password: this.state.password,
+            })
+          : (function noop() {})();
       }
     }
   }
@@ -135,18 +147,28 @@ class Auth extends Component {
       [evt.target.name]: evt.target.value,
       [`${evt.target.name}Valid`]:
         evt.target.name === 'username'
-          ? evt.target.value.match(
-              /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/,
+          ? /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/.test(
+              evt.target.value,
             )
-          : evt.target.value.match(
-              /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+          : /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
+              evt.target.value,
             ),
+      valid:
+        /(?=^.{3,20}$)^[a-zA-Z][a-zA-Z0-9]*[._-]?[a-zA-Z0-9]+$/.test(
+          evt.target.value,
+        ) &&
+        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
+          evt.target.value,
+        ),
     });
   }
   handleSubmit(evt) {
     evt.preventDefault();
-    this.state.usernameValid && this.state.passwordValid
-      ? this.setState(this.initialState)
+    return this.state.valid
+      ? this.props.loginUser({
+          username: this.state.username,
+          password: this.state.password,
+        })
       : (function noop() {})();
   }
   render() {
@@ -184,6 +206,11 @@ class Auth extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
+            {this.props.errorMessage !== '' &&
+              <LoginError
+              >
+                {this.props.errorMessage}
+              </LoginError>}
             <SubmitButton type="submit" value="Submit" />
           </AuthForm>
         </AuthPanel>

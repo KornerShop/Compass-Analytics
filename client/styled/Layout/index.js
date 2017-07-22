@@ -5,7 +5,9 @@ export const GraphLayout = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 2em;
+  height: 100%;
+  width: 100%;
+  padding: 6em 0;
 
   ${media.desktop`
     padding: 2em;
@@ -20,8 +22,9 @@ export const GraphTile = styled.div`
   flex-direction: column;
   justify-content: center;
   align-content: flex-end;
-  height: 50%;
-  width: 50%;
+  height: 40%;
+  width: 40%;
+  background-color: white;
 
   ${media.desktop`
     height: 100%;

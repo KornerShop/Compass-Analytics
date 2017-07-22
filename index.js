@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+
 require('babel-polyfill');
 require('babel-register')({
   presets: ['env', 'react'],
@@ -8,6 +9,7 @@ const mongoose = require('mongoose');
 const http = require('http');
 const express = require('express');
 const compression = require('compression');
+const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 const React = require('react');
 const { renderToString } = require('react-dom/server');
@@ -58,12 +60,14 @@ if (config.seed) {
 const compiler = webpack(wpConfig);
 app.use(
   webpackDevMiddleware(compiler, {
-    publicPath: wpConfig.output.publicPath
+    publicPath: wpConfig.output.publicPath,
   })
 );
 app.use(webpackHotMiddleware(compiler));
 
 app.use(compression());
+
+app.use(bodyParser.json());
 
 app.use('/dist', express.static('./dist'));
 
@@ -96,10 +100,11 @@ const handleRender = (req, res) => {
   );
   const css = sheet.getStyleTags();
   if (context.url) {
-    res.redirect(context.url);
+    res.redirect(301, context.url);
     res.end();
   }
   res.send(renderFullPage('Compass Analytics', css, html));
+  res.end();
 };
 
 io.on('connection', socket => {
@@ -122,7 +127,13 @@ io.on('connection', socket => {
   });
 });
 
-app.get('*', handleRender);
+app.use(require('./server/user/routes'));
+
+app.use(handleRender);
+
+app.use((err, req, res) => {
+  console.error(err);
+});
 
 server.listen(PORT, () =>
   console.log(`server listening at http://localhost:${PORT}`)

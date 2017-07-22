@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
+
 const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
 
 const {
   expiresIn,
@@ -11,4 +12,6 @@ exports.genToken = ({ _id, username }) =>
     expiresIn,
   });
 
-exports.checkToken = expressJwt({ secret });
+exports.decodeToken = (token, cb) => {
+  jwt.verify(token, secret, cb);
+};

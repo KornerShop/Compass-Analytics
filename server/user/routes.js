@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const  = require('./controller');
-const auth = require('../auth/auth');
-
-const checkUser = [auth.decodeToken(), auth.getFreshUser()];
+const { login, verify } = require('./controller');
 
 router.route('/users/login')
-  .post(controller.post);
+  .post(login);
+
+router.route('/users/verify')
+  .post(verify);
 
 module.exports = router;

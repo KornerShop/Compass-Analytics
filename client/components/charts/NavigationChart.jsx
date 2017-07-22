@@ -9,24 +9,32 @@ import {
   Tooltip,
 } from 'recharts';
 
-import { GraphTile } from '../../styled/Layout';
+import { GraphHeading, GraphTile } from '../../styled/Layout';
 
 const NavigationChart = ({ navData }) =>
-  <GraphTile>
-    <h3 style={{textAlign: 'center'}}>Navigation Iniated</h3>
-    <LineChart
-      width={500}
-      height={250}
-      data={navData}
-    >
-      <XAxis dataKey="date" />
-      <YAxis />
-      <CartesianGrid strokeDasharray="3 3" />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="WIC" stroke="#8884d8" />
-      <Line type="monotone" dataKey="SNAP" stroke="#82ca9d" />
-    </LineChart>
-  </GraphTile>;
+  <div style={{ margin: '0 2em' }}>
+    <GraphHeading>Navigation Initiated</GraphHeading>
+    <GraphTile>
+      <LineChart
+        width={500}
+        height={250}
+        data={navData}
+        margin={{
+          top: 30,
+          right: 60,
+          left: 0,
+          bottom: 20,
+        }}
+      >
+        <XAxis dataKey="date" />
+        <YAxis />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="WIC" stroke="#8884d8" />
+        <Line type="monotone" dataKey="SNAP" stroke="#82ca9d" />
+      </LineChart>
+    </GraphTile>
+  </div>;
 
 export default NavigationChart;

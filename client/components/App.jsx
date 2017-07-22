@@ -62,7 +62,6 @@ class App extends Component {
     this.fetchChartData = this.fetchChartData.bind(this);
   }
   async componentDidMount() {
-    this.fetchChartData();
     const token = localStorage.getItem('token');
     if (token) {
       try {
@@ -83,10 +82,11 @@ class App extends Component {
         console.error(err);
       }
     }
-    return this.setState({
+    this.setState({
       authenticated: false,
       fetching: false,
     });
+    this.fetchChartData();
   }
   async loginUser({ username, password }) {
     this.setState(this.requestLogin);

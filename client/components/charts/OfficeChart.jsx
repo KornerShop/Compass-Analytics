@@ -8,35 +8,35 @@ import {
   Tooltip,
 } from 'recharts';
 
-import { GraphTile } from '../../styled/Layout';
+import { GraphHeading, GraphTile } from '../../styled/Layout';
 
 const OfficeChart = ({ officeData }) =>
-  <GraphTile>
-    <h3 style={{textAlign: 'center'}}>Office Searched</h3>
-    <AreaChart
-      width={500}
-      height={250}
-      data={officeData}
-    >
-      <XAxis dataKey="date" />
-      <YAxis />
-      <CartesianGrid strokeDasharray="3 3" />
-      <Tooltip />
-      <Area
-        type="monotone"
-        dataKey="WIC"
-        stackId="1"
-        stroke="#8884d8"
-        fill="#8884d8"
-      />
-      <Area
-        type="monotone"
-        dataKey="SNAP"
-        stackId="1"
-        stroke="#82ca9d"
-        fill="#82ca9d"
-      />
-    </AreaChart>
-  </GraphTile>;
+  <div style={{ margin: '0 2em' }}>
+    <GraphHeading>Office Searched</GraphHeading>
+    <GraphTile>
+      <AreaChart width={510} height={250} data={officeData} margin={{
+        top: 30, right: 60, left: 0, bottom: 20
+      }}>
+        <XAxis dataKey="date" />
+        <YAxis />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <Area
+          type="monotone"
+          dataKey="WIC"
+          stackId="1"
+          stroke="#8884d8"
+          fill="#8884d8"
+        />
+        <Area
+          type="monotone"
+          dataKey="SNAP"
+          stackId="1"
+          stroke="#82ca9d"
+          fill="#82ca9d"
+        />
+      </AreaChart>
+    </GraphTile>
+  </div>;
 
 export default OfficeChart;

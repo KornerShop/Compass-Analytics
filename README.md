@@ -13,7 +13,6 @@ We envision this data being used by government agencys, foodbanks or non-profits
 * Recharts (data visualization library) 📈
 * Express 💥
 * Node ✨🐢🚀✨
-* Auth 🔐
 * JSON Web Tokens 👾
 * Socket.io & Socket.io/client 🌐
 * MongoDB/Mongoose Ⓜ️

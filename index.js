@@ -97,6 +97,7 @@ const handleRender = (req, res) => {
   const css = sheet.getStyleTags();
   if (context.url) {
     res.redirect(context.url);
+    res.end();
   }
   res.send(renderFullPage('Compass Analytics', css, html));
 };

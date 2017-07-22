@@ -1,28 +1,30 @@
+const { genToken } = require('../utils/jwt.js');
 const User = require('./model');
 
-exports.params = (req, res, next, id) => {
-  User.findById(id)
-    .select('-password')
-    .exec()
-    .then(user => {
-      if (!user) {
-        next(new Error('No user with that id'));
-      } else {
-        req.user = user;
-        next();
-      }
-    }, err => {
-      next(err);
-    });
-};
+exports.post = (req, res) => {
+  const { username } = req.body;
+  const { password } = req.body;
 
-exports.get = (req, res, next) => {
-  User.find({})
-    .select('-password')
-    .exec()
-    .then(users => {
-      res.json(users.map(user => user.toJson()));
-    }, err => {
-      next(err);
-    });
+  if (!username || !password) {
+    res.status(400).send('Please enter both a username & password');
+    res.end();
+  }
+
+  User.findOne({ username }).exec((err, user) => {
+    if (err) {
+      console.error(err);
+    }
+    if (!user) {
+      res.status(401).send('No user with the given username');
+      res.end();
+    } else if (!user.authenticate(password)) {
+        res.status(401).send('Incorrect password');
+        res.end();
+      } else {
+        const token = genToken(user);
+        res.json({
+          token,
+        });
+      }
+  });
 };

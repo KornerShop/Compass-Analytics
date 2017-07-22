@@ -12,9 +12,9 @@ We envision this data being used by government agencys, foodbanks or non-profits
 * React & Redux ⚛️
 * Recharts (data visualization library) 📈
 * Express 💥
-* Node 👩🏽‍💻
+* Node ✨🐢🚀✨
 * Auth 🔐
-* JSON Web Tokens ✅
+* JSON Web Tokens 👾
 * Socket.io & Socket.io/client 🌐
 * MongoDB/Mongoose Ⓜ️
 * Styled Components 💅🏼

@@ -9,16 +9,17 @@ We envision this data being used by government agencys, foodbanks or non-profits
 
 ### Technologies used:
 * ES6/JavaScript 6️⃣
-* React & Redux ⚛️
-* Recharts (data visualization library) 📈
-* Express 💥
-* Node ✨🐢🚀✨
-* JSON Web Tokens 👾
-* Socket.io & Socket.io/client 🌐
-* MongoDB/Mongoose Ⓜ️
-* Styled Components 💅🏼
 * Webpack (w/hot module reloading) 🔥
 * Babel ✏️
+* React & Redux ⚛️
+* Styled Components 💅🏼
+* Recharts (data visualization library) 📈
+* Node ✨🐢🚀✨
+* Express 💥
+* Socket.io & Socket.io/client 🌐
+* MongoDB/Mongoose Ⓜ️
+* JSON Web Tokens 👾
 
-### Tested using:
-* Jest/Enzyme 📝
+### Tested with:
+* Jest 🤹‍♀️
+* Enzyme 👩‍🔬

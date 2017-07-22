@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import CubeGrid from '../styled/CubeGrid';
-import { GraphLayout } from '../styled/Layout';
+import { GraphLayout, GraphRow } from '../styled/Layout';
 import LanguageChart from './charts/LanguageChart';
 import ZipCodeChart from './charts/ZipCodeChart';
 import OfficeChart from './charts/OfficeChart';
@@ -12,7 +12,7 @@ const Page = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 `;
 
 const Header = styled.div`
@@ -23,7 +23,7 @@ const Header = styled.div`
   padding: 1em 0;
   width: 100%;
   background-color: white;
-  box-shadow: 0px 0px 40px 2px rgba(176,190,197,1);
+  box-shadow: 1px 1px 40px 8px rgba(176, 190, 197, 1);
   z-index: 1;
 `;
 
@@ -31,44 +31,39 @@ const Heading = styled.h1`
   margin: 0;
   text-transform: uppercase;
   font-size: 1em;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: .75em;
 `;
 
 const LoadingWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 100vh;
   width: 100%;
   justify-content: center;
   align-content: center;
+  background-color: #f3f3f3;
 `;
 
-const Landing = ({
-  langData,
-  navData,
-  officeData,
-  zipData
-}) => <Page>
-  <Header loading={!(langData && navData && officeData && zipData)}>
-    <Heading>Compass Analytics</Heading>
-  </Header>
-  {langData && navData && officeData && zipData
-    ? <GraphLayout>
-      <LanguageChart
-        langData={langData}
-      />
-      <OfficeChart
-        officeData={officeData}
-      />
-      <NavigationChart
-        navData={navData}
-      />
-      <ZipCodeChart zipData={zipData} />
-    </GraphLayout>
-    : <LoadingWrapper>
-      <CubeGrid color="#FF0080" size={60} />
-    </LoadingWrapper>}
-</Page>
+const Landing = ({ langData, navData, officeData, zipData }) =>
+  <Page>
+    <Header loading={!(langData && navData && officeData && zipData)}>
+      <Heading>Compass Analytics</Heading>
+    </Header>
+    {langData && navData && officeData && zipData
+      ? <GraphLayout>
+        <GraphRow>
+          <LanguageChart langData={langData} />
+          <OfficeChart officeData={officeData} />
+        </GraphRow>
+        <GraphRow>
+          <NavigationChart navData={navData} />
+          <ZipCodeChart zipData={zipData} />
+        </GraphRow>
+      </GraphLayout>
+      : <LoadingWrapper>
+        <CubeGrid color="#FF0080" size={50} />
+        </LoadingWrapper>}
+  </Page>;
 
 export default Landing;

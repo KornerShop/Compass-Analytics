@@ -19,7 +19,7 @@ const Header = styled.div`
   display: flex;
   position: fixed;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1em 0;
   width: 100%;
   background-color: white;
@@ -30,9 +30,10 @@ const Header = styled.div`
 const Heading = styled.h1`
   margin: 0;
   text-transform: uppercase;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1.05em;
+  font-weight: 700;
   letter-spacing: .75em;
+  padding-left: 4.5em
 `;
 
 const LoadingWrapper = styled.div`
@@ -49,20 +50,30 @@ const Landing = ({ langData, navData, officeData, zipData }) =>
   <Page>
     <Header loading={!(langData && navData && officeData && zipData)}>
       <Heading>Compass Analytics</Heading>
+      <img
+        src="https://image.flaticon.com/icons/svg/157/157938.svg"
+        alt="sign out"
+        style={{
+          height: '18px',
+          width: '18px',
+          paddingRight: '5em',
+          paddingTop: '.25em'
+        }}
+      />
     </Header>
     {langData && navData && officeData && zipData
       ? <GraphLayout>
-        <GraphRow>
-          <LanguageChart langData={langData} />
-          <OfficeChart officeData={officeData} />
-        </GraphRow>
-        <GraphRow>
-          <NavigationChart navData={navData} />
-          <ZipCodeChart zipData={zipData} />
-        </GraphRow>
-      </GraphLayout>
+          <GraphRow>
+            <LanguageChart langData={langData} />
+            <OfficeChart officeData={officeData} />
+          </GraphRow>
+          <GraphRow>
+            <NavigationChart navData={navData} />
+            <ZipCodeChart zipData={zipData} />
+          </GraphRow>
+        </GraphLayout>
       : <LoadingWrapper>
-        <CubeGrid color="#FF0080" size={50} />
+          <CubeGrid color="#FF0080" size={50} />
         </LoadingWrapper>}
   </Page>;
 

@@ -22,6 +22,7 @@ const Header = styled.div`
   position: fixed;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 1em 0;
   width: 100%;
   background-color: white;
@@ -33,15 +34,32 @@ const Header = styled.div`
   `}
 `;
 
+const LogoutButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: .5em 1.5em .5em 1.5em;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+  border-radius: 1em;
+  margin-right: 2em;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+    transform: translateY(1px)
+  }
+
+  &:active {
+    box-shadow: 2px 2px 4px rgba(0,0,0,.25);
+    transform: translateY(5px)
+  }
+`
+
 const LogoutIcon = styled.img`
   height: 1em;
   width: 1em;
-  padding-top: .25em;
-  padding-right: 5em;
 
   ${media.tablet`
-    padding-right: 0;
-    padding-top: .10em;
   `}
 `
 
@@ -64,22 +82,24 @@ const LoadingWrapper = styled.div`
   background-color: #f3f3f3;
 `;
 
-const Landing = ({ langData, navData, officeData, zipData }) =>
+const Landing = ({ logoutUser, langData, navData, officeData, zipData }) =>
   <Page>
     <Header loading={!(langData && navData && officeData && zipData)}>
       <Heading>Compass Analytics</Heading>
-      <LogoutIcon
-        src="https://image.flaticon.com/icons/svg/157/157938.svg"
-        alt="sign out"
-      />
+      <LogoutButton onClick={logoutUser}>
+        <LogoutIcon
+          src="https://image.flaticon.com/icons/svg/157/157938.svg"
+          alt="sign out"
+        />
+      </LogoutButton>
     </Header>
     {langData && navData && officeData && zipData
       ? <GraphLayout>
-          <GraphRow>
-            <LanguageChart langData={langData} />
-            <OfficeChart officeData={officeData} />
-          </GraphRow>
-          <GraphRow>
+        <GraphRow>
+          <LanguageChart langData={langData} />
+          <OfficeChart officeData={officeData} />
+        </GraphRow>
+        <GraphRow>
             <NavigationChart navData={navData} />
             <ZipCodeChart zipData={zipData} />
           </GraphRow>

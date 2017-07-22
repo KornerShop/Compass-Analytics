@@ -30,8 +30,8 @@ const Header = styled.div`
 const Heading = styled.h1`
   margin: 0;
   text-transform: uppercase;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1.05em;
+  font-weight: 700;
   letter-spacing: .75em;
   padding-left: 4.5em
 `;
@@ -56,7 +56,8 @@ const Landing = ({ langData, navData, officeData, zipData }) =>
         style={{
           height: '18px',
           width: '18px',
-          paddingRight: '5em'
+          paddingRight: '5em',
+          paddingTop: '.25em'
         }}
       />
     </Header>

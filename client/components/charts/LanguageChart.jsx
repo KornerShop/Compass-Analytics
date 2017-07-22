@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { PieChart, Pie, Tooltip } from 'recharts';
-
 import { GraphHeading, GraphTile } from '../../styled/Layout';
 
 const LanguageChart = ({ langData }) =>

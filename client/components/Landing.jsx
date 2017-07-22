@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+
+import media from '../styled/media';
 
 import CubeGrid from '../styled/CubeGrid';
 import { GraphLayout, GraphRow } from '../styled/Layout';
@@ -25,7 +27,23 @@ const Header = styled.div`
   background-color: white;
   box-shadow: 1px 1px 40px 8px rgba(176, 190, 197, 1);
   z-index: 1;
+
+  ${media.tablet`
+    justify-content: space-around;
+  `}
 `;
+
+const LogoutIcon = styled.img`
+  height: 1em;
+  width: 1em;
+  padding-top: .25em;
+  padding-right: 5em;
+
+  ${media.tablet`
+    padding-right: 0;
+    padding-top: .10em;
+  `}
+`
 
 const Heading = styled.h1`
   margin: 0;
@@ -50,15 +68,9 @@ const Landing = ({ langData, navData, officeData, zipData }) =>
   <Page>
     <Header loading={!(langData && navData && officeData && zipData)}>
       <Heading>Compass Analytics</Heading>
-      <img
+      <LogoutIcon
         src="https://image.flaticon.com/icons/svg/157/157938.svg"
         alt="sign out"
-        style={{
-          height: '18px',
-          width: '18px',
-          paddingRight: '5em',
-          paddingTop: '.25em'
-        }}
       />
     </Header>
     {langData && navData && officeData && zipData

@@ -50,7 +50,7 @@ class App extends Component {
     };
     this.receiveLogout = {
       fetching: false,
-      authenticated: true,
+      authenticated: false,
     };
     this.loginError = errorMessage => ({
       fetching: false,

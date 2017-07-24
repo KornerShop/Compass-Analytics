@@ -1,45 +1,49 @@
 /* eslint-disable no-console */
 
-require('babel-polyfill');
-require('babel-register')({
-  presets: ['env', 'react'],
-});
+// require('babel-polyfill');
+// require('babel-register')({
+//   presets: ['env', 'react'],
+// });
 
-const mongoose = require('mongoose');
-const http = require('http');
-const express = require('express');
-const compression = require('compression');
-const bodyParser = require('body-parser');
-const socketio = require('socket.io');
-const React = require('react');
-const { renderToString } = require('react-dom/server');
-const { StaticRouter } = require('react-router-dom');
-const fs = require('fs');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpack = require('webpack');
-const { ServerStyleSheet } = require('styled-components');
+import mongoose from 'mongoose';
+import http from 'http';
+import express from 'express';
+import compression from 'compression';
+import bodyParser from 'body-parser';
+import socketio from 'socket.io';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import fs from 'fs';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpack from 'webpack';
+// import DashboardPlugin from 'webpack-dashboard/plugin'
+import {
+  ServerStyleSheet,
+  StyleSheetManager,
+} from 'styled-components';
 
-const {
+import {
   populateLang,
   updateLang,
-} = require('./server/language/language.controller');
-const {
-  populateZip,
-  updateZip,
-} = require('./server/zip/zip.controller');
-const {
+} from './server/language/language.controller';
+import { populateZip, updateZip } from './server/zip/zip.controller';
+import {
   populateOffice,
   updateOffice,
-} = require('./server/office/office.controller');
-const {
+} from './server/office/office.controller';
+import {
   populateNav,
   updateNav,
-} = require('./server/navigation/navigation.controller');
+} from './server/navigation/navigation.controller';
 
-const config = require('./server/config/config');
-const wpConfig = require('./config/webpack.config');
-const App = require('./client/components/App').default;
+import config from './server/config/config';
+import wpConfig from './config/webpack.config';
+import App from './client/components/App';
+import rootReducer from './client/redux/reducers';
 
 const PORT = process.env.PORT || 8080;
 
@@ -58,20 +62,21 @@ if (config.seed) {
 }
 
 const compiler = webpack(wpConfig);
+// compiler.apply(new DashboardPlugin());
+
 app.use(
   webpackDevMiddleware(compiler, {
     publicPath: wpConfig.output.publicPath,
-  })
+  }),
 );
+
 app.use(webpackHotMiddleware(compiler));
-
 app.use(compression());
-
 app.use(bodyParser.json());
 
-app.use('/dist', express.static('./dist'));
+app.use(express.static('./dist'));
 
-const renderFullPage = (title, css, html) => `
+const renderFullPage = (title, css, markup, preloadedState) => `
   <!DOCTYPE html>
       <html>
         <head>
@@ -82,7 +87,10 @@ const renderFullPage = (title, css, html) => `
           ${css}
         </head>
         <body>
-          <div id="root">${html}</div>
+          <div id="root">${markup}</div>
+          <script>
+            window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+          </script>
           <script src="/dist/bundle.js"></script>
         </body>
       </html>
@@ -91,20 +99,23 @@ const renderFullPage = (title, css, html) => `
 const handleRender = (req, res) => {
   const context = {};
   const sheet = new ServerStyleSheet();
-  const html = renderToString(
-    React.createElement(
-      StaticRouter,
-      { location: req.url, context },
-      sheet.collectStyles(React.createElement(App))
-    )
+  const store = createStore(rootReducer);
+  const markup = renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <StyleSheetManager sheet={sheet.instance}>
+          <App />
+        </StyleSheetManager>
+      </StaticRouter>
+    </Provider>,
   );
   const css = sheet.getStyleTags();
+  const preloadedState = store.getState();
   if (context.url) {
     res.redirect(301, context.url);
     res.end();
   }
-  res.send(renderFullPage('Compass Analytics', css, html));
-  res.end();
+  res.send(renderFullPage('Compass Analytics', css, markup, preloadedState));
 };
 
 io.on('connection', socket => {
@@ -127,7 +138,7 @@ io.on('connection', socket => {
   });
 });
 
-app.use(require('./server/user/routes'));
+app.use(require('./user/routes'));
 
 app.use(handleRender);
 

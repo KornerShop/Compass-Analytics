@@ -7,7 +7,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: [
     'babel-polyfill',
-    'whatwg-fetch', 
+    'whatwg-fetch',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000',
     './client/index.jsx',
@@ -21,6 +21,10 @@ module.exports = {
   devtool: 'eval',
   resolve: {
     extensions: ['.js', '.jsx', '.es'],
+    alias: {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat'
+    }
   },
   module: {
     rules: [
@@ -47,7 +51,10 @@ module.exports = {
             ],
           },
         },
-        include: join(__dirname, '../client'),
+        include: [
+          join(__dirname, '../client'),
+          join(__dirname, '../node_modules/preact-compat/src')
+        ],
       },
     ],
   },

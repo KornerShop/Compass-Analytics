@@ -164,12 +164,14 @@ class Auth extends Component {
   }
   handleSubmit(evt) {
     evt.preventDefault();
-    return this.state.valid
-      ? this.props.loginUser({
+    if (this.state.valid) {
+      this.props.resetErrorMessage();
+      return this.props.loginUser({
           username: this.state.username,
           password: this.state.password,
         })
-      : (function noop() {})();
+    }
+    return (function noop() {})();
   }
   render() {
     return (

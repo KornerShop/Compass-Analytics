@@ -60,33 +60,12 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     this.logoutUser = this.logoutUser.bind(this);
     this.fetchChartData = this.fetchChartData.bind(this);
+    this.verifyToken = this.verifyToken.bind(this);
+    this.resetErrorMessage = this.resetErrorMessage.bind(this);
   }
-  async componentDidMount() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const response = await fetch('/users/verify', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.status >= 200 && response.status < 300) {
-          const { token: { newToken } } = await response.json();
-          localStorage.setItem('token', newToken);
-          return this.setState(this.receiveLogin);
-        }
-        return this.setState(this.loginError(response.statusText));
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    this.setState({
-      authenticated: false,
-      fetching: false,
-    });
-    this.fetchChartData();
+  componentDidMount() {
+    console.log('app mounting'); 
+    this.verifyToken();
   }
   async loginUser({ username, password }) {
     this.setState(this.requestLogin);
@@ -139,6 +118,38 @@ class App extends Component {
       });
     });
   }
+  async verifyToken() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await fetch('/users/verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(`response: ${JSON.stringify(response, null, 2)}`);
+        if (response.status >= 200 && response.status < 300) {
+          const { token: { newToken } } = await response.json();
+          this.setState(this.receiveLogin);
+          this.fetchChartData();
+          return localStorage.setItem('token', newToken);
+        }
+        return this.setState(this.loginError(response.statusText));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    this.setState({
+      authenticated: false,
+      fetching: false,
+    });
+    this.fetchChartData();
+  }
+  resetErrorMessage() {
+    this.setState({ errorMessage: '' });
+  }
   render() {
     return (
       <div>
@@ -146,20 +157,26 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() =>
-              this.state.authenticated
+            render={() => {
+              console.log(`logoutUser: ${this.state.logoutUser}`);
+              console.log(`langData: ${this.state.langData}`);
+              console.log(`navData: ${this.state.navData}`);
+              console.log(`officeData: ${this.state.officeData}`);
+              console.log(`zipData: ${this.state.zipData}`);
+              return this.state.authenticated
                 ? <Landing
-                  logoutUser={this.logoutUser}
-                  langData={this.state.langData}
-                  officeData={this.state.officeData}
-                  navData={this.state.navData}
-                  zipData={this.state.zipData}
-                  populateLang={this.populateLangData}
-                  populateOffice={this.populateOfficeData}
-                  populateNav={this.populateNavData}
-                  populateZip={this.populateZipData}
+                    logoutUser={this.logoutUser}
+                    langData={this.state.langData}
+                    officeData={this.state.officeData}
+                    navData={this.state.navData}
+                    zipData={this.state.zipData}
+                    populateLang={this.populateLangData}
+                    populateOffice={this.populateOfficeData}
+                    populateNav={this.populateNavData}
+                    populateZip={this.populateZipData}
                   />
-                : <Redirect to="/login" />}
+                : <Redirect to="/login" />;
+            }}
           />
           <Route
             path="/login"
@@ -167,8 +184,9 @@ class App extends Component {
               this.state.authenticated
                 ? <Redirect to="/" />
                 : <Login
-                  loginUser={this.loginUser}
-                  errorMessage={this.state.errorMessage}
+                    loginUser={this.loginUser}
+                    errorMessage={this.state.errorMessage}
+                    resetErrorMessage={this.resetErrorMessage}
                   />}
           />
           <Route component={FourOhFour} />

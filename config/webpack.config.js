@@ -21,10 +21,6 @@ module.exports = {
   devtool: 'eval',
   resolve: {
     extensions: ['.js', '.jsx', '.es'],
-    alias: {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat'
-    }
   },
   module: {
     rules: [
@@ -53,7 +49,6 @@ module.exports = {
         },
         include: [
           join(__dirname, '../client'),
-          join(__dirname, '../node_modules/preact-compat/src')
         ],
       },
     ],

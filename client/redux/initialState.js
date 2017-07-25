@@ -1,13 +1,9 @@
 export default {
-  auth: {
-    authenticated: false,
-    fetching: true,
-    errorMessage: '',
-  },
-  charts: {
-    langData: null,
-    officeData: null,
-    navData: null,
-    zipData: null,
-  }
+  authenticated: false,
+  fetching: true,
+  errorMessage: '',
+  langData: null,
+  officeData: null,
+  navData: null,
+  zipData: null,
 };

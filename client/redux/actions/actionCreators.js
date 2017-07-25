@@ -85,3 +85,5 @@ export const listenForChartData = socket => dispatch => {
     dispatch(populateOfficeData(zipData));
   });
 };
+
+export const resetErrorMessage = () => dispatch => dispatch()

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 require('babel-register')({
-  presets: ['env', 'react'],
+  presets: ['env', 'react', 'stage-2'],
 });
 
 import 'babel-polyfill';

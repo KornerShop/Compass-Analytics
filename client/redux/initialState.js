@@ -1,6 +1,6 @@
 export default {
   auth: {
-    authenticated: localStorage.getItem('token'),
+    authenticated: false,
     fetching: true,
     errorMessage: '',
   },

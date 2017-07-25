@@ -9,7 +9,7 @@
     "prebuild": "rm -rf dist",
     "build": "webpack",
     "build:watch": "yarn build -- -w",
-    "serve:build": "babel lib -d dist --presets env,react",
+    "serve:build": "babel index -d dist",
     "serve": "node dist/index.js",
     "serve:nodemon": "nodemon index.js"
   },

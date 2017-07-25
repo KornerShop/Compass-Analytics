@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import LoadingWrapper from './Landing';
+import CubeGrid from '../styled/CubeGrid';
+
 const BackgroundImage = styled.div`
   display: flex;
   flex-direction: column;
@@ -76,15 +79,14 @@ const StyledInput = styled.input`
 `;
 
 const LoginError = styled.p`
-  font-family: -apple-system, BlinkMacSystemFont,
-  "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans",
-  "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   color: #ff1744;
   font-size: .7em;
   margin: .4em 0 0 0;
   font-style: italic;
-`
+`;
 
 const SubmitButton = styled.input`
   padding: 10px 110px;
@@ -167,23 +169,26 @@ class Auth extends Component {
     if (this.state.valid) {
       this.props.resetErrorMessage();
       return this.props.loginUser({
-          username: this.state.username,
-          password: this.state.password,
-        })
+        username: this.state.username,
+        password: this.state.password,
+      });
     }
     return (function noop() {})();
   }
   render() {
-    return (
-      <BackgroundImage>
+    return this.props.fetching
+      ? <LoadingWrapper>
+          <CubeGrid color="#FF0080" size={50} />
+        </LoadingWrapper>
+      : <BackgroundImage>
         <AuthPanel>
           <img
             src="http://image.flaticon.com/icons/svg/109/109680.svg"
             alt="Compass Icon"
             style={{
-              marginTop: 40,
-              height: 70,
-              width: 70,
+                marginTop: 40,
+                height: 70,
+                width: 70,
             }}
           />
           <AuthForm
@@ -209,15 +214,13 @@ class Auth extends Component {
               onChange={this.handleChange}
             />
             {this.props.errorMessage !== '' &&
-              <LoginError
-              >
+              <LoginError>
                 {this.props.errorMessage}
               </LoginError>}
-            <SubmitButton type="submit" value="Submit" />
-          </AuthForm>
-        </AuthPanel>
-      </BackgroundImage>
-    );
+              <SubmitButton type="submit" value="Submit" />
+            </AuthForm>
+          </AuthPanel>
+        </BackgroundImage>;
   }
 }
 

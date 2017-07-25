@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Page from './Page';
 import Graph from './Graph';
 import CubeGrid from '../styled/CubeGrid';
 
-const LoadingWrapper = styled.div`
+export const LoadingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -15,24 +15,29 @@ const LoadingWrapper = styled.div`
   background-color: #f3f3f3;
 `;
 
-const Landing = ({
-  logoutUser,
-  langData,
-  navData,
-  officeData,
-  zipData,
-}) =>
-  <Page logoutUser={logoutUser}>
-    {langData && navData && officeData && zipData
-      ? <Graph
-          langData={langData}
-          officeData={officeData}
-          navData={navData}
-          zipData={zipData}
-        />
-      : <LoadingWrapper>
-          <CubeGrid color="#FF0080" size={50} />
-        </LoadingWrapper>}
-  </Page>;
+class Landing extends Component {
+  componentDidMount() {
+    window.onbeforeunload = async () => {
+      await this.props.verifyToken();
+      this.props.listenForChartData(this.props.socket);
+    };
+  }
+  render() {
+    return (
+      <Page logoutUser={logoutUser}>
+        {this.props.fetching
+          ? <LoadingWrapper>
+            <CubeGrid color="#FF0080" size={50} />
+          </LoadingWrapper>
+          : <Graph
+            langData={this.props.langData}
+            officeData={this.props.officeData}
+            navData={this.props.navData}
+            zipData={this.props.zipData}
+            />}
+      </Page>
+    );
+  }
+}
 
 export default Landing;

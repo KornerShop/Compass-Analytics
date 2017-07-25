@@ -25,6 +25,13 @@ export const loginError = errorMessage => ({
   },
 });
 
+export const resetErrorMessage = () => ({
+  type: types.RESET_ERROR_MESSAGE,
+  payload: {
+    errorMessage: '',
+  },
+});
+
 export const requestLogout = () => ({
   type: types.LOGOUT_REQUEST,
   payload: {

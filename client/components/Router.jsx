@@ -1,12 +1,11 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import App from './App'
+import App from './App';
 
 import Login from './Login';
 import Landing from './Landing';
-
 
 const H404 = styled.h1`
   display: flex;
@@ -20,45 +19,49 @@ const H404 = styled.h1`
 
 const FourOhFour = () => <H404>You look lost...</H404>;
 
-const Root = ({ store }) => (
+const Router = ({
+  authenticated,
+  logoutUser,
+  langData,
+  navData,
+  officeData,
+  zipData,
+  populateLangData,
+  populateOfficeData,
+  populateNavData,
+  populateZipData,
+}) =>
   <Switch>
     <Route
       exact
       path="/"
-      render={() => {
-        console.log(`logoutUser: ${this.state.logoutUser}`);
-        console.log(`langData: ${this.state.langData}`);
-        console.log(`navData: ${this.state.navData}`);
-        console.log(`officeData: ${this.state.officeData}`);
-        console.log(`zipData: ${this.state.zipData}`);
-        return this.state.authenticated
+      render={() =>
+        this.state.authenticated
           ? <Landing
-            logoutUser={this.logoutUser}
-            langData={this.state.langData}
-            officeData={this.state.officeData}
-            navData={this.state.navData}
-            zipData={this.state.zipData}
-            populateLang={this.populateLangData}
-            populateOffice={this.populateOfficeData}
-            populateNav={this.populateNavData}
-            populateZip={this.populateZipData}
+            logoutUser={logoutUser}
+            langData={langData}
+            officeData={officeData}
+            navData={navData}
+            zipData={zipData}
+            populateLang={populateLangData}
+            populateOffice={populateOfficeData}
+            populateNav={populateNavData}
+            populateZip={populateZipData}
             />
-          : <Redirect to="/login" />;
-      }}
+          : <Redirect to="/login" />}
     />
     <Route
       path="/login"
       component={() =>
-        this.state.authenticated
+        authenticated
           ? <Redirect to="/" />
           : <Login
-            loginUser={this.loginUser}
-            errorMessage={this.state.errorMessage}
-            resetErrorMessage={this.resetErrorMessage}
+              loginUser={loginUser}
+              errorMessage={errorMessage}
+              resetErrorMessage={resetErrorMessage}
             />}
     />
     <Route component={FourOhFour} />
-  </Switch>
-)
+  </Switch>;
 
 export default Router;

@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { string, arrayOf, shape, oneOf } from 'prop-types';
+
 import {
   LineChart,
   Line,
@@ -36,5 +38,18 @@ const NavigationChart = ({ navData }) =>
       </LineChart>
     </GraphTile>
   </div>;
+
+NavigationChart.defaultProps = {
+  navData: [],
+};
+
+NavigationChart.propTypes = {
+  navData: arrayOf(
+    shape({
+      date: string.isRequired,
+      office: oneOf(['SNAP', 'WIC']),
+    }),
+  ),
+};
 
 export default NavigationChart;

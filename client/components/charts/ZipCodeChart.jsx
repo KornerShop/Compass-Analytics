@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { string, arrayOf, shape } from 'prop-types';
 import {
   BarChart,
   Bar,
@@ -52,5 +53,17 @@ const ZipCodeChart = ({ zipData }) =>
       </BarChart>
     </GraphTile>
   </div>;
+
+ZipCodeChart.defaultProps = {
+  zipData: [],
+};
+
+ZipCodeChart.proptypes = {
+  zipData: arrayOf(
+    shape({
+      zipCode: string.isRequired,
+    }),
+  ),
+};
 
 export default ZipCodeChart;

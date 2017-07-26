@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { arrayOf, shape, oneOf } from 'prop-types';
 import { PieChart, Pie, Tooltip } from 'recharts';
+
 import { GraphHeading, GraphTile } from '../../styled/Layout';
 
 const LanguageChart = ({ langData }) =>
-  <div style={{margin: '0 2em'}}>
+  <div style={{ margin: '0 2em' }}>
     <GraphHeading>Language Spoken</GraphHeading>
     <GraphTile>
       <PieChart width={500} height={250}>
@@ -22,5 +24,17 @@ const LanguageChart = ({ langData }) =>
       </PieChart>
     </GraphTile>
   </div>;
+
+LanguageChart.defaultProps = {
+  langData: [],
+};
+
+LanguageChart.propTypes = {
+  langData: arrayOf(
+    shape({
+      language: oneOf(['English', 'Spanish']).isRequired,
+    }),
+  ),
+};
 
 export default LanguageChart;

@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { string, arrayOf, shape, oneOf } from 'prop-types';
+
 import {
   AreaChart,
   Area,
@@ -14,9 +16,17 @@ const OfficeChart = ({ officeData }) =>
   <div style={{ margin: '0 2em' }}>
     <GraphHeading>Office Searched</GraphHeading>
     <GraphTile>
-      <AreaChart width={510} height={250} data={officeData} margin={{
-        top: 30, right: 60, left: 0, bottom: 20
-      }}>
+      <AreaChart
+        width={510}
+        height={250}
+        data={officeData}
+        margin={{
+          top: 30,
+          right: 60,
+          left: 0,
+          bottom: 20,
+        }}
+      >
         <XAxis dataKey="date" />
         <YAxis />
         <CartesianGrid strokeDasharray="3 3" />
@@ -38,5 +48,18 @@ const OfficeChart = ({ officeData }) =>
       </AreaChart>
     </GraphTile>
   </div>;
+
+OfficeChart.defaultProps = {
+  officeData: [],
+};
+
+OfficeChart.proptTypes = {
+  officeData: arrayOf(
+    shape({
+      date: string.isRequired,
+      office: oneOf(['SNAP', 'WIC']),
+    }),
+  ),
+};
 
 export default OfficeChart;

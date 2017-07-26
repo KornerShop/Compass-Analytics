@@ -127,4 +127,4 @@ export const listenForChartData = socket => dispatch => {
   );
 };
 
-export const resetErrorMessage = () => dispatch => dispatch();
+export const resetErrorMessage = () => dispatch => dispatch(updateErrorMessage(''));

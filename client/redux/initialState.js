@@ -1,9 +1,9 @@
 export default {
   authenticated: false,
-  fetching: true,
+  fetching: false,
   errorMessage: '',
-  langData: null,
-  officeData: null,
-  navData: null,
-  zipData: null,
+  langData: [],
+  officeData: [],
+  navData: [],
+  zipData: [],
 };

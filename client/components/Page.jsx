@@ -1,4 +1,5 @@
 import React from 'react';
+import { element, func } from 'prop-types';
 import styled from 'styled-components';
 
 import media from '../styled/media';
@@ -79,4 +80,8 @@ const Page = ({ children, logoutUser }) =>
     { children }
   </Layout>;
 
+Page.propTypes = {
+  children: element.isRequired,
+  logoutUser: func.isRequired,
+}
 export default Page;

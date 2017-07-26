@@ -39,16 +39,16 @@ export const receiveLogout = (dispatch, getState) => {
   authenticated === true && dispatch(toggleAuthenticated(false));
 };
 
-export const populateLangData = (dispatch, langData) =>
+export const updateLangData = (dispatch, langData) =>
   dispatch(populateLangData(langData));
 
-export const populateOfficeData = (dispatch, officeData) =>
+export const updateOfficeData = (dispatch, officeData) =>
   dispatch(populateOfficeData(officeData));
 
-export const populateNavData = (dispatch, navData) =>
+export const updateNavData = (dispatch, navData) =>
   dispatch(populateNavData(navData));
 
-export const populateZipData = (dispatch, zipData) =>
+export const updateZipData = (dispatch, zipData) =>
   dispatch(populateZipData(zipData));
 
 export const loginUser = ({ username, password }) => async (
@@ -114,16 +114,16 @@ export const logoutUser = () => (dispatch, getState) => {
 
 export const listenForChartData = socket => dispatch => {
   socket.on('populate-lang-data', langData =>
-    populateLangData(dispatch, langData),
+    updateLangData(dispatch, langData),
   );
   socket.on('populate-office-data', officeData =>
-    populateOfficeData(dispatch, officeData),
+    updateOfficeData(dispatch, officeData),
   );
   socket.on('populate-Nav-data', navData =>
-    populateNavData(dispatch, navData),
+    updateNavData(dispatch, navData),
   );
   socket.on('populate-zip-data', zipData =>
-    populateOfficeData(dispatch, zipData),
+    updateOfficeData(dispatch, zipData),
   );
 };
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
   string,
+  number,
   bool,
+  object,
   func,
   arrayOf,
   shape,
@@ -9,6 +11,7 @@ import {
 } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SocketClient from 'socket.io-client';
@@ -17,12 +20,12 @@ import { NGROK_ADDR } from '../../config/envars';
 
 import global from '../styled/global';
 
-import { resetErrorMessage } from '../redux/actions/actions';
 import {
   loginUser,
   verifyToken,
   logoutUser,
   listenForChartData,
+  resetErrorMessage,
 } from '../redux/actions/actionCreators';
 
 import Login from './Login';
@@ -45,6 +48,9 @@ class App extends Component {
     super(props);
     this.socket = SocketClient(NGROK_ADDR);
   }
+  componentDidMount() {
+    this.props.listenForChartData(this.socket);
+  }
   render() {
     return (
       <Switch>
@@ -54,28 +60,31 @@ class App extends Component {
           render={() =>
             this.props.authenticated
               ? <Landing
-                  socket={this.socket}
-                  fetching={this.props.fetching}
-                  verifyToken={this.props.verifyToken}
-                  logoutUser={this.props.logoutUser}
-                  langData={this.props.langData}
-                  officeData={this.props.officeData}
-                  navData={this.props.navData}
-                  zipData={this.props.zipData}
-                  listenForChartData={this.props.listenForChartData}
+                location={this.props.location}
+                socket={this.socket}
+                authenticated={this.props.authenticated}
+                fetching={this.props.fetching}
+                verifyToken={this.props.verifyToken}
+                logoutUser={this.props.logoutUser}
+                langData={this.props.langData}
+                officeData={this.props.officeData}
+                navData={this.props.navData}
+                zipData={this.props.zipData}
+                listenForChartData={this.props.listenForChartData}
                 />
               : <Redirect to="/login" />}
         />
         <Route
           path="/login"
-          component={() =>
+          render={() =>
             this.props.authenticated
-              ? <Redirect to="/" />
+              ? <Redirect exact to="/" />
               : <Login
-                  fetching={this.props.fetching}
-                  loginUser={this.props.loginUser}
-                  errorMessage={this.props.errorMessage}
-                  resetErrorMessage={this.props.resetErrorMessage}
+                location={this.props.location}
+                fetching={this.props.fetching}
+                loginUser={this.props.loginUser}
+                errorMessage={this.props.errorMessage}
+                resetErrorMessage={this.props.resetErrorMessage}
                 />}
         />
         <Route component={FourOhFour} />
@@ -90,7 +99,8 @@ App.propTypes = {
   errorMessage: string.isRequired,
   langData: arrayOf(
     shape({
-      language: oneOf(['English', 'Spanish']).isRequired,
+      _id: oneOf(['English', 'Spanish']).isRequired,
+      value: number.isRequired,
     }),
   ),
   officeData: arrayOf(
@@ -107,7 +117,8 @@ App.propTypes = {
   ),
   zipData: arrayOf(
     shape({
-      zipCode: string.isRequired,
+      _id: string.isRequired,
+      count: number.isRequired,
     }),
   ),
   loginUser: func.isRequired,
@@ -115,6 +126,7 @@ App.propTypes = {
   logoutUser: func.isRequired,
   resetErrorMessage: func.isRequired,
   listenForChartData: func.isRequired,
+  location: object.isRequired,
 };
 
 const mapStateToProps = ({
@@ -146,4 +158,4 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

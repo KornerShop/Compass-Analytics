@@ -50,12 +50,6 @@ const createLanguages = data => {
   );
 };
 
-/*
-{
-  "lang": "Spanish" || "English"
-}
-*/
-
 const createNavs = data => {
   const promises = generateNavs().map(nav =>
     createDoc(Navigation, nav),
@@ -64,13 +58,6 @@ const createNavs = data => {
     Object.assign({ navigation: nav }, data || {}),
   );
 };
-
-/*
-{
-  "date": "7/15/2017",
-  "office": "SNAP" || "WIC"
-}
-*/
 
 const createOffices = data => {
   const promises = generateOffices().map(office =>
@@ -81,25 +68,12 @@ const createOffices = data => {
   );
 };
 
-/*
-{
-  "date": "7/15/2017",
-  "office": "SNAP" || "WIC"
-}
-*/
-
 const createZipCode = data => {
   const promises = generateZips().map(zip => createDoc(ZipCode, zip));
   return Promise.all(promises).then(zip =>
     Object.assign({ zipCode: zip }, data || {}),
   );
 };
-
-/*
-{
-  "zipCode": "94962"
-}
-*/
 
 cleanDB()
   .then(createUsers)

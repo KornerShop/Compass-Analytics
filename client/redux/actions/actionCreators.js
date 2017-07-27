@@ -119,12 +119,13 @@ export const listenForChartData = socket => dispatch => {
   socket.on('populate-office-data', officeData =>
     updateOfficeData(dispatch, officeData),
   );
-  socket.on('populate-Nav-data', navData =>
+  socket.on('populate-nav-data', navData =>
     updateNavData(dispatch, navData),
   );
   socket.on('populate-zip-data', zipData =>
-    updateOfficeData(dispatch, zipData),
+    updateZipData(dispatch, zipData),
   );
 };
 
-export const resetErrorMessage = () => dispatch => dispatch(updateErrorMessage(''));
+export const resetErrorMessage = () => dispatch =>
+  dispatch(updateErrorMessage(''));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { arrayOf, shape, oneOf } from 'prop-types';
+import { number, arrayOf, shape, oneOf } from 'prop-types';
 import { PieChart, Pie, Tooltip } from 'recharts';
 
 import { GraphHeading, GraphTile } from '../../styled/Layout';
@@ -32,7 +32,8 @@ LanguageChart.defaultProps = {
 LanguageChart.propTypes = {
   langData: arrayOf(
     shape({
-      language: oneOf(['English', 'Spanish']).isRequired,
+      _id: oneOf(['English', 'Spanish']).isRequired,
+      value: number.isRequired,
     }),
   ),
 };

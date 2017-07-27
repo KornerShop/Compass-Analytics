@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 
-require('babel-register')({
-  presets: ['env', 'react', 'stage-2'],
-});
+import './register';
 
 import 'babel-polyfill';
 import mongoose from 'mongoose';

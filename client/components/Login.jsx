@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { string, bool, func } from 'prop-types';
+import { string, bool, object, func } from 'prop-types';
 import styled from 'styled-components';
 
 import { LoadingWrapper } from './Landing';
@@ -114,7 +114,7 @@ const SubmitButton = styled.input`
   }
 `;
 
-class Auth extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.initialState = {
@@ -183,38 +183,38 @@ class Auth extends Component {
           <CubeGrid color="#FF0080" size={50} />
         </LoadingWrapper>
       : <BackgroundImage>
-          <AuthPanel>
-            <img
-              src="http://image.flaticon.com/icons/svg/109/109680.svg"
-              alt="Compass Icon"
-              style={{
+        <AuthPanel>
+          <img
+            src="http://image.flaticon.com/icons/svg/109/109680.svg"
+            alt="Compass Icon"
+            style={{
                 marginTop: 40,
                 height: 70,
                 width: 70,
-              }}
+            }}
+          />
+          <AuthForm
+            onSubmit={this.handleSubmit}
+            onKeyPress={this.handleKeyPress}
+          >
+            <StyledInput
+              username
+              name="username"
+              type="text"
+              placeholder="username"
+              valid={this.state.usernameValid}
+              value={this.state.username}
+              onChange={this.handleChange}
             />
-            <AuthForm
-              onSubmit={this.handleSubmit}
-              onKeyPress={this.handleKeyPress}
-            >
-              <StyledInput
-                username
-                name="username"
-                type="text"
-                placeholder="username"
-                valid={this.state.usernameValid}
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-              <StyledInput
-                password
-                name="password"
-                type="password"
-                placeholder="password"
-                valid={this.state.passwordValid}
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
+            <StyledInput
+              password
+              name="password"
+              type="password"
+              placeholder="password"
+              valid={this.state.passwordValid}
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
               {this.props.errorMessage !== '' &&
                 <LoginError>
                   {this.props.errorMessage}
@@ -226,11 +226,12 @@ class Auth extends Component {
   }
 }
 
-Auth.propTypes = {
+Login.propTypes = {
   fetching: bool.isRequired,
   loginUser: func.isRequired,
   errorMessage: string.isRequired,
   resetErrorMessage: func.isRequired,
+  location: object.isRequired,
 };
 
-export default Auth;
+export default Login;

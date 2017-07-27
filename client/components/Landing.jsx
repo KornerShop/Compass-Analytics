@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   string,
+  number,
   bool,
   object,
   func,
@@ -34,16 +35,19 @@ class Landing extends Component {
   render() {
     return (
       <Page logoutUser={this.props.logoutUser}>
-        {this.props.fetching
-          ? <LoadingWrapper>
-              <CubeGrid color="#FF0080" size={50} />
-            </LoadingWrapper>
-          : <Graph
+        {this.props.langData &&
+          this.props.officeData &&
+          this.props.navData &&
+          this.props.zipData
+            ? <Graph
               langData={this.props.langData}
               officeData={this.props.officeData}
               navData={this.props.navData}
               zipData={this.props.zipData}
-            />}
+              />
+          : <LoadingWrapper>
+              <CubeGrid color="#FF0080" size={50} />
+            </LoadingWrapper>}
       </Page>
     );
   }
@@ -58,12 +62,14 @@ Landing.defaultProps = {
 
 Landing.propTypes = {
   socket: object.isRequired,
+  authenticated: bool.isRequired,
   fetching: bool.isRequired,
   verifyToken: func.isRequired,
   logoutUser: func.isRequired,
   langData: arrayOf(
     shape({
-      language: oneOf(['English', 'Spanish']).isRequired,
+      _id: oneOf(['English', 'Spanish']).isRequired,
+      value: number.isRequired,
     }),
   ),
   officeData: arrayOf(
@@ -80,10 +86,12 @@ Landing.propTypes = {
   ),
   zipData: arrayOf(
     shape({
-      zipCode: string.isRequired,
+      _id: string.isRequired,
+      count: number.isRequired,
     }),
   ),
   listenForChartData: func.isRequired,
+  location: object.isRequired,
 };
 
 export default Landing;

@@ -6,10 +6,7 @@ import initialState from '../initialState';
 export default (state = initialState.errorMessage, { type, payload }) => {
   switch (type) {
     case UPDATE_ERROR_MESSAGE:
-      return {
-        ...state,
-        payload,
-      };
+      return payload;
     default:
       return state;
   }

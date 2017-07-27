@@ -3,7 +3,7 @@
 const formatLongitudinalData = require('../utils/utils');
 
 const Navigation = require('./navigation.model');
-// date numSnap, num
+
 const populateNav = socket => {
   const aggregateNavigation = [
     {

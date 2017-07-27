@@ -19,11 +19,11 @@ const store = configureStore(preloadedState);
 const renderRoot = Component => {
   render(
     <HotContainer>
-      <BrowserRouter>
-        <Provider store={store}>
+      <Provider store={store}>
+        <BrowserRouter>
           <Component />
-        </Provider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     </HotContainer>,
     document.getElementById('root'),
   );

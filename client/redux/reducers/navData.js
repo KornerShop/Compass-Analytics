@@ -6,10 +6,7 @@ import initialState from '../initialState';
 export default (state = initialState.navData, { type, payload }) => {
   switch (type) {
     case POPULATE_NAV_DATA:
-      return {
-        ...state,
-        payload,
-      };
+      return payload;
     default:
       return state;
   }

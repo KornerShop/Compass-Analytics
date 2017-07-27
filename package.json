@@ -9,9 +9,8 @@
     "prebuild": "rm -rf dist",
     "build": "webpack",
     "build:watch": "yarn build -- -w",
-    "serve:build": "babel index -d dist",
-    "serve": "node dist/index.js",
-    "serve:nodemon": "nodemon index.js"
+    "serve": "babel index -d dist && node dist/index.js",
+    "serve:nodemon": "babel index -d dist && nodemon dist/index.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
@@ -36,6 +35,7 @@
     "react-dom": "^15.6.1",
     "react-hot-loader": "next",
     "react-redux": "^5.0.5",
+    "react-router": "^4.1.2",
     "react-router-dom": "^4.1.1",
     "react-transition-group": "^1.1.3",
     "recharts": "^1.0.0-alpha.2",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, arrayOf, shape, oneOf } from 'prop-types';
+import { string, number, arrayOf, shape, oneOf } from 'prop-types';
 import { GraphLayout, GraphRow } from '../styled/Layout';
 import LanguageChart from './charts/LanguageChart';
 import ZipCodeChart from './charts/ZipCodeChart';
@@ -28,7 +28,8 @@ Graph.defaultProps = {
 Graph.propTypes = {
   langData: arrayOf(
     shape({
-      language: oneOf(['English', 'Spanish']).isRequired,
+      _id: oneOf(['English', 'Spanish']).isRequired,
+      value: number.isRequired,
     }),
   ),
   officeData: arrayOf(
@@ -45,7 +46,8 @@ Graph.propTypes = {
   ),
   zipData: arrayOf(
     shape({
-      zipCode: string.isRequired,
+      _id: string.isRequired,
+      count: number.isRequired,
     }),
   ),
 };

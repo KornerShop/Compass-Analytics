@@ -26,16 +26,10 @@ export const LoadingWrapper = styled.div`
 `;
 
 class Landing extends Component {
-  componentDidMount() {
-    window.onbeforeunload = async () => {
-      await this.props.verifyToken();
-      this.props.listenForChartData(this.props.socket);
-    };
-  }
   render() {
     return (
       <Page logoutUser={this.props.logoutUser}>
-        {this.props.langData &&
+        {this.props.authenticated && this.props.langData &&
           this.props.officeData &&
           this.props.navData &&
           this.props.zipData

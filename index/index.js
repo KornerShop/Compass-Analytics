@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import './register';
-
 import 'babel-polyfill';
 import mongoose from 'mongoose';
 import http from 'http';

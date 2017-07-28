@@ -48,8 +48,9 @@ class App extends Component {
     super(props);
     this.socket = SocketClient(NGROK_ADDR);
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.props.listenForChartData(this.socket);
+    await this.props.verifyToken();
   }
   render() {
     return (
@@ -60,17 +61,17 @@ class App extends Component {
           render={() =>
             this.props.authenticated
               ? <Landing
-                location={this.props.location}
-                socket={this.socket}
-                authenticated={this.props.authenticated}
-                fetching={this.props.fetching}
-                verifyToken={this.props.verifyToken}
-                logoutUser={this.props.logoutUser}
-                langData={this.props.langData}
-                officeData={this.props.officeData}
-                navData={this.props.navData}
-                zipData={this.props.zipData}
-                listenForChartData={this.props.listenForChartData}
+                  location={this.props.location}
+                  socket={this.socket}
+                  authenticated={this.props.authenticated}
+                  fetching={this.props.fetching}
+                  verifyToken={this.props.verifyToken}
+                  logoutUser={this.props.logoutUser}
+                  langData={this.props.langData}
+                  officeData={this.props.officeData}
+                  navData={this.props.navData}
+                  zipData={this.props.zipData}
+                  listenForChartData={this.props.listenForChartData}
                 />
               : <Redirect to="/login" />}
         />
@@ -80,11 +81,11 @@ class App extends Component {
             this.props.authenticated
               ? <Redirect exact to="/" />
               : <Login
-                location={this.props.location}
-                fetching={this.props.fetching}
-                loginUser={this.props.loginUser}
-                errorMessage={this.props.errorMessage}
-                resetErrorMessage={this.props.resetErrorMessage}
+                  location={this.props.location}
+                  fetching={this.props.fetching}
+                  loginUser={this.props.loginUser}
+                  errorMessage={this.props.errorMessage}
+                  resetErrorMessage={this.props.resetErrorMessage}
                 />}
         />
         <Route component={FourOhFour} />
@@ -158,4 +159,6 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(App),
+);

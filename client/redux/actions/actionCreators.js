@@ -36,7 +36,7 @@ export const requestLogout = (dispatch, getState) => {
 export const receiveLogout = (dispatch, getState) => {
   const { fetching, authenticated } = getState();
   authenticated === true && dispatch(toggleAuthenticated(false));
-  fetching == true && dispatch(toggleFetching(false));
+  fetching === true && dispatch(toggleFetching(false));
 };
 
 export const updateLangData = (dispatch, langData) =>

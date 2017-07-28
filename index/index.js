@@ -13,10 +13,6 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpack from 'webpack';
-// import DashboardPlugin from 'webpack-dashboard/plugin'
 import {
   ServerStyleSheet,
   StyleSheetManager,
@@ -37,7 +33,6 @@ import {
 } from '../server/navigation/navigation.controller';
 
 import config from '../server/config/config';
-import wpConfig from '../config/webpack.config';
 import App from '../client/components/App.jsx';
 import rootReducer from '../client/redux/reducers';
 
@@ -57,16 +52,23 @@ if (config.seed) {
   require('../server/seed');
 }
 
-const compiler = webpack(wpConfig);
-// compiler.apply(new DashboardPlugin());
+if (process.env.NODE_ENV !== 'production') {
+  const webpack = require('webpack');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
 
-app.use(
-  webpackDevMiddleware(compiler, {
-    publicPath: wpConfig.output.publicPath,
-  }),
-);
+  const wpConfig = require('../config/webpack.config');
 
-app.use(webpackHotMiddleware(compiler));
+  const compiler = webpack(wpConfig);
+
+  app.use(
+    webpackDevMiddleware(compiler, {
+      publicPath: wpConfig.output.publicPath,
+    }),
+  );
+  app.use(webpackHotMiddleware(compiler));
+}
+
 app.use(compression());
 app.use(bodyParser.json());
 
@@ -87,7 +89,7 @@ const renderFullPage = (title, css, markup, preloadedState) => `
           <script>
             window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          <script src="/dist/bundle.js"></script>
+          <script src="${process.env.NODE_ENV === 'production' ? '/dist/bundle.js.gz' : '/dist/bundle.js'}"></script>
         </body>
       </html>
   `;

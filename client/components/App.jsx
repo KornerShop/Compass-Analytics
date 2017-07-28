@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SocketClient from 'socket.io-client';
 
-import { NGROK_ADDR } from '../../config/envars';
+import { URL } from '../../config/envars';
 
 import global from '../styled/global';
 
@@ -46,11 +46,11 @@ const FourOhFour = () => <H404>You look lost...</H404>;
 class App extends Component {
   constructor(props) {
     super(props);
-    this.socket = SocketClient(NGROK_ADDR);
+    this.socket = SocketClient(URL);
   }
-  componentDidMount() {
+  async componentDidMount() {
+    await this.props.verifyToken();
     this.props.listenForChartData(this.socket);
-    this.props.verifyToken();
   }
   render() {
     return (
@@ -61,17 +61,14 @@ class App extends Component {
           render={() =>
             this.props.authenticated
               ? <Landing
-                location={this.props.location}
-                socket={this.socket}
-                authenticated={this.props.authenticated}
-                fetching={this.props.fetching}
-                verifyToken={this.props.verifyToken}
-                logoutUser={this.props.logoutUser}
-                langData={this.props.langData}
-                officeData={this.props.officeData}
-                navData={this.props.navData}
-                zipData={this.props.zipData}
-                listenForChartData={this.props.listenForChartData}
+                  location={this.props.location}
+                  authenticated={this.props.authenticated}
+                  fetching={this.props.fetching}
+                  logoutUser={this.props.logoutUser}
+                  langData={this.props.langData}
+                  officeData={this.props.officeData}
+                  navData={this.props.navData}
+                  zipData={this.props.zipData}
                 />
               : <Redirect to="/login" />}
         />

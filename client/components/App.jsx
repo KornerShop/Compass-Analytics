@@ -48,9 +48,9 @@ class App extends Component {
     super(props);
     this.socket = SocketClient(NGROK_ADDR);
   }
-  async componentDidMount() {
+  componentDidMount() {
     this.props.listenForChartData(this.socket);
-    await this.props.verifyToken();
+    this.props.verifyToken();
   }
   render() {
     return (
@@ -61,17 +61,17 @@ class App extends Component {
           render={() =>
             this.props.authenticated
               ? <Landing
-                  location={this.props.location}
-                  socket={this.socket}
-                  authenticated={this.props.authenticated}
-                  fetching={this.props.fetching}
-                  verifyToken={this.props.verifyToken}
-                  logoutUser={this.props.logoutUser}
-                  langData={this.props.langData}
-                  officeData={this.props.officeData}
-                  navData={this.props.navData}
-                  zipData={this.props.zipData}
-                  listenForChartData={this.props.listenForChartData}
+                location={this.props.location}
+                socket={this.socket}
+                authenticated={this.props.authenticated}
+                fetching={this.props.fetching}
+                verifyToken={this.props.verifyToken}
+                logoutUser={this.props.logoutUser}
+                langData={this.props.langData}
+                officeData={this.props.officeData}
+                navData={this.props.navData}
+                zipData={this.props.zipData}
+                listenForChartData={this.props.listenForChartData}
                 />
               : <Redirect to="/login" />}
         />

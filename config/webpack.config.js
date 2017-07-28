@@ -1,26 +1,22 @@
-
 /* eslint-disable no-console */
 
-const { join } = require('path');
+const { join, resolve } = require('path');
 const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
-module.exports = {
-  entry: [
-    'babel-polyfill',
-    'whatwg-fetch',
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000',
-    './client/index.jsx',
-  ],
+const dev = process.env.NODE_ENV !== 'production';
+
+const config = {
+  entry: ['babel-polyfill', 'whatwg-fetch', resolve(__dirname, '../client/index.jsx')],
   output: {
     path: join(__dirname, '../dist'),
     filename: 'bundle.js',
-    pathinfo: false,
+    pathinfo: dev,
     publicPath: '/dist',
   },
-  devtool: 'eval',
+  devtool: dev ? 'eval' : false,
   resolve: {
-    extensions: ['.js', '.jsx', '.es'],
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
@@ -40,16 +36,13 @@ module.exports = {
               'stage-2',
             ],
             plugins: [
-              'react-hot-loader/babel',
               'transform-es2015-modules-commonjs',
               'transform-async-to-generator',
               'recharts',
             ],
           },
         },
-        include: [
-          join(__dirname, '../client'),
-        ],
+        include: [join(__dirname, '../client')],
       },
     ],
   },
@@ -59,12 +52,47 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       },
     }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
   ],
 };
+
+if (!dev) {
+  config.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        dead_code: true,
+      },
+      output: {
+        beautify: false,
+      },
+    }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    })
+  )
+} else {
+  config.entry.splice(
+    2,
+    0,
+    'react-hot-loader/patch',
+    'webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000'
+  );
+  config.module.rules[0].use.options.plugins.unshift(
+    'react-hot-loader/babel'
+  );
+  config.plugins.push(
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  );
+}
+
+console.log(`\n${dev ? 'DEVELOPMENT' : 'PRODUCTION'} 🏗️\n`);
+
+console.log(`\nconfig: ${JSON.stringify(config, null, 2)}\n`);
+
+module.exports = config;

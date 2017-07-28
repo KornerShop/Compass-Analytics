@@ -6,11 +6,15 @@
   "author": "Noel Parisi && Kellan Alexander <hello@kornershop.io>",
   "license": "MIT",
   "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "webpack",
-    "build:watch": "yarn build -- -w",
+    "prebuild:dev": "cd dist && rm bundle.js",
+    "prebuild": "cd dist && rm bundle.js",
+    "build:dev": "webpack --config ./config/webpack.config.js",
+    "build:": "NODE_ENV=production webpack --config ./config/webpack.config.js",
+    "now-build:": "NODE_ENV=production webpack --config ./config/webpack.config.js",
+    "build:watch": "yarn build:dev -- -w",
     "serve": "babel index -d dist && node dist/index.js",
-    "serve:nodemon": "babel index -d dist && nodemon dist/index.js"
+    "serve:nodemon": "babel index -d dist && nodemon dist/index.js",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
@@ -59,6 +63,7 @@
     "babel-plugin-recharts": "^1.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "compression-webpack-plugin": "^1.0.0",
     "enzyme": "^2.9.1",
     "eslint": "^3.17.0",
     "eslint-config-airbnb": "^15.0.2",
@@ -70,5 +75,13 @@
     "html-webpack-plugin": "^2.29.0",
     "jest": "^20.0.4",
     "prettier": "^1.5.2"
+  },
+  "now": {
+    "files": [
+      "envars.js",
+      "dist",
+      "client",
+      "server"
+    ]
   }
 }

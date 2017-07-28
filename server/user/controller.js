@@ -4,6 +4,7 @@ const { genToken, decodeToken } = require('../utils/jwt.js');
 const User = require('./model');
 
 exports.login = (req, res) => {
+  console.log('\nlogin\n')
   const { username } = req.body;
   const { password } = req.body;
 
@@ -16,7 +17,6 @@ exports.login = (req, res) => {
     if (err) {
       console.error(err);
     }
-    console.log(`user: ${JSON.stringify(user, null, 2)}`);
     if (!user) {
       res.status(401).json('No user with the given username');
       res.end();
@@ -34,8 +34,11 @@ exports.login = (req, res) => {
 };
 
 exports.verify = (req, res) => {
+  console.log('\nverify\n');
   const { authorization: rawToken } = req.headers;
+  console.log('rawToken:', JSON.stringify(rawToken, null, 2));
   const token = rawToken.replace('Bearer ', '');
+  console.log('token:', JSON.stringify(token, null, 2));
   decodeToken(token, (err, user) => {
     if (err) {
       res.status(401).send('Invalid token');
@@ -52,10 +55,10 @@ exports.verify = (req, res) => {
           res.end();
         }
         const newToken = genToken(user);
+        console.log('newToken:', JSON.stringify(newToken, null, 2));
         res.status(200).json({
           token: newToken,
         });
-        res.end();
       },
     );
   });

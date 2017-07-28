@@ -50,6 +50,7 @@ class App extends Component {
   }
   componentDidMount() {
     this.props.listenForChartData(this.socket);
+    this.props.verifyToken();
   }
   render() {
     return (
@@ -80,11 +81,11 @@ class App extends Component {
             this.props.authenticated
               ? <Redirect exact to="/" />
               : <Login
-                location={this.props.location}
-                fetching={this.props.fetching}
-                loginUser={this.props.loginUser}
-                errorMessage={this.props.errorMessage}
-                resetErrorMessage={this.props.resetErrorMessage}
+                  location={this.props.location}
+                  fetching={this.props.fetching}
+                  loginUser={this.props.loginUser}
+                  errorMessage={this.props.errorMessage}
+                  resetErrorMessage={this.props.resetErrorMessage}
                 />}
         />
         <Route component={FourOhFour} />
@@ -158,4 +159,6 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(App),
+);

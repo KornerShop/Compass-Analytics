@@ -16,15 +16,15 @@ export const requestLogin = (dispatch, getState) => {
 
 export const receiveLogin = (dispatch, getState) => {
   const { fetching, authenticated } = getState();
-  fetching === true && dispatch(toggleFetching(false));
   authenticated === false && dispatch(toggleAuthenticated(true));
+  fetching === true && dispatch(toggleFetching(false));
 };
 
 export const loginError = (dispatch, getState, errorMessage) => {
   const { fetching, authenticated } = getState();
   fetching === true && dispatch(toggleFetching(false));
   authenticated === true && dispatch(toggleAuthenticated(false));
-  dispatch(updateErrorMessage(errorMessage));
+  errorMessage && dispatch(updateErrorMessage(errorMessage));
 };
 
 export const requestLogout = (dispatch, getState) => {
@@ -35,8 +35,8 @@ export const requestLogout = (dispatch, getState) => {
 
 export const receiveLogout = (dispatch, getState) => {
   const { fetching, authenticated } = getState();
-  fetching == true && dispatch(toggleFetching(false));
   authenticated === true && dispatch(toggleAuthenticated(false));
+  fetching == true && dispatch(toggleFetching(false));
 };
 
 export const updateLangData = (dispatch, langData) =>
@@ -92,18 +92,16 @@ export const verifyToken = () => async (dispatch, getState) => {
         },
       });
       if (response.status >= 200 && response.status < 300) {
-        const { token: { newToken } } = await response.json();
+        const { token: newToken } = await response.json();
         localStorage.setItem('token', newToken);
-        dispatch(receiveLogin());
-        receiveLogin(dispatch, getState);
-      } else {
-        loginError(dispatch, getState, response.statusText);
+        return receiveLogin(dispatch, getState);
       }
+      return loginError(dispatch, getState, response.statusText);
     } catch (err) {
       console.error(err);
     }
   }
-  loginError(dispatch, getState, 'No token found');
+  return loginError(dispatch, getState);
 };
 
 export const logoutUser = () => (dispatch, getState) => {

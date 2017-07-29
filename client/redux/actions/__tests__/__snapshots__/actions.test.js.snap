@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions toggleAuthenticated 1`] = `
+Object {
+  "payload": true,
+  "type": "UPDATE_AUTHENTICATED",
+}
+`;
+
+exports[`actions toggleLocationProvided 1`] = `
+Object {
+  "payload": true,
+  "type": "UPDATE_FETCHING",
+}
+`;

@@ -21,10 +21,6 @@ const config = {
   devtool: dev ? 'eval' : false,
   resolve: {
     extensions: ['.js', '.jsx'],
-    alias: {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat',
-    },
   },
   module: {
     rules: [
@@ -65,6 +61,10 @@ const config = {
 };
 
 if (!dev) {
+  config.resolve.alias = {
+    react: 'preact-compat',
+    'react-dom': 'preact-compat',
+  };
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {

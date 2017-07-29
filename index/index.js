@@ -2,10 +2,11 @@
 
 import './register';
 import 'babel-polyfill';
+import { join } from 'path';
+import compression from 'compression';
 import mongoose from 'mongoose';
 import http from 'http';
 import express from 'express';
-import compression from 'compression';
 import bodyParser from 'body-parser';
 import socketio from 'socket.io';
 import React from 'react';
@@ -52,7 +53,9 @@ if (config.seed) {
   require('../server/seed');
 }
 
-if (process.env.NODE_ENV !== 'production') {
+const dev = process.env.NODE_ENV !== 'production';
+
+if (dev) {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -72,16 +75,16 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(compression());
 app.use(bodyParser.json());
 
-app.use(express.static('./dist'));
+app.use('/dist', express.static(join(__dirname, '../dist')));
 
-const renderFullPage = (title, css, markup, preloadedState) => `
+const renderFullPage = (css, markup, preloadedState) => `
   <!DOCTYPE html>
       <html>
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <meta http-equiv="X-UA-Compatible" content="ie=edge">
-          <title>${title}</title>
+          <title>Compass Analytics</title>
           ${css}
         </head>
         <body>
@@ -89,7 +92,7 @@ const renderFullPage = (title, css, markup, preloadedState) => `
           <script>
             window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>
-          <script src="${process.env.NODE_ENV === 'production' ? '/dist/bundle.js.gz' : '/dist/bundle.js'}"></script>
+          <script src="/dist/bundle.js"></script>
         </body>
       </html>
   `;
@@ -110,10 +113,9 @@ const handleRender = (req, res) => {
   const css = sheet.getStyleTags();
   const preloadedState = store.getState();
   if (context.url) {
-    res.redirect(301, context.url);
-    res.end();
+    return res.redirect(301, context.url);
   }
-  res.send(renderFullPage('Compass Analytics', css, markup, preloadedState));
+  return res.send(renderFullPage(css, markup, preloadedState));
 };
 
 io.on('connection', socket => {

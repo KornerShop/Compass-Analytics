@@ -7,7 +7,11 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const dev = process.env.NODE_ENV !== 'production';
 
 const config = {
-  entry: ['babel-polyfill', 'whatwg-fetch', resolve(__dirname, '../client/index.jsx')],
+  entry: [
+    'babel-polyfill',
+    'whatwg-fetch',
+    resolve(__dirname, '../client/index.jsx'),
+  ],
   output: {
     path: join(__dirname, '../dist'),
     filename: 'bundle.js',
@@ -17,6 +21,10 @@ const config = {
   devtool: dev ? 'eval' : false,
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat',
+    },
   },
   module: {
     rules: [
@@ -61,20 +69,12 @@ if (!dev) {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
-        dead_code: true,
       },
       output: {
         beautify: false,
       },
-    }),
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$/,
-      threshold: 10240,
-      minRatio: 0.8,
     })
-  )
+  );
 } else {
   config.entry.splice(
     2,
@@ -93,6 +93,6 @@ if (!dev) {
 
 console.log(`\n${dev ? 'DEVELOPMENT' : 'PRODUCTION'} 🏗️\n`);
 
-console.log(`\nconfig: ${JSON.stringify(config, null, 2)}\n`);
+console.log(`\nCONFIG: ${JSON.stringify(config, null, 2)}\n`);
 
 module.exports = config;

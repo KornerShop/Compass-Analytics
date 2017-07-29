@@ -1,5 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`actions populateLangData 1`] = `
+Object {
+  "payload": "English",
+  "type": "POPULATE_LANG_DATA",
+}
+`;
+
+exports[`actions populateNavData 1`] = `
+Object {
+  "payload": Object {
+    "_id": Object {
+      "date": "7/29/2017",
+      "office": "SNAP",
+    },
+    "count": 3,
+  },
+  "type": "POPULATE_NAV_DATA",
+}
+`;
+
+exports[`actions populateOfficeData 1`] = `
+Object {
+  "payload": Object {
+    "_id": Object {
+      "date": "7/29/2017",
+      "office": "SNAP",
+    },
+    "count": 3,
+  },
+  "type": "POPULATE_OFFICE_DATA",
+}
+`;
+
+exports[`actions populateZipData 1`] = `
+Object {
+  "payload": Object {
+    "_id": 95404,
+    "count": 2,
+  },
+  "type": "POPULATE_ZIP_DATA",
+}
+`;
+
 exports[`actions toggleAuthenticated 1`] = `
 Object {
   "payload": true,
@@ -7,9 +50,16 @@ Object {
 }
 `;
 
-exports[`actions toggleLocationProvided 1`] = `
+exports[`actions toggleFetching 1`] = `
 Object {
   "payload": true,
   "type": "UPDATE_FETCHING",
+}
+`;
+
+exports[`actions updateErrorMessage 1`] = `
+Object {
+  "payload": "No user with the given username",
+  "type": "UPDATE_ERROR_MESSAGE",
 }
 `;

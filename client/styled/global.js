@@ -1,4 +1,4 @@
-import {injectGlobal} from 'styled-components'
+import { injectGlobal } from 'styled-components';
 
 injectGlobal`
   @font-face {
@@ -7,4 +7,4 @@ injectGlobal`
   body {
     margin: 0;
   }
-`
+`;

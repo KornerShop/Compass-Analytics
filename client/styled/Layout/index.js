@@ -17,7 +17,7 @@ export const GraphLayout = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  padding: 3em 0;
+  padding: 6em 0;
 
   ${media.desktop`
     padding: 3em 0;

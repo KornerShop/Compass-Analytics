@@ -9,6 +9,7 @@ const Layout = styled.div`
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
   background-color: #f3f3f3;
+  height: 100%;
 `;
 
 const Header = styled.div`

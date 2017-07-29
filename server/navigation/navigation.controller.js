@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-const formatLongitudinalData = require('../utils/utils');
+const formatLongitudinalData = require('../utils/longitudinal');
 
 const Navigation = require('./navigation.model');
 

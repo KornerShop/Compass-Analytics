@@ -19,7 +19,6 @@
     "test:update": "yarn test -- -u",
     "test:cov": "yarn test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test:ci:cov": "yarn test --coverage && cat $CIRCLE_ARTIFACTS/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test:ci": "mkdir $CIRCLE_ARTIFACTS/",
     "test:watch": "yarn test -- --watch"
   },
   "dependencies": {

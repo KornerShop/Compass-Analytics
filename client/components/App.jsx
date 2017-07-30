@@ -16,8 +16,6 @@ import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SocketClient from 'socket.io-client';
 
-import { URL } from '../../config/envars';
-
 import global from '../styled/global';
 
 import {
@@ -30,6 +28,8 @@ import {
 
 import Login from './Login';
 import Landing from './Landing';
+
+const SOCKET_URI = process.env.NODE_ENV ? 'https://compass-analytics.now.sh' : 'http://localhost:8080';
 
 const H404 = styled.h1`
   display: flex;
@@ -46,7 +46,7 @@ const FourOhFour = () => <H404>You look lost...</H404>;
 class App extends Component {
   constructor(props) {
     super(props);
-    this.socket = SocketClient(URL);
+    this.socket = SocketClient(SOCKET_URI);
   }
   async componentDidMount() {
     await this.props.verifyToken();

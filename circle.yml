@@ -16,11 +16,11 @@ general:
 
 test:
   override:
-    - yarn test
+    - yarn test:cov
 
 deployment:
   production:
     branch: master
     commands:
-      - now -t ${NOW_TOKEN}
-      - now -t ${NOW_TOKEN} alias compass-analyticsss
+      - now --public -t ${NOW_TOKEN}
+      - now -t ${NOW_TOKEN} alias compass-analytics

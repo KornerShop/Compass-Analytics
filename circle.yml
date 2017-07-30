@@ -10,14 +10,17 @@ dependencies:
   pre:
     - yarn global add now
 
-# test:
-#   override:
-#     - yarn test:ci
+general:
+  artifacts:
+    - "./coverage/"
+
+test:
+  override:
+    - yarn test
 
 deployment:
   production:
     branch: master
     commands:
-      - yarn coverage
       - now -t ${NOW_TOKEN}
       - now -t ${NOW_TOKEN} alias compass-analyticsss

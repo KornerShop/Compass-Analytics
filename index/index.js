@@ -143,5 +143,5 @@ app.use(require('../server/user/routes'));
 app.use(handleRender);
 
 server.listen(PORT, () =>
-  console.log(`server listening at http://localhost:${PORT}`)
+  dev && console.log(`server listening at http://localhost:${PORT}`)
 );

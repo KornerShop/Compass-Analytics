@@ -8,6 +8,7 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
   pre:
+    - yarn global add nyc
     - yarn global add now
 
 general:
@@ -16,11 +17,12 @@ general:
 
 test:
   override:
-    - yarn test:cov
+    - yarn test
 
 deployment:
   production:
     branch: master
     commands:
+      - nyc yarn test && nyc report --reporter=text-lcov | coveralls
       - now --public -t ${NOW_TOKEN}
       - now -t ${NOW_TOKEN} alias compass-analytics

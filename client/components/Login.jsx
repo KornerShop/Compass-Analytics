@@ -115,21 +115,15 @@ const SubmitButton = styled.input`
 `;
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.initialState = {
-      username: '',
-      password: '',
-      usernameValid: true,
-      passwordValid: true,
-      valid: false,
-    };
-    this.state = this.initialState;
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleKeyPress(evt) {
+  state = this.initialState;
+  initialState = {
+    username: '',
+    password: '',
+    usernameValid: true,
+    passwordValid: true,
+    valid: false,
+  };
+  handleKeyPress = evt => {
     if (evt.key === 'Enter') {
       if (
         this.state.valid &&
@@ -146,7 +140,7 @@ class Login extends Component {
     }
     return (function noop() {})();
   }
-  handleChange(evt) {
+  handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value,
       [`${evt.target.name}Valid`]:
@@ -166,7 +160,7 @@ class Login extends Component {
         ),
     });
   }
-  handleSubmit(evt) {
+  handleSubmit = evt => {
     evt.preventDefault();
     if (this.state.valid) {
       this.props.resetErrorMessage();

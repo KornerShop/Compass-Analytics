@@ -44,14 +44,11 @@ const H404 = styled.h1`
 const FourOhFour = () => <H404>You look lost...</H404>;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.socket = SocketClient(SOCKET_URI);
-  }
   async componentDidMount() {
     await this.props.verifyToken();
     this.props.listenForChartData(this.socket);
   }
+  socket = SocketClient(SOCKET_URI);
   render() {
     return (
       <Switch>
@@ -61,7 +58,7 @@ class App extends Component {
           render={() =>
             this.props.authenticated
               ? <Landing
-                  location={this.props.location}
+                location={this.props.location}
                   authenticated={this.props.authenticated}
                   fetching={this.props.fetching}
                   logoutUser={this.props.logoutUser}

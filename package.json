@@ -91,6 +91,7 @@
     ]
   },
   "now": {
+    "alias": "compass-analyticsss",
     "files": [
       "config",
       "envars.js",

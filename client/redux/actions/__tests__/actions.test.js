@@ -11,30 +11,44 @@ describe('actions', () => {
     expect(actions.updateErrorMessage('No user with the given username')).toMatchSnapshot();
   });
   test('populateLangData', () => {
-    expect(actions.populateLangData('English')).toMatchSnapshot();
+    expect(actions.populateLangData([
+      {
+        _id: "English",
+        value: 15
+      },
+      {
+        _id: "Spanish",
+        value: 27
+      }
+    ]
+  )).toMatchSnapshot();
   });
   test('populateOfficeData', () => {
-    expect(actions.populateOfficeData({
+    expect(actions.populateOfficeData([{
       _id: {
         office: 'SNAP',
         date: '7/29/2017',
       },
       count: 3,
-    })).toMatchSnapshot();
+    }])).toMatchSnapshot();
   });
   test('populateNavData', () => {
-    expect(actions.populateNavData({
-      _id: {
-        office: 'SNAP',
-        date: '7/29/2017',
-      },
-      count: 3,
-    })).toMatchSnapshot();
+    expect(actions.populateNavData([
+      {
+        _id: {
+          office: 'SNAP',
+          date: '7/29/2017',
+        },
+        count: 3,
+      }
+    ])).toMatchSnapshot();
   });
   test('populateZipData', () => {
-    expect(actions.populateZipData({
-      _id: 95404,
-      count: 2
-    })).toMatchSnapshot();
+    expect(actions.populateZipData([
+      {
+        _id: 95404,
+        count: 2
+      }
+    ])).toMatchSnapshot();
   });
 });

@@ -93,15 +93,5 @@
     "snapshotSerializers": [
       "jest-serializer-enzyme"
     ]
-  },
-  "now": {
-    "files": [
-      "config",
-      "envars.js",
-      "dist",
-      "client",
-      "server",
-      "index"
-    ]
   }
 }

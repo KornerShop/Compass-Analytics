@@ -2,43 +2,58 @@
 
 exports[`actions populateLangData 1`] = `
 Object {
-  "payload": "English",
+  "payload": Array [
+    Object {
+      "_id": "English",
+      "value": 15,
+    },
+    Object {
+      "_id": "Spanish",
+      "value": 27,
+    },
+  ],
   "type": "POPULATE_LANG_DATA",
 }
 `;
 
 exports[`actions populateNavData 1`] = `
 Object {
-  "payload": Object {
-    "_id": Object {
-      "date": "7/29/2017",
-      "office": "SNAP",
+  "payload": Array [
+    Object {
+      "_id": Object {
+        "date": "7/29/2017",
+        "office": "SNAP",
+      },
+      "count": 3,
     },
-    "count": 3,
-  },
+  ],
   "type": "POPULATE_NAV_DATA",
 }
 `;
 
 exports[`actions populateOfficeData 1`] = `
 Object {
-  "payload": Object {
-    "_id": Object {
-      "date": "7/29/2017",
-      "office": "SNAP",
+  "payload": Array [
+    Object {
+      "_id": Object {
+        "date": "7/29/2017",
+        "office": "SNAP",
+      },
+      "count": 3,
     },
-    "count": 3,
-  },
+  ],
   "type": "POPULATE_OFFICE_DATA",
 }
 `;
 
 exports[`actions populateZipData 1`] = `
 Object {
-  "payload": Object {
-    "_id": 95404,
-    "count": 2,
-  },
+  "payload": Array [
+    Object {
+      "_id": 95404,
+      "count": 2,
+    },
+  ],
   "type": "POPULATE_ZIP_DATA",
 }
 `;

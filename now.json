@@ -1,0 +1,10 @@
+{
+  "files": [
+    "config",
+    "envars.js",
+    "dist",
+    "client",
+    "server",
+    "index"
+  ]
+}

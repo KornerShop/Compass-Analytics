@@ -9,10 +9,10 @@ dependencies:
     - ~/.cache/yarn
   pre:
     - yarn global add now
-    
+
 deployment:
   production:
-    branch: production
+    branch: master
     commands:
       - now -t ${NOW_TOKEN}
       - now -t ${NOW_TOKEN} alias

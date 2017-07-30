@@ -8,21 +8,15 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
   pre:
-    - yarn global add nyc
     - yarn global add now
-
-general:
-  artifacts:
-    - "coverage/"
 
 test:
   override:
-    - yarn test:cov
+    - yarn test
 
 deployment:
   production:
     branch: master
     commands:
-      - cat $CIRCLE_ARTIFACTS/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - now --public -t ${NOW_TOKEN}
       - now -t ${NOW_TOKEN} alias compass-analytics

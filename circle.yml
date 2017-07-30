@@ -10,9 +10,13 @@ dependencies:
   pre:
     - yarn global add now
 
+test:
+  override:
+    - yarn test:ci
+
 deployment:
   production:
     branch: master
     commands:
       - now -t ${NOW_TOKEN}
-      - now -t ${NOW_TOKEN} alias
+      - now -t ${NOW_TOKEN} alias compass-analyticsss

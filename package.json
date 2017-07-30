@@ -16,6 +16,7 @@
     "serve:nodemon": "babel index -d dist && nodemon dist/index.js",
     "now-start": "NODE_ENV=production node dist/index.js",
     "test": "jest",
+    "test:ci": "yarn test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test:update": "yarn test -- -u",
     "test:cov": "yarn test -- --coverage",
     "test:watch": "yarn test -- --watch"
@@ -28,6 +29,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
+    "coveralls": "^2.13.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "jsonwebtoken": "^7.4.1",
@@ -86,12 +88,16 @@
   },
   "jest": {
     "verbose": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/config/**"
+    ],
     "snapshotSerializers": [
       "jest-serializer-enzyme"
     ]
   },
   "now": {
-    "alias": "compass-analyticsss",
     "files": [
       "config",
       "envars.js",

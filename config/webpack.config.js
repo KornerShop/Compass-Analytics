@@ -2,7 +2,6 @@
 
 const { join, resolve } = require('path');
 const webpack = require('webpack');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -42,6 +41,7 @@ const config = {
             plugins: [
               'transform-es2015-modules-commonjs',
               'transform-async-to-generator',
+              'transform-class-properties',
               'recharts',
             ],
           },

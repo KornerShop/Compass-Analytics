@@ -16,7 +16,7 @@
     "serve:nodemon": "babel index -d dist && nodemon dist/index.js",
     "now-start": "NODE_ENV=production node dist/index.js",
     "test": "jest",
-    "test:ci": "yarn test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coverage": "yarn test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test:update": "yarn test -- -u",
     "test:cov": "yarn test -- --coverage",
     "test:watch": "yarn test -- --watch"

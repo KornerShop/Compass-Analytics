@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/kornershop/compass-analytics.svg?style=svg)](https://circleci.com/gh/kornershop/compass-analytics)
+[![Circle CI](https://circleci.com/gh/KornerShop/Compass-Analytics.svg?style=shield&circle-token=9f6a9128bd9f6ca839a32da67c02794ab1f027ea)](https://circleci.com/gh/KornerShop/Compass-Analytics)
 [![Coverage Status](https://coveralls.io/repos/github/kornershop/compass-analytics/badge.svg?branch=master)](https://coveralls.io/github/kornershop/compass-analytics?branch=master)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)

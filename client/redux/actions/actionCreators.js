@@ -1,3 +1,4 @@
+import fetch from 'isomorphic-fetch';
 import {
   toggleAuthenticated,
   toggleFetching,
@@ -8,35 +9,42 @@ import {
   populateZipData,
 } from './actions';
 
-export const requestLogin = (dispatch, getState) => {
-  const { fetching, authenticated } = getState();
-  fetching === false && dispatch(toggleFetching(true));
-  authenticated === true && dispatch(toggleAuthenticated(false));
+const url = process.env.NODE_ENV
+  ? 'https://compass-analytics.now.sh'
+  : 'http://localhost:8080';
+
+// Need to move localStorage interactions to middleware
+
+const storeToken = token => localStorage.setItem('token', token);
+
+const getToken = () => localStorage.getItem('token');
+
+const removeToken = () => localStorage.removeItem('token');
+
+export const requestLogin = dispatch => {
+  dispatch(toggleFetching(true));
+  dispatch(toggleAuthenticated(false));
 };
 
-export const receiveLogin = (dispatch, getState) => {
-  const { fetching, authenticated } = getState();
-  authenticated === false && dispatch(toggleAuthenticated(true));
-  fetching === true && dispatch(toggleFetching(false));
+export const receiveLogin = dispatch => {
+  dispatch(toggleAuthenticated(true));
+  dispatch(toggleFetching(false));
 };
 
-export const loginError = (dispatch, getState, errorMessage) => {
-  const { fetching, authenticated } = getState();
-  fetching === true && dispatch(toggleFetching(false));
-  authenticated === true && dispatch(toggleAuthenticated(false));
-  errorMessage && dispatch(updateErrorMessage(errorMessage));
+export const loginError = (dispatch, errorMessage) => {
+  dispatch(toggleFetching(false));
+  dispatch(toggleAuthenticated(false));
+  dispatch(updateErrorMessage(errorMessage));
 };
 
-export const requestLogout = (dispatch, getState) => {
-  const { fetching, authenticated } = getState();
-  fetching === false && dispatch(toggleFetching(true));
-  authenticated === false && dispatch(toggleAuthenticated(true));
+export const requestLogout = dispatch => {
+  dispatch(toggleFetching(true));
+  dispatch(toggleAuthenticated(true));
 };
 
-export const receiveLogout = (dispatch, getState) => {
-  const { fetching, authenticated } = getState();
-  authenticated === true && dispatch(toggleAuthenticated(false));
-  fetching === true && dispatch(toggleFetching(false));
+export const receiveLogout = dispatch => {
+  dispatch(toggleAuthenticated(false));
+  dispatch(toggleFetching(false));
 };
 
 export const updateLangData = (dispatch, langData) =>
@@ -51,16 +59,17 @@ export const updateNavData = (dispatch, navData) =>
 export const updateZipData = (dispatch, zipData) =>
   dispatch(populateZipData(zipData));
 
-export const loginUser = ({ username, password }) => async (
-  dispatch,
-  getState,
-) => {
-  requestLogin(dispatch, getState);
+export const loginUser = ({
+  username,
+  password,
+}) => async dispatch => {
+  requestLogin(dispatch);
   try {
-    const response = await fetch('/users/login', {
+    const response = await fetch(`${url}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({
         username,
@@ -69,45 +78,48 @@ export const loginUser = ({ username, password }) => async (
     });
     if (response.status >= 200 && response.status < 300) {
       const { token } = await response.json();
-      localStorage.setItem('token', token);
-      receiveLogin(dispatch, getState);
+      storeToken(token);
+      receiveLogin(dispatch);
     } else {
-      loginError(dispatch, getState, 'Wrong credentials');
+      const { errorMessage } = await response.json();
+      loginError(dispatch, errorMessage);
     }
   } catch (err) {
     console.error(err);
   }
 };
 
-export const verifyToken = () => async (dispatch, getState) => {
-  requestLogin(dispatch, getState);
-  const token = localStorage.getItem('token');
+export const verifyToken = () => async dispatch => {
+  requestLogin(dispatch);
+  const token = getToken();
   if (token) {
     try {
-      const response = await fetch('/users/verify', {
+      const response = await fetch(`${url}/users/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.status >= 200 && response.status < 300) {
         const { token: newToken } = await response.json();
-        localStorage.setItem('token', newToken);
-        return receiveLogin(dispatch, getState);
+        storeToken(newToken);
+        return receiveLogin(dispatch);
       }
-      return loginError(dispatch, getState, response.statusText);
+      const { errorMessage } = await response.json();
+      return loginError(dispatch, errorMessage);
     } catch (err) {
       console.error(err);
     }
   }
-  return loginError(dispatch, getState);
+  return loginError(dispatch);
 };
 
-export const logoutUser = () => (dispatch, getState) => {
-  requestLogout(dispatch, getState);
-  localStorage.removeItem('token');
-  receiveLogout(dispatch, getState);
+export const logoutUser = () => dispatch => {
+  requestLogout(dispatch);
+  removeToken();
+  receiveLogout(dispatch);
 };
 
 export const listenForChartData = socket => dispatch => {

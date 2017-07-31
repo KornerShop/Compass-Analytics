@@ -4,17 +4,20 @@ const { genToken, decodeToken } = require('../utils/jwt.js');
 const User = require('./model');
 
 exports.login = (req, res) => {
-  const { username } = req.body;
-  const { password } = req.body;
+  const { username, password } = req.body;
   User.findOne({ username }).exec((err, user) => {
     if (err) {
       console.error(err);
     }
     if (!user) {
-      res.status(401).send('No user with the given username');
+      res.status(401).json({
+        errorMessage: 'No user with the given username',
+      });
       res.end();
     } else if (!user.authenticate(password)) {
-      res.status(401).send('Incorrect password');
+      res.status(401).json({
+        errorMessage: 'Incorrect password',
+      });
       res.end();
     } else {
       const token = genToken(user);
@@ -31,7 +34,9 @@ exports.verify = (req, res) => {
   const token = rawToken.replace('Bearer ', '');
   decodeToken(token, (err, user) => {
     if (err) {
-      res.status(401).send('Invalid token');
+      res.status(401).json({
+        errorMessage: 'Invalid token',
+      });
       res.end();
     }
     User.findById(
@@ -40,7 +45,9 @@ exports.verify = (req, res) => {
       },
       (err, user) => {
         if (err) {
-          res.status(401).send('User not found');
+          res.status(401).json({
+            errorMessage: 'User not found',
+          });
           res.end();
         }
         const newToken = genToken(user);

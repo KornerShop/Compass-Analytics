@@ -8,7 +8,6 @@ const dev = process.env.NODE_ENV !== 'production';
 const config = {
   entry: [
     'babel-polyfill',
-    'whatwg-fetch',
     resolve(__dirname, '../client/index.jsx'),
   ],
   output: {

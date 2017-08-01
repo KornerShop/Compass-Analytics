@@ -53,14 +53,14 @@ class App extends Component {
           render={() =>
             this.props.authenticated
               ? <Landing
-                location={this.props.location}
-                authenticated={this.props.authenticated}
-                fetching={this.props.fetching}
-                logoutUser={this.props.logoutUser}
-                langData={this.props.langData}
-                officeData={this.props.officeData}
-                navData={this.props.navData}
-                zipData={this.props.zipData}
+                  location={this.props.location}
+                  authenticated={this.props.authenticated}
+                  fetching={this.props.fetching}
+                  logoutUser={this.props.logoutUser}
+                  langData={this.props.langData}
+                  officeData={this.props.officeData}
+                  navData={this.props.navData}
+                  zipData={this.props.zipData}
                 />
               : <Redirect to="/login" />}
         />
@@ -70,10 +70,10 @@ class App extends Component {
             this.props.authenticated
               ? <Redirect exact to="/" />
               : <Login
-                location={this.props.location}
-                fetching={this.props.fetching}
-                loginUser={this.props.loginUser}
-                errorMessage={this.props.errorMessage}
+                  location={this.props.location}
+                  fetching={this.props.fetching}
+                  loginUser={this.props.loginUser}
+                  errorMessage={this.props.errorMessage}
                 />}
         />
         <Route component={FourOhFour} />

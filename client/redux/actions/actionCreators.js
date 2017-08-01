@@ -31,7 +31,6 @@ const removeToken = () => localStorage.removeItem('token');
 
 export const requestLogin = dispatch => {
   dispatch(toggleFetching(true));
-  dispatch(toggleAuthenticated(false));
 };
 
 export const receiveLogin = dispatch => {
@@ -42,18 +41,16 @@ export const receiveLogin = dispatch => {
 
 export const unAuthenticated = dispatch => {
   dispatch(toggleFetching(false));
-  dispatch(toggleAuthenticated(false));
 };
 
 export const loginError = (dispatch, errorMessage) => {
-  dispatch(toggleFetching(false));
   dispatch(toggleAuthenticated(false));
+  dispatch(toggleFetching(false));
   dispatch(updateErrorMessage(errorMessage));
 };
 
 export const requestLogout = dispatch => {
   dispatch(toggleFetching(true));
-  dispatch(toggleAuthenticated(true));
 };
 
 export const receiveLogout = dispatch => {
@@ -149,10 +146,4 @@ export const listenForChartData = () => dispatch => {
   zipSocket.on('populate-zip-data', zipData =>
     updateZipData(dispatch, zipData),
   );
-};
-
-export const resetErrorMessage = () => dispatch => {
-  console.log('resetErrorMessage');
-
-  dispatch(updateErrorMessage(''));
 };

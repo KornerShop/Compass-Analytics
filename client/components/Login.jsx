@@ -100,7 +100,6 @@ const SubmitButton = styled.input`
   margin: 1.5em 0 3em 0;
   text-transform: uppercase;
   box-shadow: 0 3px #999;
-
   &:hover {
     background-color: #e53935;
   }

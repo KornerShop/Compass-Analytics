@@ -41,6 +41,41 @@ const H404 = styled.h1`
 const FourOhFour = () => <H404>You look lost...</H404>;
 
 class App extends Component {
+  static propTypes = {
+    authenticated: bool.isRequired,
+    fetching: bool.isRequired,
+    errorMessage: string.isRequired,
+    langData: arrayOf(
+      shape({
+        _id: oneOf(['English', 'Spanish']).isRequired,
+        value: number.isRequired,
+      }),
+    ),
+    officeData: arrayOf(
+      shape({
+        date: string.isRequired,
+        office: oneOf(['SNAP', 'WIC']),
+      }),
+    ),
+    navData: arrayOf(
+      shape({
+        date: string.isRequired,
+        office: oneOf(['SNAP', 'WIC']),
+      }),
+    ),
+    zipData: arrayOf(
+      shape({
+        _id: string.isRequired,
+        count: number.isRequired,
+      }),
+    ),
+    loginUser: func.isRequired,
+    verifyToken: func.isRequired,
+    logoutUser: func.isRequired,
+    resetErrorMessage: func.isRequired,
+    listenForChartData: func.isRequired,
+    location: object.isRequired,
+  };
   async componentDidMount() {
     await this.props.verifyToken();
     this.props.listenForChartData();
@@ -83,42 +118,6 @@ class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  authenticated: bool.isRequired,
-  fetching: bool.isRequired,
-  errorMessage: string.isRequired,
-  langData: arrayOf(
-    shape({
-      _id: oneOf(['English', 'Spanish']).isRequired,
-      value: number.isRequired,
-    }),
-  ),
-  officeData: arrayOf(
-    shape({
-      date: string.isRequired,
-      office: oneOf(['SNAP', 'WIC']),
-    }),
-  ),
-  navData: arrayOf(
-    shape({
-      date: string.isRequired,
-      office: oneOf(['SNAP', 'WIC']),
-    }),
-  ),
-  zipData: arrayOf(
-    shape({
-      _id: string.isRequired,
-      count: number.isRequired,
-    }),
-  ),
-  loginUser: func.isRequired,
-  verifyToken: func.isRequired,
-  logoutUser: func.isRequired,
-  resetErrorMessage: func.isRequired,
-  listenForChartData: func.isRequired,
-  location: object.isRequired,
-};
 
 const mapStateToProps = ({
   authenticated,

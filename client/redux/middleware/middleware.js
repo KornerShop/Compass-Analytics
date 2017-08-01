@@ -14,7 +14,3 @@ export const logger = store => next => action => {
   console.groupEnd(action.type);
   return result;
 };
-
-export const storeToken = store => next => action => {
-  return
-}

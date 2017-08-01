@@ -115,6 +115,13 @@ const SubmitButton = styled.input`
 `;
 
 class Login extends Component {
+  static propTypes = {
+    fetching: bool.isRequired,
+    loginUser: func.isRequired,
+    errorMessage: string.isRequired,
+    resetErrorMessage: func.isRequired,
+    location: object.isRequired,
+  };
   state = this.initialState;
   initialState = {
     username: '',
@@ -139,7 +146,7 @@ class Login extends Component {
       }
     }
     return (function noop() {})();
-  }
+  };
   handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value,
@@ -159,7 +166,7 @@ class Login extends Component {
           evt.target.value,
         ),
     });
-  }
+  };
   handleSubmit = evt => {
     evt.preventDefault();
     if (this.state.valid) {
@@ -170,7 +177,7 @@ class Login extends Component {
       });
     }
     return (function noop() {})();
-  }
+  };
   render() {
     return this.props.fetching
       ? <LoadingWrapper>
@@ -206,9 +213,9 @@ class Login extends Component {
               type="password"
               placeholder="password"
               valid={this.state.passwordValid}
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
               {this.props.errorMessage !== '' &&
                 <LoginError>
                   {this.props.errorMessage}
@@ -219,13 +226,5 @@ class Login extends Component {
         </BackgroundImage>;
   }
 }
-
-Login.propTypes = {
-  fetching: bool.isRequired,
-  loginUser: func.isRequired,
-  errorMessage: string.isRequired,
-  resetErrorMessage: func.isRequired,
-  location: object.isRequired,
-};
 
 export default Login;

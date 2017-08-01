@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import io from 'socket.io-client';
 
 import globalStyle from '../styled/global';
 
@@ -28,8 +27,6 @@ import {
 
 import Login from './Login';
 import Landing from './Landing';
-
-const SOCKET_URI = process.env.NODE_ENV ? 'https://compass-analytics.now.sh' : 'http://localhost:8080';
 
 const H404 = styled.h1`
   display: flex;
@@ -46,9 +43,8 @@ const FourOhFour = () => <H404>You look lost...</H404>;
 class App extends Component {
   async componentDidMount() {
     await this.props.verifyToken();
-    this.props.listenForChartData(this.socket);
+    this.props.listenForChartData();
   }
-  socket = io(SOCKET_URI);
   render() {
     return (
       <Switch>

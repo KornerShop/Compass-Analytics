@@ -115,15 +115,21 @@ const SubmitButton = styled.input`
 `;
 
 class Login extends Component {
-  state = this.initialState;
-  initialState = {
-    username: '',
-    password: '',
-    usernameValid: true,
-    passwordValid: true,
-    valid: false,
-  };
-  handleKeyPress = evt => {
+  constructor(props) {
+    super(props)
+    this.initialState = {
+      username: '',
+      password: '',
+      usernameValid: true,
+      passwordValid: true,
+      valid: false,
+    };
+    this.state = this.initialState;
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleKeyPress(evt) {
     if (evt.key === 'Enter') {
       if (
         this.state.valid &&
@@ -140,7 +146,7 @@ class Login extends Component {
     }
     return (function noop() {})();
   }
-  handleChange = evt => {
+  handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value,
       [`${evt.target.name}Valid`]:
@@ -160,10 +166,9 @@ class Login extends Component {
         ),
     });
   }
-  handleSubmit = evt => {
+  handleSubmit(evt) {
     evt.preventDefault();
     if (this.state.valid) {
-      this.props.resetErrorMessage();
       return this.props.loginUser({
         username: this.state.username,
         password: this.state.password,
@@ -209,11 +214,11 @@ class Login extends Component {
               value={this.state.password}
               onChange={this.handleChange}
             />
-              {this.props.errorMessage !== '' &&
-                <LoginError>
-                  {this.props.errorMessage}
-                </LoginError>}
-              <SubmitButton type="submit" value="Submit" />
+            {this.props.errorMessage !== '' &&
+              <LoginError>
+                {this.props.errorMessage}
+              </LoginError>}
+            <SubmitButton type="submit" value="Submit" />
             </AuthForm>
           </AuthPanel>
         </BackgroundImage>;
@@ -224,7 +229,6 @@ Login.propTypes = {
   fetching: bool.isRequired,
   loginUser: func.isRequired,
   errorMessage: string.isRequired,
-  resetErrorMessage: func.isRequired,
   location: object.isRequired,
 };
 

@@ -22,7 +22,6 @@ import {
   verifyToken,
   logoutUser,
   listenForChartData,
-  resetErrorMessage,
 } from '../redux/actions/actionCreators';
 
 import Login from './Login';
@@ -55,13 +54,13 @@ class App extends Component {
             this.props.authenticated
               ? <Landing
                 location={this.props.location}
-                  authenticated={this.props.authenticated}
-                  fetching={this.props.fetching}
-                  logoutUser={this.props.logoutUser}
-                  langData={this.props.langData}
-                  officeData={this.props.officeData}
-                  navData={this.props.navData}
-                  zipData={this.props.zipData}
+                authenticated={this.props.authenticated}
+                fetching={this.props.fetching}
+                logoutUser={this.props.logoutUser}
+                langData={this.props.langData}
+                officeData={this.props.officeData}
+                navData={this.props.navData}
+                zipData={this.props.zipData}
                 />
               : <Redirect to="/login" />}
         />
@@ -71,11 +70,10 @@ class App extends Component {
             this.props.authenticated
               ? <Redirect exact to="/" />
               : <Login
-                  location={this.props.location}
-                  fetching={this.props.fetching}
-                  loginUser={this.props.loginUser}
-                  errorMessage={this.props.errorMessage}
-                  resetErrorMessage={this.props.resetErrorMessage}
+                location={this.props.location}
+                fetching={this.props.fetching}
+                loginUser={this.props.loginUser}
+                errorMessage={this.props.errorMessage}
                 />}
         />
         <Route component={FourOhFour} />
@@ -115,7 +113,6 @@ App.propTypes = {
   loginUser: func.isRequired,
   verifyToken: func.isRequired,
   logoutUser: func.isRequired,
-  resetErrorMessage: func.isRequired,
   listenForChartData: func.isRequired,
   location: object.isRequired,
 };
@@ -142,7 +139,6 @@ const mapDispatchToProps = dispatch => ({
   loginUser: bindActionCreators(loginUser, dispatch),
   verifyToken: bindActionCreators(verifyToken, dispatch),
   logoutUser: bindActionCreators(logoutUser, dispatch),
-  resetErrorMessage: bindActionCreators(resetErrorMessage, dispatch),
   listenForChartData: bindActionCreators(
     listenForChartData,
     dispatch,

@@ -40,8 +40,8 @@ const config = {
             plugins: [
               'transform-es2015-modules-commonjs',
               'transform-async-to-generator',
-              'transform-class-properties',
               'recharts',
+              'transform-class-properties',
             ],
           },
         },

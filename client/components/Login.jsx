@@ -115,22 +115,21 @@ const SubmitButton = styled.input`
 `;
 
 class Login extends Component {
-  static propTypes = {
-    fetching: bool.isRequired,
-    loginUser: func.isRequired,
-    errorMessage: string.isRequired,
-    resetErrorMessage: func.isRequired,
-    location: object.isRequired,
-  };
-  state = this.initialState;
-  initialState = {
-    username: '',
-    password: '',
-    usernameValid: true,
-    passwordValid: true,
-    valid: false,
-  };
-  handleKeyPress = evt => {
+  constructor(props) {
+    super(props)
+    this.initialState = {
+      username: '',
+      password: '',
+      usernameValid: true,
+      passwordValid: true,
+      valid: false,
+    };
+    this.state = this.initialState;
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleKeyPress(evt) {
     if (evt.key === 'Enter') {
       if (
         this.state.valid &&
@@ -146,8 +145,8 @@ class Login extends Component {
       }
     }
     return (function noop() {})();
-  };
-  handleChange = evt => {
+  }
+  handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value,
       [`${evt.target.name}Valid`]:
@@ -166,8 +165,8 @@ class Login extends Component {
           evt.target.value,
         ),
     });
-  };
-  handleSubmit = evt => {
+  }
+  handleSubmit(evt) {
     evt.preventDefault();
     if (this.state.valid) {
       this.props.resetErrorMessage();
@@ -177,7 +176,7 @@ class Login extends Component {
       });
     }
     return (function noop() {})();
-  };
+  }
   render() {
     return this.props.fetching
       ? <LoadingWrapper>
@@ -213,18 +212,26 @@ class Login extends Component {
               type="password"
               placeholder="password"
               valid={this.state.passwordValid}
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-              {this.props.errorMessage !== '' &&
-                <LoginError>
-                  {this.props.errorMessage}
-                </LoginError>}
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            {this.props.errorMessage !== '' &&
+              <LoginError>
+                {this.props.errorMessage}
+              </LoginError>}
               <SubmitButton type="submit" value="Submit" />
             </AuthForm>
           </AuthPanel>
         </BackgroundImage>;
   }
 }
+
+Login.propTypes = {
+  fetching: bool.isRequired,
+  loginUser: func.isRequired,
+  errorMessage: string.isRequired,
+  resetErrorMessage: func.isRequired,
+  location: object.isRequired,
+};
 
 export default Login;

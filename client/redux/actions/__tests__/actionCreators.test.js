@@ -18,7 +18,6 @@ import {
   loginUser,
   verifyToken,
   logoutUser,
-  resetErrorMessage,
   listenForChartData
 } from '../actionCreators';
 
@@ -62,7 +61,6 @@ describe('actionCreators', () => {
         });
       const expectedActions = [
         toggleFetching(true),
-        // toggleAuthenticated(false),
         toggleAuthenticated(true),
         toggleFetching(false),
         updateErrorMessage(''),
@@ -89,7 +87,6 @@ describe('actionCreators', () => {
         });
       const expectedActions = [
         toggleFetching(true),
-        // toggleAuthenticated(false),
         toggleAuthenticated(false),
         toggleFetching(false),
         updateErrorMessage('No user with the given username'),
@@ -115,7 +112,6 @@ describe('actionCreators', () => {
         });
       const expectedActions = [
         toggleFetching(true),
-        // toggleAuthenticated(false),
         toggleAuthenticated(true),
         toggleFetching(false),
         updateErrorMessage(''),
@@ -143,7 +139,6 @@ describe('actionCreators', () => {
         });
       const expectedActions = [
         toggleFetching(true),
-        // toggleAuthenticated(false),
         toggleAuthenticated(false),
         toggleFetching(false),
         updateErrorMessage('Invalid token'),
@@ -158,7 +153,6 @@ describe('actionCreators', () => {
     it('dispatches correct actions when user elects to log out', async () => {
       const expectedActions = [
         toggleFetching(true),
-        // toggleAuthenticated(true),
         toggleAuthenticated(false),
         toggleFetching(false),
       ];

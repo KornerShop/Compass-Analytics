@@ -14,9 +14,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import SocketClient from 'socket.io-client';
+import io from 'socket.io-client';
 
-import global from '../styled/global';
+import globalStyle from '../styled/global';
 
 import {
   loginUser,
@@ -48,7 +48,7 @@ class App extends Component {
     await this.props.verifyToken();
     this.props.listenForChartData(this.socket);
   }
-  socket = SocketClient(SOCKET_URI);
+  socket = io(SOCKET_URI);
   render() {
     return (
       <Switch>

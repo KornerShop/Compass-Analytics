@@ -10,7 +10,7 @@ const populateLang = socket => {
         value: {$sum: 1}
       }
     }
-  ]
+  ]; 
   Language.aggregate(aggregateLanguage).exec((err, data) => {
     if (err) {
       console.log(err);

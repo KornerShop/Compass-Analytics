@@ -1,4 +1,6 @@
 import fetch from 'isomorphic-fetch';
+import io from 'socket.io-client';
+
 import {
   toggleAuthenticated,
   toggleFetching,
@@ -9,9 +11,15 @@ import {
   populateZipData,
 } from './actions';
 
-const url = process.env.NODE_ENV
-  ? 'https://compass-analytics.now.sh'
-  : 'http://localhost:8080';
+const serverURL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://compass-analytics.now.sh'
+    : 'http://localhost:8080';
+
+const langSocket = io(serverURL);
+const officeSocket = io(serverURL);
+const navSocket = io(serverURL);
+const zipSocket = io(serverURL);
 
 // Need to move localStorage interactions to middleware
 
@@ -65,11 +73,11 @@ export const loginUser = ({
 }) => async dispatch => {
   requestLogin(dispatch);
   try {
-    const response = await fetch(`${url}/users/login`, {
+    const response = await fetch(`${serverURL}/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
         username,
@@ -94,11 +102,11 @@ export const verifyToken = () => async dispatch => {
   const token = getToken();
   if (token) {
     try {
-      const response = await fetch(`${url}/users/verify`, {
+      const response = await fetch(`${serverURL}/users/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
@@ -122,17 +130,17 @@ export const logoutUser = () => dispatch => {
   receiveLogout(dispatch);
 };
 
-export const listenForChartData = socket => dispatch => {
-  socket.on('populate-lang-data', langData =>
+export const listenForChartData = () => dispatch => {
+  langSocket.on('populate-lang-data', langData =>
     updateLangData(dispatch, langData),
   );
-  socket.on('populate-office-data', officeData =>
+  officeSocket.on('populate-office-data', officeData =>
     updateOfficeData(dispatch, officeData),
   );
-  socket.on('populate-nav-data', navData =>
+  navSocket.on('populate-nav-data', navData =>
     updateNavData(dispatch, navData),
   );
-  socket.on('populate-zip-data', zipData =>
+  zipSocket.on('populate-zip-data', zipData =>
     updateZipData(dispatch, zipData),
   );
 };

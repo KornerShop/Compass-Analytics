@@ -41,7 +41,6 @@ const config = {
               'transform-es2015-modules-commonjs',
               'transform-async-to-generator',
               'recharts',
-              'transform-class-properties',
             ],
           },
         },
@@ -76,7 +75,7 @@ if (!dev) {
   );
 } else {
   config.entry.splice(
-    2,
+    1,
     0,
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?path=__webpack_hmr&timeout=2000'

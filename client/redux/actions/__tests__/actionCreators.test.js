@@ -65,6 +65,7 @@ describe('actionCreators', () => {
         toggleAuthenticated(false),
         toggleAuthenticated(true),
         toggleFetching(false),
+        updateErrorMessage(''),
       ];
       const store = mockStore(initialState);
       await store.dispatch(loginUser(validCreds));
@@ -117,6 +118,7 @@ describe('actionCreators', () => {
         toggleAuthenticated(false),
         toggleAuthenticated(true),
         toggleFetching(false),
+        updateErrorMessage(''),
       ];
       const store = mockStore(initialState);
       await store.dispatch(verifyToken());
@@ -219,15 +221,6 @@ describe('actionCreators', () => {
       });
       global.io = SocketIO;
       await store.dispatch(listenForChartData());
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  describe('resetErrorMessage', () => {
-    it('resets the errorMessage', async () => {
-      const expectedActions = [updateErrorMessage('')];
-      const store = mockStore(initialState);
-      await store.dispatch(resetErrorMessage());
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

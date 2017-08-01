@@ -22,7 +22,6 @@ import {
   verifyToken,
   logoutUser,
   listenForChartData,
-  resetErrorMessage,
 } from '../redux/actions/actionCreators';
 
 import Login from './Login';
@@ -75,7 +74,6 @@ class App extends Component {
                 fetching={this.props.fetching}
                 loginUser={this.props.loginUser}
                 errorMessage={this.props.errorMessage}
-                resetErrorMessage={this.props.resetErrorMessage}
                 />}
         />
         <Route component={FourOhFour} />
@@ -115,7 +113,6 @@ App.propTypes = {
   loginUser: func.isRequired,
   verifyToken: func.isRequired,
   logoutUser: func.isRequired,
-  resetErrorMessage: func.isRequired,
   listenForChartData: func.isRequired,
   location: object.isRequired,
 };
@@ -142,7 +139,6 @@ const mapDispatchToProps = dispatch => ({
   loginUser: bindActionCreators(loginUser, dispatch),
   verifyToken: bindActionCreators(verifyToken, dispatch),
   logoutUser: bindActionCreators(logoutUser, dispatch),
-  resetErrorMessage: bindActionCreators(resetErrorMessage, dispatch),
   listenForChartData: bindActionCreators(
     listenForChartData,
     dispatch,

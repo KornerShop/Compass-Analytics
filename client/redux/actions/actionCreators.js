@@ -37,6 +37,12 @@ export const requestLogin = dispatch => {
 export const receiveLogin = dispatch => {
   dispatch(toggleAuthenticated(true));
   dispatch(toggleFetching(false));
+  dispatch(updateErrorMessage(''));
+};
+
+export const unAuthenticated = dispatch => {
+  dispatch(toggleFetching(false));
+  dispatch(toggleAuthenticated(false));
 };
 
 export const loginError = (dispatch, errorMessage) => {
@@ -121,7 +127,7 @@ export const verifyToken = () => async dispatch => {
       console.error(err);
     }
   }
-  return loginError(dispatch);
+  return unAuthenticated(dispatch);
 };
 
 export const logoutUser = () => dispatch => {
@@ -145,5 +151,8 @@ export const listenForChartData = () => dispatch => {
   );
 };
 
-export const resetErrorMessage = () => dispatch =>
+export const resetErrorMessage = () => dispatch => {
+  console.log('resetErrorMessage');
+
   dispatch(updateErrorMessage(''));
+};

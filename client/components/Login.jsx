@@ -169,7 +169,6 @@ class Login extends Component {
   handleSubmit(evt) {
     evt.preventDefault();
     if (this.state.valid) {
-      this.props.resetErrorMessage();
       return this.props.loginUser({
         username: this.state.username,
         password: this.state.password,
@@ -219,7 +218,7 @@ class Login extends Component {
               <LoginError>
                 {this.props.errorMessage}
               </LoginError>}
-              <SubmitButton type="submit" value="Submit" />
+            <SubmitButton type="submit" value="Submit" />
             </AuthForm>
           </AuthPanel>
         </BackgroundImage>;
@@ -230,7 +229,6 @@ Login.propTypes = {
   fetching: bool.isRequired,
   loginUser: func.isRequired,
   errorMessage: string.isRequired,
-  resetErrorMessage: func.isRequired,
   location: object.isRequired,
 };
 

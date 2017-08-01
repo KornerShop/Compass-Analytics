@@ -20,3 +20,4 @@ deployment:
     commands:
       - now -e DATABASE_URI=${DATABASE_URI} --public -t ${NOW_TOKEN}
       - now -t ${NOW_TOKEN} alias compass-analytics
+      - now -t ${NOW_TOKEN} scale compass-analytics.now.sh 1

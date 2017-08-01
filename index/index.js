@@ -7,6 +7,7 @@ import compression from 'compression';
 import mongoose from 'mongoose';
 import http from 'http';
 import express from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import socketio from 'socket.io';
 import React from 'react';
@@ -72,6 +73,7 @@ if (dev) {
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.use(cors()); 
 app.use(compression());
 app.use(bodyParser.json());
 
